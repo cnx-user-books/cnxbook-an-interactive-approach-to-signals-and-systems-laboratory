@@ -1,0 +1,19 @@
+<document xmlns="http://cnx.rice.edu/cnxml">
+  <title>LabVIEW MathScript and Hybrid Programming</title>
+  <metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m19829</md:content-id>
+  <md:title>LabVIEW MathScript and Hybrid Programming</md:title>
+  <md:abstract/>
+  <md:uuid>a5c6bc4f-5925-4efb-89e1-70739768d612</md:uuid>
+</metadata>
+
+<content>
+    <para id="id10800468">In signals and systems lab courses, .m file coding is widely used. LabVIEW MathScript is a feature of the newer versions of LabVIEW that allows one to include .m files within its graphical environment. As a result, one can perform hybrid programming, that is, a combination of textual and graphical programming, when using this feature. This chapter provides an introduction to MathScript or .m file textual coding. See <link target-id="Ref4" document="m31521"/> and <link target-id="Ref5" document="m31521"/> for advanced MathScript aspects. </para>
+    <para id="id10800500">MathScripting can be done via the LabVIEW MathScript interactive window or node. The LabVIEW MathScript interactive window, shown in <link target-id="id10800544"/>, consists of a Command Window, an Output Window and a MathScript Window. The Command Window interface allows one to enter commands and debug script or to view help statements for built-in functions. The Output Window is used to view output values and the MathScript Window interface to display variables and command history as well as edit scripts. With script editing, one can execute a group of commands or textual statements. </para>
+    <figure id="id10800544"><media id="id25958906" alt=""><image src="../../media/figure 2-1.png" mime-type="image/png" height="825" width="846"/></media><caption>LabVIEW MathScript Interactive Window</caption></figure><para id="id10800574">A LabVIEW MathScript node represents the textual .m file code via a blue rectangle as shown in <link target-id="id10800650"/>. Its inputs and outputs are defined on the border of this rectangle for transferring data between the graphical environment and the textual code. For example, as indicated in <link target-id="id10800650"/>, the input variables on the left side, namely lf, hf and order, transfer values to the .m file script, and the output variables on the right side, F and sH, transfer values to the graphical environment. This process allows .m file script variables to be used within the LabVIEW graphical programming environment.</para>
+    <figure id="id10800650"><media id="id25958962" alt=""><image src="../../media/graphics2-a651.png" mime-type="image/png" height="355" width="548"/></media><caption>LabVIEW MathScript Node Interface</caption></figure>
+    
+  </content>
+
+
+</document>

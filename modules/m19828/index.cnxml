@@ -1,0 +1,160 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML">
+  <title>LabVIEW Programming Environment</title>
+  <metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m19828</md:content-id>
+  <md:title>LabVIEW Programming Environment</md:title>
+  <md:abstract>This chapter provides an introduction to LabVIEW graphical programming.</md:abstract>
+  <md:uuid>b4a568a0-c333-4dc7-a3d4-555f8d251d62</md:uuid>
+</metadata>
+
+<content>
+    <para id="id4092979">The LabVIEW graphical programming environment can be used to design and analyze a signal processing system in a more time-efficient manner than with text-based programming environments. This chapter provides an introduction to LabVIEW graphical programming. Also see <link target-id="Ref1" document="m31521"/>, <link target-id="Ref2" document="m31521"/>, and <link target-id="Ref3" document="m31521"/> to learn more about LabVIEW graphical programming.</para>
+    <para id="id7581824">LabVIEW graphical programs are called virtual instruments (VIs). VIs run based on the concept of dataflow programming. This means that execution of a block or a graphical component is dependent on the flow of data, or, more specifically, a block executes after data is made available at all of its inputs. Block output data are then sent to all other connected blocks. With dataflow programming, one can perform multiple operations in parallel because the execution of blocks is done by the flow of data and not by sequential lines of code.</para>
+    <section id="id3635801">
+      <title>Virtual Instruments (VIs)</title>
+      <para id="id4140026">A VI consists of two major components: a front panel and block diagram. A front panel provides the user interface of a program while a block diagram incorporates its graphical code. When a VI is located within the block diagram of another VI, it is called a subVI. LabVIEW VIs are modular, meaning that one can run any VI or subVI by itself.</para>
+      <section id="id7970638">
+        <title>Front Panel and Block Diagram</title>
+        <para id="id3931055">A front panel contains the user interfaces of a VI shown in a block diagram. VI inputs are represented by controls such as knobs, pushbuttons and dials. VI outputs are represented by indicators such as graphs, LEDs (light indicators) and meters. As a VI runs, its front panel provides a display or user interface of controls (inputs) and indicators (outputs).</para>
+        <para id="id3772818">A block diagram contains terminal icons, nodes, wires and structures. Terminal icons, or interfaces through which data are exchanged between a front panel and a block diagram, correspond to controls or indicators that appear on a front panel. Whenever a control or indicator is placed on a front panel, a terminal icon gets added to the corresponding block diagram. A node represents an object or block that has input and/or output connectors and performs a certain function. SubVIs and functions are examples of nodes. Wires establish the flow of data in a block diagram, and structures control the flow of data such as repetitions or conditional executions. <link target-id="id6814005"/> shows front panel and block diagram windows.</para>
+        <figure id="id6814005"><media id="id8037549" alt=""><image src="../../media/figure 1-1.png" mime-type="image/png" height="312" width="608"/></media><caption>LabVIEW Windows: Front Panel and Block Diagram</caption></figure></section>
+      <section id="id6961811">
+        <title>Icon and Connector Pane</title>
+        <para id="id6896291">A VI icon is a graphical representation of a VI. It appears in the top right corner of a block diagram or a front panel window. When a VI is inserted into a block diagram as a subVI, its icon is displayed.</para>
+        <para id="id4084857">A connector pane defines VI inputs (controls) and outputs (indicators). One can change the number of inputs and outputs by using different connector pane patterns. In <link target-id="id6814005"/>, a VI icon is shown at the top right corner of the block diagram, and its corresponding connector pane, with two inputs and one output, is shown at the top right corner of the front panel.</para>
+      </section>
+    </section>
+    <section id="id7672219">
+      <title>Graphical Environment</title>
+      <section id="id3918654">
+        <title>Functions Palette</title>
+        <para id="id8745418">The Functions palette (see <link target-id="id7765425"/>) provides various function VIs or blocks to build a system. View this palette by right-clicking on an open area of a block diagram. Note that this palette can be displayed only in a block diagram.</para>
+        <figure id="id7765425"><media id="id8037685" alt=""><image src="../../media/figrue 1-2.png" mime-type="image/png" height="526" width="278"/></media><caption>Functions Palette</caption></figure></section>
+      <section id="id5852738">
+        <title>Controls Palette </title>
+        <para id="id6847735">The Controls palette (see <link target-id="id5849465"/>) features front panel controls and indicators. View this palette by right-clicking on an open area of a front panel. Note that this palette can be displayed only in a front panel. </para>
+        <figure id="id5849465"><media id="id8037760" alt=""><image src="../../media/figrue 1-3.png" mime-type="image/png" height="415" width="273"/></media><caption>Controls Palette</caption></figure></section>
+      <section id="id5890659">
+        <title>Tools Palette </title>
+        <para id="id6811646">The Tools palette offers various mouse cursor operation modes for building or debugging a VI. The Tools palette and the frequently used tools are shown in <link target-id="id3208447"/>. </para>
+        <para id="id3567740">
+          <figure id="id3208447"><media id="id8066058" alt=""><image src="../../media/graphics1.jpg" mime-type="image/jpeg" height="208" width="328"/></media><caption>Tools Palette</caption></figure>
+        </para>
+        
+        <para id="id3708224">Each tool is used for a specific task. For example, use the wiring tool to wire objects in a block diagram. If one enables the automatic tool selection mode by clicking on the <term>Au</term><term>tomatic </term><term>T</term><term>ool </term><term>S</term><term>election</term> button, LabVIEW selects the best matching tool based on a current cursor position. </para>
+      </section>
+    </section>
+    <section id="id3657495">
+      <title>Building a Front Panel</title>
+      <para id="id7696324">In general, one constructs a VI by going back and forth between a front panel and block diagram, placing inputs/outputs on the front panel and building blocks on the block diagram. </para>
+      <section id="id7067537">
+        <title>Controls</title>
+        <para id="id5874532">Controls make up the inputs to a VI. Controls grouped in the <term>Numeric Controls palette</term><foreign>(Controls </foreign><foreign>→</foreign><foreign> Express </foreign><foreign>→</foreign><foreign> Num Ctrls)</foreign> are used for numerical inputs, controls grouped in the <term>Buttons &amp; Switches palette</term><emphasis>(Controls </emphasis><emphasis>→</emphasis><emphasis> Express </emphasis><emphasis>→</emphasis><emphasis> Buttons)</emphasis> are used for Boolean inputs, and controls grouped in the <term>Text Controls palette</term><emphasis>(Controls </emphasis><emphasis>→</emphasis><emphasis>Express </emphasis><emphasis>→</emphasis><emphasis>Text Ctrls)</emphasis> are used for text and enumeration inputs. These control options are displayed in <link target-id="id7763029"/>. </para><figure id="id7763029"><media id="id8038239" alt=""><image src="../../media/graphics8.jpg" mime-type="image/jpeg" height="361" width="554"/></media><caption>Control Palettes</caption></figure>
+              </section>
+      <section id="id7051802">
+        <title>Indicators</title>
+        <para id="id8786796">Indicators make up the outputs of a VI. Indicators grouped in the <term>Numeric Indicators palette</term><emphasis>(Controls</emphasis><emphasis>→</emphasis><emphasis> Express </emphasis><emphasis>→</emphasis><emphasis> Numeric Inds)</emphasis> are used for numerical outputs, indicators grouped in the <term>LEDs palette</term><emphasis>(Controls </emphasis><emphasis>→</emphasis><emphasis> Express </emphasis><emphasis>→</emphasis><emphasis> LEDs)</emphasis> are used for Boolean outputs, indicators grouped in the <term>Text Indicators palette</term><emphasis>(Controls </emphasis><emphasis>→</emphasis><emphasis> Express </emphasis><emphasis>→</emphasis><emphasis> Text Inds)</emphasis> are used for text outputs, and indicators grouped in the <term>Graph Indicators palette</term><emphasis>(Controls </emphasis><emphasis>→</emphasis><emphasis> Express </emphasis><emphasis>→</emphasis><emphasis> Graph Indicators)</emphasis> are used for graphical outputs. These indicator options are displayed in <link target-id="id5871041"/>.</para><figure id="id5871041">
+          <media id="id8195829" alt=""><image src="../../media/graphics17.jpg" mime-type="image/jpeg" height="313" width="577"/></media>
+        <caption>Indicator Palettes</caption>
+        </figure>
+      
+      </section>
+      <section id="id3639767">
+        <title>Align, Distribute and Resize Objects</title>
+        <para id="id3685159">The menu items on the front panel toolbar (see <link target-id="id6824233"/>) provide options to align and orderly distribute objects on the front panel. Normally, after one places controls and indicators on a front panel, these options can be used to tidy up their appearance. </para>
+        <figure id="id6824233"><media id="id8195906" alt=""><image src="../../media/graphics18-441d.png" mime-type="image/png" height="151" width="188"/></media><caption>Menu to Align, Distribute, Resize and Reorder Objects</caption></figure>
+        
+      </section>
+    </section>
+    <section id="id6998964">
+      <title>Building a Block Diagram</title>
+      <section id="id8774314">
+        <title>Express VI and Function</title>
+        <para id="id6992551">Express VIs denote higher-level VIs configured to incorporate lower-level VIs or functions. These VIs are displayed as expandable nodes with a blue background. Placing an Express VI in a block diagram opens a configuration dialog window to adjust the Express VI parameters. As a result, Express VIs demand less wiring. The configuration window can be opened by double-clicking on its Express VI.</para>
+        <para id="id4139962">Basic operations such as addition or subtraction are represented by functions. <link target-id="id7764334"/> shows three examples corresponding to three block diagram objects (VI, Express VI and function). </para>
+        <para id="id4128423">
+          <figure id="id7764334">
+            <media id="id8196029" alt=""><image src="../../media/graphics19.jpg" mime-type="image/jpeg" height="107" width="577"/></media>
+<caption> Block Diagram Objects: (a) VI, (b) Express VI, (c) Function</caption>
+          </figure>
+        </para>
+        
+        <para id="id5932040">One can display subVIs or Express VIs as icons or expandable nodes. If a subVI is displayed as an expandable node, the background appears yellow. Icons can be used to save space in a block diagram and expandable nodes can be used to achieve easier wiring or better readability. One can resize expandable nodes to show their connection nodes more clearly. Three appearances of a VI/Express VI are shown in <link target-id="id7582101"/>.</para>
+        <figure id="id7582101">
+          <media id="id8187874" alt=""><image src="../../media/graphics20.jpg" mime-type="image/jpeg" height="295" width="576"/></media>
+<caption>Icon versus Expandable Node</caption>
+        </figure>
+        
+      </section>
+      <section id="id3661253">
+        <title>Terminal Icons</title>
+        <para id="id3838523">Front panel objects are displayed as terminal icons in a block diagram. A terminal icon exhibits an input or output as well as its data type. <link target-id="id6992970"/> shows two terminal icon examples consisting of a double precision numerical control and indicator. As shown in this figure, one can display terminal icons as data type terminal icons to conserve space in a block diagram.</para>
+        <figure id="id6992970"><media id="id8187953" alt=""><image src="../../media/graphics21-2d73.png" mime-type="image/png" height="121" width="317"/></media><caption>Terminal Icon Examples Displayed in a Block Diagram</caption></figure>
+      
+      </section>
+      <section id="id4073536">
+        <title>Wires</title>
+        <para id="id4135145">Wires transfer data from one node to another in a block diagram. Based on the data type of a data source, the color and thickness of its connecting wires change. </para>
+        <para id="id3719992">Wires for the basic data types used in LabVIEW are shown in <link target-id="id6846619"/>. In addition to the data types shown in this figure, there are some other specific data types. For example, the dynamic data type is always used for Express VIs, and the waveform data type, which corresponds to the output from a waveform generation VI, is a special cluster of waveform components incorporating trigger time, time interval and data value.</para>
+        <figure id="id6846619"><media id="id8188045" alt=""><image src="../../media/graphics22.jpg" mime-type="image/jpeg" height="140" width="442"/></media><caption>Basic Wire Types</caption></figure>
+              </section>
+      <section id="id6893712">
+        <title>Structures</title>
+        <para id="id7070633">A structure is represented by a graphical enclosure. The graphical code enclosed in the structure gets repeated or executed conditionally. A loop structure is equivalent to a for loop or a while loop statement in text-based programming languages, while a case structure is equivalent to an if-else statement.</para>
+        <section id="id13473019">
+          <title>For Loop</title>
+          <para id="id7754102">A for loop structure is used to perform repetitions. As illustrated in <link target-id="id7064972"/>, the displayed border indicates a <term>for loop</term> structure, where the count terminal <media id="id8188150" alt=""><image src="../../media/Fig_index_N.png" mime-type="image/png" height="17" width="17"/></media> represents the number of times the loop is to be repeated. It is set by wiring a value from outside of the loop to it. The iteration terminal <media id="id8188174" alt=""><image src="../../media/Fig_index_i.png" mime-type="image/png" height="17" width="17"/></media> denotes the number of completed iterations, which always starts at zero.</para>
+          <figure id="id7064972">
+            <media id="id8188209" alt=""><image src="../../media/Fig02-18.png" mime-type="image/png" height="85" width="120"/></media>
+           <caption>For Loop</caption>
+          </figure>
+          
+        </section>
+        <section id="id3941676">
+          <title>While Loop</title>
+          <para id="id4073244">A <term>while loop</term> structure allows repetitions depending on a condition (see <link target-id="id3707875"/>). The conditional terminal <media id="id8188281" alt=""><image src="../../media/Fig02-17.png" mime-type="image/png" height="17" width="17"/></media> initiates a stop if the condition is true. Similar to a <term>for loop</term>, the iteration terminal <media id="id8188312" alt=""><image src="../../media/Fig_index_i.png" mime-type="image/png" height="17" width="17"/></media>provides the number of completed iterations, always starting at zero.</para>
+          <figure id="id3707875">
+            <media id="id8188346" alt=""><image src="../../media/Fig02-16.png" mime-type="image/png" height="82" width="122"/></media>
+           <caption>While Loop</caption>
+
+          </figure>
+                  </section>
+        <section id="id7763600">
+          <title>Case Structure</title>
+          <para id="id5914945">A <term>case structure</term> (see <link target-id="id8113597"/>) allows the running of different sets of operations depending on the value it receives through its selector terminal, which is indicated by <media id="id8209569" alt=""><image src="../../media/Fig02-20.png" mime-type="image/png" height="13" width="8"/></media>. In addition to Boolean type, the input to a selector terminal can be of integer, string, or enumerated type. This input determines which case to execute. The case selector <media id="id8209593" alt=""><image src="../../media/Fig02-21.png" mime-type="image/png" height="15" width="63"/></media> shows the status being executed. Cases can be added or deleted as needed.</para>
+          <figure id="id8113597">
+            <media id="id8209627" alt=""><image src="../../media/Fig02-19.png" mime-type="image/png" height="82" width="108"/></media>
+           <caption>Case Structure</caption>
+          </figure>
+          
+        </section>
+      </section>
+    </section>
+    <section id="id7015645"><title>Grouping Data: Array and Cluster</title><para id="id3848369">An array represents a group of elements having the same data type. An array consists of data elements having a dimension up to <m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msup><m:mn>2</m:mn><m:mstyle fontsize="8pt"><m:mrow><m:mtext>31</m:mtext></m:mrow></m:mstyle></m:msup><m:mo stretchy="false">−</m:mo><m:mn>1</m:mn></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{2 rSup { size 8{"31"} }  - 1} {}</m:annotation></m:semantics></m:math>. For example, if a random number is generated in a loop, it is appropriate to build the output as an array because the length of the data element is fixed at 1 and the data type is not changed during iterations. </para>
+	<para id="id8774500">Similar to the structure data type in text-based programming languages, a cluster consists of a collection of different data type elements. With clusters, one can reduce the number of wires on a block diagram by bundling different data type elements together and passing them to only one terminal. One can add or extract an individual element to or from a cluster by using the cluster functions such as <term>Bundle by Name</term> and <term>Unbundle by Name</term>.</para>
+</section>
+    <section id="id4066971">
+      <title>Debugging and Profiling VIs</title>
+      <section id="id6792468">
+        <title>Probe Tool</title>
+        <para id="id4103406">VIs can be debugged as they run by checking values on wires with the Probe tool. Note that the Probe tool can be accessed only in a block diagram window.</para>
+        <para id="id6826300">With the Probe tool, breakpoints and execution highlighting, one can identify the source of an incorrect or an unexpected outcome. To visualize the flow of data during program execution, a breakpoint can be used to pause the execution of a VI at a specific location.</para>
+      </section>
+      <section id="id6990740">
+        <title>Profile Tool</title>
+        <para id="id5918115">Timing and memory usage information – in other words, how long a VI takes to run and how much memory it consumes – can be gathered with the Profile tool. It is required to make sure that a VI is stopped before setting up a Profile window. </para>
+        <para id="id3663448">An effective way to become familiar with LabVIEW programming is to review examples. In the lab that follows, we explore most of the key LabVIEW programming features by building simple VIs. </para>
+      </section>
+    </section>
+    <section id="id6893942">
+      <title>Containers and Decoration Tools</title>
+      <para id="id6963532">Containers and Decoration tools can be used to organize front panel controls and indicators. Container tools are grouped in the <term>Containers pallete</term><emphasis>(Controls </emphasis><emphasis>→</emphasis><emphasis> Modern </emphasis><emphasis>→</emphasis><emphasis> Containers </emphasis><emphasis>→</emphasis><emphasis> Classic </emphasis><emphasis>→</emphasis><emphasis> Classic Containers)</emphasis> and Decoration tools are grouped in the <term>Decorations pallete</term><emphasis>(Controls </emphasis><emphasis>→</emphasis><emphasis> Modern </emphasis><emphasis>→</emphasis><emphasis> Decorations)</emphasis>. </para><para id="id3503283">One can use <term>Tab Control</term><emphasis>(Controls </emphasis><emphasis>→</emphasis><emphasis> Modern </emphasis><emphasis>→</emphasis><emphasis> Containers </emphasis><emphasis>→</emphasis><emphasis> Tab Control </emphasis><emphasis/><emphasis>→</emphasis><emphasis> Classic </emphasis><emphasis>→</emphasis><emphasis> Classic Containers </emphasis><emphasis>→</emphasis><emphasis>Tab Control)</emphasis> to display various controls and indicators within a limited screen area. This feature helps one to organize controls and indicators under different tabs as illustrated in <link target-id="id3937540"/>. To add more tabs or delete tabs, right-click the border area and choose one of the following options: <term>Add Page After</term>, <term>Add Page Before</term>, <term>Duplicate Page</term> or <term>Remove Page</term>.</para><para id="id5916085">
+        <figure id="id3937540"><media id="id8210179" alt=""><image src="../../media/graphics35-50ad.png" mime-type="image/png" height="191" width="225"/></media><caption>Tab Control</caption></figure>
+      </para>
+      
+    </section>
+  </content>
+
+
+
+</document>

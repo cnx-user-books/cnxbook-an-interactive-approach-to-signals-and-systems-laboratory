@@ -1,0 +1,791 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML">
+  <title>Lab 2: LabVIEW MathScript and Hybrid Programming</title>
+  <metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m19839</md:content-id>
+  <md:title>Lab 2: LabVIEW MathScript and Hybrid Programming</md:title>
+  <md:abstract/>
+  <md:uuid>0df7cba6-032b-465d-bd89-75b885baec71</md:uuid>
+</metadata>
+
+<content>
+    <section id="id1"><title>Arithmetic Operations</title>
+    <para id="id18851095">There are four basic arithmetic operators in .m files:</para>
+    <para id="id18319344">
+      <code display="inline">+ addition</code>
+    </para>
+    <para id="id17710732">
+      <code display="inline">- subtraction</code>
+    </para>
+    <para id="id19042759">
+      <code display="inline">* multiplication</code>
+    </para>
+    <para id="id19851653">
+      <code display="inline">/ division (for matrices, it also means inversion)</code>
+    </para>
+    <para id="id9155873">The following three operators work on an element-by-element basis:</para>
+    <para id="id19352448">
+      <code display="inline">.* multiplication of two vectors, element-wise</code>
+    </para>
+    <para id="id17342749">
+      <code display="inline">./ division of two vectors, element-wise</code>
+    </para>
+    <para id="id18664850">
+      <code display="inline">.^ raising all the elements of a vector to a power  </code>
+    </para>
+    <para id="id20020402">  As an example, to evaluate the expression 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mrow><m:msup><m:mi>a</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>3</m:mn></m:mrow></m:mstyle></m:msup><m:mo stretchy="false">+</m:mo><m:msqrt><m:mstyle fontstyle="italic"><m:mrow><m:mtext>bd</m:mtext></m:mrow></m:mstyle></m:msqrt></m:mrow><m:mo stretchy="false">−</m:mo><m:mn>4c</m:mn></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{a rSup { size 8{3} } + sqrt { ital "bd"}  - 4c} {}</m:annotation></m:semantics></m:math> , where 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mrow><m:mi>a</m:mi><m:mo stretchy="false">=</m:mo><m:mn>1</m:mn></m:mrow><m:mtext>.</m:mtext><m:mn>2</m:mn></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{a=1 "." 2} {}</m:annotation></m:semantics></m:math>, 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mrow><m:mi>b</m:mi><m:mo stretchy="false">=</m:mo><m:mn>2</m:mn></m:mrow><m:mtext>.</m:mtext><m:mn>3</m:mn></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{b=2 "." 3} {}</m:annotation></m:semantics></m:math>, 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mrow><m:mi>c</m:mi><m:mo stretchy="false">=</m:mo><m:mn>4</m:mn></m:mrow><m:mtext>.</m:mtext><m:mn>5</m:mn></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{c=4 "." 5} {}</m:annotation></m:semantics></m:math>and
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>d</m:mi><m:mo stretchy="false">=</m:mo><m:mn>4</m:mn></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{d=4} {}</m:annotation></m:semantics></m:math>, type the following commands in the <term>Command Window</term> to get the answer (ans) :</para>
+    <para id="id18961848">
+      <code display="inline">&gt;&gt; a=1.2;</code>
+    </para>
+    <para id="id19771953">
+      <code display="inline">&gt;&gt; b=2.3;</code>
+    </para>
+    <para id="id19552575">
+      <code display="inline">&gt;&gt; c=4.5;</code>
+    </para>
+    <para id="id19114277">
+      <code display="inline">&gt;&gt; d=4;</code>
+    </para>
+    <para id="id19668058">
+      <code display="inline">&gt;&gt; a^3+sqrt(b*d)-4*c</code>
+    </para>
+    <para id="id17920212">
+      <code display="inline">ans = </code>
+    </para>
+    <para id="id19148637">
+      <code display="inline">-13.2388</code>
+    </para>
+    <para id="id19148764">Note the semicolon after each variable assignment. If the semicolon is omitted, the interpreter echoes back the variable value.</para>
+</section>  
+
+
+<section id="id2">  
+<title>Vector Operations</title>
+   <para id="id7323591">Consider the vectors <term>x</term>
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mrow><m:mrow/><m:mo stretchy="false">=</m:mo><m:mo stretchy="false">[</m:mo></m:mrow><m:msub><m:mi>x</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub><m:mi>,</m:mi><m:msub><m:mi>x</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>2</m:mn></m:mrow></m:mstyle></m:msub><m:mi>,</m:mi><m:mtext>.</m:mtext><m:mtext>.</m:mtext><m:mtext>.</m:mtext><m:mi>,</m:mi><m:msub><m:mi>x</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>n</m:mi></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">]</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ {}= \[ x rSub { size 8{1} } ,x rSub { size 8{2} } , "."  "."  "." ,x rSub { size 8{n} }  \] } {}</m:annotation></m:semantics></m:math>and <term>y</term>
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mrow><m:mrow/><m:mo stretchy="false">=</m:mo><m:mo stretchy="false">[</m:mo></m:mrow><m:msub><m:mi>y</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub><m:mi>,</m:mi><m:msub><m:mi>y</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>2</m:mn></m:mrow></m:mstyle></m:msub><m:mi>,</m:mi><m:mtext>.</m:mtext><m:mtext>.</m:mtext><m:mtext>.</m:mtext><m:mi>,</m:mi><m:msub><m:mi>y</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>n</m:mi></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">]</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ {}= \[ y rSub { size 8{1} } ,y rSub { size 8{2} } , "."  "."  "." ,y rSub { size 8{n} }  \] } {}</m:annotation></m:semantics></m:math>. The following operations indicate the resulting vectors:</para>
+    <para id="id7337211"><term>x*.y</term>
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mrow><m:mrow/><m:mo stretchy="false">=</m:mo><m:mo stretchy="false">[</m:mo></m:mrow><m:msub><m:mi>x</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub><m:msub><m:mi>y</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub><m:mi>,</m:mi><m:msub><m:mi>x</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>2</m:mn></m:mrow></m:mstyle></m:msub><m:msub><m:mi>y</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>2</m:mn></m:mrow></m:mstyle></m:msub><m:mi>,</m:mi><m:mtext>.</m:mtext><m:mtext>.</m:mtext><m:mtext>.</m:mtext><m:mi>,</m:mi><m:msub><m:mi>x</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>n</m:mi></m:mrow></m:mstyle></m:msub><m:msub><m:mi>y</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>n</m:mi></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">]</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ {}= \[ x rSub { size 8{1} } y rSub { size 8{1} } ,x rSub { size 8{2} } y rSub { size 8{2} } , "."  "."  "." ,x rSub { size 8{n} } y rSub { size 8{n} }  \] } {}</m:annotation></m:semantics></m:math></para>
+    <para id="id7240496"><term>x./y</term>
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mrow/><m:mo stretchy="false">=</m:mo><m:mfenced open="[" close="]"><m:mrow><m:mfrac><m:msub><m:mi>x</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub><m:msub><m:mi>y</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub></m:mfrac><m:mi>,</m:mi><m:mfrac><m:msub><m:mi>x</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>2</m:mn></m:mrow></m:mstyle></m:msub><m:msub><m:mi>y</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>3</m:mn></m:mrow></m:mstyle></m:msub></m:mfrac><m:mi>,</m:mi><m:mtext>.</m:mtext><m:mtext>.</m:mtext><m:mtext>.</m:mtext><m:mi>,</m:mi><m:mfrac><m:msub><m:mi>x</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>n</m:mi></m:mrow></m:mstyle></m:msub><m:msub><m:mi>y</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>n</m:mi></m:mrow></m:mstyle></m:msub></m:mfrac></m:mrow></m:mfenced></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ {}= left [ {  {x rSub { size 8{1} } }  over  {y rSub { size 8{1} } } } , {  {x rSub { size 8{2} } }  over  {y rSub { size 8{3} } } } , "."  "."  "." , {  {x rSub { size 8{n} } }  over  {y rSub { size 8{n} } } }  right ]} {}</m:annotation></m:semantics></m:math></para>
+    <para id="id7273080"><term>x.^p</term>
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mrow/><m:mo stretchy="false">=</m:mo><m:mfenced open="[" close="]"><m:mrow><m:msubsup><m:mi>x</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle><m:mstyle fontsize="8pt"><m:mrow><m:mi>p</m:mi></m:mrow></m:mstyle></m:msubsup><m:mi>,</m:mi><m:msubsup><m:mi>x</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>2</m:mn></m:mrow></m:mstyle><m:mstyle fontsize="8pt"><m:mrow><m:mi>p</m:mi></m:mrow></m:mstyle></m:msubsup><m:mi>,</m:mi><m:mtext>.</m:mtext><m:mtext>.</m:mtext><m:mtext>.</m:mtext><m:mi>,</m:mi><m:msubsup><m:mi>x</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>n</m:mi></m:mrow></m:mstyle><m:mstyle fontsize="8pt"><m:mrow><m:mi>p</m:mi></m:mrow></m:mstyle></m:msubsup></m:mrow></m:mfenced></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ {}= left [x rSub { size 8{1} }  rSup { size 8{p} } ,x rSub { size 8{2} }  rSup { size 8{p} } , "."  "."  "." ,x rSub { size 8{n} }  rSup { size 8{p} }  right ]} {}</m:annotation></m:semantics></m:math></para>
+
+<para id="id19682164"> Note that because the boldfacing of vectors/matrices are not used in .m files, in the notation adopted in this book, no boldfacing of vectors/matrices is shown to retain consistency with .m files. </para>
+    <para id="id15115401">  The arithmetic operators + and – can be used to add or subtract matrices, vectors or scalars. Vectors denote one-dimensional arrays and matrices denote multidimensional arrays. For example,</para>
+    <para id="id20027055">
+      <code display="inline">&gt;&gt; x=[1,3,4]</code>
+    </para>
+    <para id="id17922852">
+      <code display="inline">&gt;&gt; y=[4,5,6]</code>
+    </para>
+    <para id="id19836520">
+      <code display="inline">&gt;&gt; x+y</code>
+    </para>
+    <para id="id11066293">
+      <code display="inline">ans=</code>
+    </para>
+    <para id="id18290940">
+      <code display="inline">5 8 10</code>
+    </para>
+    <para id="id18268571">In this example, the operator + adds the elements of the vectors x and y, element by element, assuming that the two vectors have the same dimension, in this case 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mn>1</m:mn><m:mo stretchy="false">×</m:mo><m:mn>3</m:mn></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{1 times 3} {}</m:annotation></m:semantics></m:math> or one row with three columns. An error occurs if one attempts to add vectors having different dimensions. The same applies for matrices.</para>
+    <para id="id18749921"> To compute the dot product of two vectors (in other words,
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:munder><m:mo stretchy="false">∑</m:mo><m:mstyle fontsize="8pt"><m:mrow><m:mi>i</m:mi></m:mrow></m:mstyle></m:munder><m:mrow><m:msub><m:mi>x</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>i</m:mi></m:mrow></m:mstyle></m:msub><m:msub><m:mi>y</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>i</m:mi></m:mrow></m:mstyle></m:msub></m:mrow></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ Sum cSub { size 8{i} }  {x rSub { size 8{i} } y rSub { size 8{i} } } } {}</m:annotation></m:semantics></m:math> ), use the multiplication operator ‘*’ as follows:</para>
+    <para id="id19512796">
+      <code display="inline">&gt;&gt; x*y'</code>
+    </para>
+    <para id="id18307330">
+      <code display="inline">ans =</code>
+    </para>
+    <para id="id10463799">
+      <code display="inline">43</code>
+    </para>
+    <para id="id19331595">Note the single quote after y denotes the transpose of a vector or a matrix. </para>
+    <para id="id18319866">To compute an element-by-element multiplication of two vectors (or two arrays), use the following operator:</para>
+    <para id="id18570591">
+      <code display="inline">&gt;&gt; x .* y</code>
+    </para>
+    <para id="id19962944">
+      <code display="inline">ans =</code>
+    </para>
+    <para id="id18316042">
+      <code display="inline">4 15 24</code>
+    </para>
+    <para id="id19277027">That is, x .* y means 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mo stretchy="false">[</m:mo><m:mrow><m:mrow><m:mrow><m:mn>1</m:mn><m:mo stretchy="false">×</m:mo><m:mn>4,3</m:mn></m:mrow><m:mo stretchy="false">×</m:mo><m:mn>5,4</m:mn></m:mrow><m:mo stretchy="false">×</m:mo><m:mn>6</m:mn></m:mrow><m:mo stretchy="false">]</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ \[ 1 times 4,3 times 5,4 times 6 \] } {}</m:annotation></m:semantics></m:math> = 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mo stretchy="false">[</m:mo><m:mtable><m:mtr><m:mtd><m:mrow><m:mn>4</m:mn><m:mrow/></m:mrow></m:mtd><m:mtd><m:mrow><m:mtext>15</m:mtext><m:mrow/></m:mrow></m:mtd><m:mtd><m:mrow><m:mtext>24</m:mtext><m:mo stretchy="false">]</m:mo><m:mrow/></m:mrow></m:mtd></m:mtr></m:mtable></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ \[  matrix {
+4 {} # "15" {} # "24" \] {}
+} } {}</m:annotation></m:semantics></m:math>.</para>
+
+</section>  
+
+<section id="id3">  
+    <title>Complex Numbers</title>
+    <para id="id19571307">LabVIEW MathScript supports complex numbers. The imaginary number is denoted with the symbol i or j, assuming that these symbols have not been used any other place in the program. It is critical to avoid such a symbol conflict for obtaining correct outcome. Enter the following and observe the outcomes:</para>
+    <para id="id18506882">
+      <code display="inline">&gt;&gt; z=3 + 4i % note the multiplication sign ‘*’ is not needed after 4</code>
+    </para>
+    <para id="id19391645">
+      <code display="inline">&gt;&gt; conj(z) % computes the conjugate of z</code>
+    </para>
+    <para id="id18322072">
+      <code display="inline">&gt;&gt; angle(z) % computes the phase of z</code>
+    </para>
+    <para id="id18719542">
+      <code display="inline">&gt;&gt; real(z) % computes the real part of z</code>
+    </para>
+    <para id="id19880280">
+      <code display="inline">&gt;&gt; imag(z) % computes the imaginary part of z</code>
+    </para>
+    <para id="id18044673">
+      <code display="inline">&gt;&gt; abs(z) % computes the magnitude of z</code>
+    </para>
+    <para id="id18653028">One can also define an imaginary number with any other user-specified variables. For example, try the following:</para>
+    <para id="id18447136">
+      <code display="inline">&gt;&gt; img=sqrt(-1)</code>
+    </para>
+    <para id="id18570582">
+      <code display="inline">&gt;&gt; z=3+4*img</code>
+    </para>
+    <para id="id15193474">
+      <code display="inline">&gt;&gt; exp(pi*img) </code>
+    </para>
+
+</section>
+
+
+<section id="id4">  
+    <title>Array Indexing</title>
+    <para id="id19849449">In .m files, all arrays (vectors) are indexed starting from 1 − in other words, x(1) denotes the first element of the array x. Note that the arrays are indexed using parentheses (.) and not square brackets [.], as done in C/C++. To create an array featuring the integers 1 through 6 as elements, enter: </para>
+    <para id="id18305100">
+      <code display="inline">&gt;&gt; x=[1,2,3,4,5,6]</code>
+    </para>
+    <para id="id19227779">Alternatively, use the notation ‘:’ </para>
+    <para id="id9178670">
+      <code display="inline">&gt;&gt; x=1:6</code>
+    </para>
+    <para id="id17393692">This notation creates a vector starting from 1 to 6, in steps of 1. If a vector from 1 to 6 in steps of 2 is desired, then type:</para>
+    <para id="id18654658">
+      <code display="inline">&gt;&gt; x=1:2:6</code>
+    </para>
+    <para id="id19107605">
+      <code display="inline">ans =</code>
+    </para>
+    <para id="id9144564">
+      <code display="inline">1 3 5</code>
+    </para>
+    <para id="id18056435">Also, examine the following code: </para>
+    <para id="id19067056">
+      <code display="inline">&gt;&gt; ii=2:4:17</code>
+    </para>
+    <para id="id18331520">
+      <code display="inline">&gt;&gt; jj=20:-2:0</code>
+    </para>
+    <para id="id19834093">
+      <code display="inline">&gt;&gt; ii=2:(1/10):4</code>
+    </para>
+    <para id="id20022207">One can easily extract numbers in a vector. To concatenate an array, the example below shows how to use the operator ‘[ ]’:</para>
+    <para id="id9138985">
+      <code display="inline">&gt;&gt; x=[1:3 4 6 100:110]</code>
+    </para>
+    <para id="id18942648">To access a subset of this array, try the following:</para>
+    <para id="id19043879">
+      <code display="inline">&gt;&gt; x(3:7)</code>
+    </para>
+    <para id="id19665629">
+      <code display="inline">&gt;&gt; length(x) % gives the size of the array or vector</code>
+    </para>
+    <para id="id20027394">
+      <code display="inline">&gt;&gt; x(2:2:length(x))</code>
+    </para>
+</section>
+
+<section id="id5">  
+    <title>Allocating Memory</title>
+    <para id="id18107523">One can allocate memory for one-dimensional arrays (vectors) using the command zeros. The following command allocates memory for a 100-dimensional array: </para>
+    <para id="id18858000">
+      <code display="inline">&gt;&gt; y=zeros(100,1);</code>
+    </para>
+    <para id="id19692819">
+      <code display="inline">&gt;&gt; y(30)</code>
+    </para>
+    <para id="id18852823">
+      <code display="inline">ans = </code>
+    </para>
+    <para id="id20026858">
+      <code display="inline">0</code>
+    </para>
+    <para id="id18221570">One can allocate memory for two-dimensional arrays (matrices) in a similar fashion. The command</para>
+    <para id="id16437466">
+      <code display="inline">&gt;&gt; y=zeros(4,5)</code>
+    </para>
+    <para id="id19318920">defines a 4 by 5 matrix. Similar to the command zeros, the command ones can be used to define a vector containing all ones,</para>
+    <para id="id20022124">
+      <code display="inline">&gt;&gt; y=ones(1,5)</code>
+    </para>
+    <para id="id19182899">
+      <code display="inline">ans=</code>
+    </para>
+    <para id="id19927550">
+      <code display="inline">1 1 1 1 1</code>
+    </para>
+</section>
+
+
+<section id="id6"><title>Special Characters and Functions</title><para id="id7197780">Some common special characters used in .m files are listed below for later reference:</para>
+	<table id="id19134062" summary="">
+		<tgroup cols="2">
+			<colspec colnum="1" colname="c1"/>
+			<colspec colnum="2" colname="c2"/>
+			<tbody>
+				<row>
+					<entry>Symbol</entry>
+					<entry>Meaning</entry>
+				</row>
+				<row>
+					<entry>pi</entry>
+					<entry>
+						<m:math>
+							<m:semantics>
+								<m:mrow>
+									<m:mstyle fontsize="12pt">
+										<m:mrow>
+											<m:mrow>
+												<m:mi>π</m:mi>
+												<m:mo stretchy="false">(</m:mo>
+												<m:mn>3</m:mn>
+												<m:mtext>.</m:mtext>
+												<m:mtext>14</m:mtext>
+												<m:mtext>.</m:mtext>
+												<m:mtext>.</m:mtext>
+												<m:mtext>.</m:mtext>
+												<m:mtext>.</m:mtext>
+												<m:mtext>.</m:mtext>
+												<m:mo stretchy="false">)</m:mo>
+											</m:mrow>
+										</m:mrow>
+									</m:mstyle>
+									<m:mrow/>
+								</m:mrow>
+								<m:annotation encoding="StarMath 5.0"> size 12{π \( 3 "." "14" "."  "."  "."  "."  "."  \) } {}</m:annotation>
+							</m:semantics>
+						</m:math>
+					</entry>
+				</row>
+				<row>
+					<entry>^</entry>
+					<entry>indicates power (for example, 3^2=9)</entry>
+				</row>
+				<row>
+					<entry>NaN</entry>
+					<entry>not-a-number, obtained when encountering undefined operations, such as 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mn>0</m:mn><m:mo stretchy="false">/</m:mo><m:mn>0</m:mn></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{0/0} {}</m:annotation></m:semantics></m:math></entry>
+				</row>
+				<row>
+					<entry>Inf</entry>
+					<entry>Represents 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mo stretchy="false">+</m:mo><m:mo stretchy="false">∞</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{+ infinity } {}</m:annotation></m:semantics></m:math></entry>
+				</row>
+				<row>
+					<entry>;</entry>
+					<entry>indicates the end of a row in a matrix; also used to suppress printing on the screen (echo off) </entry>
+				</row>
+				<row>
+					<entry>%</entry>
+					<entry>comments − anything to the right of % is ignored by the .m file interpreter and is considered to be comments </entry>
+				</row>
+				<row>
+					<entry>‘</entry>
+					<entry>denotes transpose of a vector or a matrix; also used to define strings, for example, str1='DSP' </entry>
+				</row>
+				<row>
+					<entry>…</entry>
+					<entry>denotes continuation; three or more periods at the end of a line continue current function to next line</entry>
+				</row>
+			</tbody>
+		</tgroup>
+<caption> Some common special characters used in .m files </caption>
+	</table>
+	<para id="id19849332">Some special functions are listed below for later reference:</para>
+	<table id="id19082876" summary="">
+		<tgroup cols="2">
+			<colspec colnum="1" colname="c1"/>
+			<colspec colnum="2" colname="c2"/>
+			<tbody>
+				<row>
+					<entry>Function</entry>
+					<entry>Meaning</entry>
+				</row>
+				<row>
+					<entry>sqrt</entry>
+					<entry>indicates square root, for example, sqrt(4)=2</entry>
+				</row>
+				<row>
+					<entry>abs</entry>
+					<entry>absolute value 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mo stretchy="false">∣</m:mo><m:mtext>.</m:mtext><m:mo stretchy="false">∣</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ lline  "."  rline } {}</m:annotation></m:semantics></m:math>, for example, abs(-3)=3 </entry>
+				</row>
+				<row>
+					<entry>length</entry>
+					<entry>length(x) gives the dimension of the array x </entry>
+				</row>
+				<row>
+					<entry>sum</entry>
+					<entry>finds sum of the elements of a vector</entry>
+				</row>
+				<row>
+					<entry>find</entry>
+					<entry>finds indices of nonzero</entry>
+				</row>
+			</tbody>
+		</tgroup>
+<caption> Some common functions used in .m files </caption>
+	</table>
+	<para id="id19067221">Here is an example of the function <code display="inline">length</code>, </para>
+	<para id="id19741069">
+		<code display="inline">&gt;&gt; x=1:10;</code>
+	</para>
+	<para id="id20026852">
+		<code display="inline">&gt;&gt; length(x)</code>
+	</para>
+	<para id="id19476004">
+		<code display="inline">ans =</code>
+	</para>
+	<para id="id15200307">
+		<code display="inline">10</code>
+	</para>
+	<para id="id15408900">The function find returns the indices of a vector that are non-zero. For example, </para>
+	<para id="id12178407"><code display="inline">I = find(x&gt;4)</code> finds all the indices of x greater than 4. Thus, for the above example:</para>
+	<para id="id18806527">
+		<code display="inline">&gt;&gt; find(x&gt; 4)</code>
+	</para>
+	<para id="id18307362">
+		<code display="inline">ans =</code>
+	</para>
+	<para id="id20026676">
+		<code display="inline">5 6 7 8 9 10</code>
+	</para>
+</section>
+
+
+<section id="id7"><title>Control Flow</title><para id="id19941986">.m files have the following control flow constructs: </para>
+	<para id="id19476050">• if statements</para>
+	<para id="id18320947">• switch statements</para>
+	<para id="id19227688">• for loops</para>
+	<para id="id19631837">• while loops</para>
+	<para id="id19036579">• break statements </para>
+	<para id="id9137906"> The constructs if, for, switch and while need to terminate with an end statement. Examples are provided below:</para>
+	<para id="id9138739">
+		<term>if</term>
+	</para>
+	<para id="id17921999">
+		<code display="inline">&gt;&gt; x=-3;</code>
+	</para>
+	<para id="id9155198">
+		<code display="inline">if x&gt;0</code>
+	</para>
+	<para id="id15404261">
+		<code display="inline">str='positive'</code>
+	</para>
+	<para id="id19501904">
+		<code display="inline">elseif x&lt;0</code>
+	</para>
+	<para id="id19090181">
+		<code display="inline">str='negative'</code>
+	</para>
+	<para id="id18322575">
+		<code display="inline">elseif x== 0</code>
+	</para>
+	<para id="id19599354">
+		<code display="inline">str='zero'</code>
+	</para>
+	<para id="id18229625">
+		<code display="inline">else</code>
+	</para>
+	<para id="id19474991">
+		<code display="inline">str='error'</code>
+	</para>
+	<para id="id18642815">
+		<code display="inline">end</code>
+	</para>
+	<para id="id19836590">See the value of 'str' after executing the above code.</para>
+	<para id="id15147041">
+		<term>while</term>
+	</para>
+	<para id="id18716165">
+		<code display="inline">&gt;&gt; x=-10;</code>
+	</para>
+	<para id="id19771864">
+		<code display="inline">while x&lt;0</code>
+	</para>
+	<para id="id19835611">
+		<code display="inline">x=x+1;</code>
+	</para>
+	<para id="id18495309">
+		<code display="inline">end</code>
+	</para>
+	<para id="id2584515">See the value of x after executing the above code.</para>
+	<para id="id20029628">
+		<term>for loop</term>
+	</para>
+	<para id="id19335978">
+		<code display="inline">&gt;&gt; x=0;</code>
+	</para>
+	<para id="id17734529">
+		<code display="inline">for j=1:10</code>
+	</para>
+	<para id="id18656754">
+		<code display="inline">x=x+j;</code>
+	</para>
+	<para id="id18304449">
+		<code display="inline">end</code>
+	</para>
+	<para id="id18623600">The above code computes the sum of all the numbers from 1 to 10.</para>
+	<para id="id9144139">
+		<term>break</term>
+	</para>
+	<para id="id17341637">With the break statement, one can exit early from a for or a while loop:</para>
+	<para id="id18316824">
+		<code display="inline">&gt;&gt; x=-10;</code>
+	</para>
+	<para id="id19476044">
+		<code display="inline">while x&lt;0</code>
+	</para>
+	<para id="id19137760">
+		<code display="inline">x=x+2;</code>
+	</para>
+	<para id="id19475616">
+		<code display="inline">if x = = -2</code>
+	</para>
+	<para id="id17797356">
+		<code display="inline">break;</code>
+	</para>
+	<para id="id18259035">
+		<code display="inline">end</code>
+	</para>
+	<para id="id19947714">
+		<code display="inline">end</code>
+	</para>
+	<para id="id20027569">LabVIEW MathScript supports the relational and logical operators listed below.</para>
+	<para id="id8325883"><term>Relational Operators</term></para>
+	<table id="id9175380" summary="">
+		<tgroup cols="2">
+			<colspec colnum="1" colname="c1"/>
+			<colspec colnum="2" colname="c2"/>
+			<tbody>
+				<row>
+					<entry>Symbol </entry>
+					<entry>Meaning </entry>
+				</row>
+				<row>
+					<entry>&lt;= </entry>
+					<entry>less than equal </entry>
+				</row>
+				<row>
+					<entry>&lt; </entry>
+					<entry>less than </entry>
+				</row>
+				<row>
+					<entry>&gt;= </entry>
+					<entry>greater than equal </entry>
+				</row>
+				<row>
+					<entry>&gt; </entry>
+					<entry>greater than </entry>
+				</row>
+				<row>
+					<entry>== </entry>
+					<entry>equal</entry>
+				</row>
+				<row>
+					<entry>~= </entry>
+					<entry>not equal</entry>
+				</row>
+			</tbody>
+		</tgroup>
+<caption> Relational Operators </caption>
+	</table>
+	<para id="id17342276"><term>Logical Operators </term></para>
+	<table id="id15145801" summary="">
+		<tgroup cols="2">
+			<colspec colnum="1" colname="c1"/>
+			<colspec colnum="2" colname="c2"/>
+			<tbody>
+				<row>
+					<entry>Symbol </entry>
+					<entry>Meaning </entry>
+				</row>
+				<row>
+					<entry>&amp; </entry>
+					<entry>AND </entry>
+				</row>
+				<row>
+					<entry>
+						<m:math>
+							<m:semantics>
+								<m:mrow>
+									<m:mstyle fontsize="12pt">
+										<m:mrow>
+											<m:mo stretchy="false">∣</m:mo>
+										</m:mrow>
+									</m:mstyle>
+									<m:mrow/>
+								</m:mrow>
+								<m:annotation encoding="StarMath 5.0"> size 12{ \lline } {}</m:annotation>
+							</m:semantics>
+						</m:math>
+					</entry>
+					<entry>OR </entry>
+				</row>
+				<row>
+					<entry>~ </entry>
+					<entry>NOT</entry>
+				</row>
+			</tbody>
+		</tgroup>
+<caption> Logical Operators </caption>
+	</table>
+</section>
+
+
+<section id="id8">  
+    <title>Programming in the LabVIEW MathScript Window </title>
+    <para id="id16019752">The MathScript feature allows one to include .m files, which can be created using any text editor. To activate the LabVIEW MathScript interactive window, select <emphasis>Tools </emphasis><emphasis>→</emphasis><emphasis> MathScript Window</emphasis> from the main menu. To open the LabVIEW MathScript text editor, click the Script tab of the LabVIEW MathScript Window (see <link target-id="id15199376"/>). After typing the .m file textual code, save it and click on the <term>Run script</term> button (green arrow) to run it.</para>
+    <para id="id18315980"> For instance, to write a program to compute the average (mean) of a vector x, the program should use as its input the vector x and return the average value. To write this program, follow the steps outlined below.</para>
+    <para id="id19665058">Type the following in the empty script:</para>
+    <para id="id19551805">
+      <code display="inline">x=1:10</code>
+    </para>
+    <para id="id14915468">
+      <code display="inline">L=length(x);</code>
+    </para>
+    <para id="id19848226">
+      <code display="inline">sum=0;</code>
+    </para>
+    <para id="id19896804">
+      <code display="inline">for j=1:L </code>
+    </para>
+    <para id="id18260334">
+      <code display="inline">sum=sum+x(j);</code>
+    </para>
+    <para id="id19121355">
+      <code display="inline">end</code>
+    </para>
+    <para id="id17342701">
+      <code display="inline">y=sum/L % the average of x</code>
+    </para>
+    <para id="id15146907">From the Editor pull-down menu, go to <emphasis>File </emphasis><emphasis>→</emphasis><emphasis> Save Script As</emphasis> and enter <term>average.m</term> for the file name. Then click on the <term>Run script</term> button to run the program. <link target-id="id15199376"/> shows the LabVIEW MathScript interactive window after running the program.</para>
+    <figure id="id15199376"><media id="id17104474" alt=""><image src="../../media/figure 2-3.png" mime-type="image/png" height="660" width="812"/></media><caption>LabVIEW MathScript Interactive Window after Running the Program Average</caption></figure></section>
+
+
+<section id="id9">  
+    <title>Sound Generation</title>
+    <para id="id18848552">Assuming the computer used has a sound card, one can use the function sound to play back speech or audio files through its speakers. That is, sound(y,FS) sends the signal in a vector y (with sample frequency FS) out to the speaker. Stereo sounds are played on platforms that support them, with y being an N-by-2 matrix. </para>
+    <para id="id18118894">Try the following code and listen to a 400 Hz tone:</para>
+    <para id="id18453711">
+      <code display="inline">&gt;&gt; t=0:1/8000:1;</code>
+    </para>
+    <para id="id17922282">
+      <code display="inline">&gt;&gt; x=cos(2*pi*400*t);</code>
+    </para>
+    <para id="id19318908">
+      <code display="inline">&gt;&gt; sound(x,8000);</code>
+    </para>
+    <para id="id18873102">Now generate a noise signal by typing:</para>
+    <para id="id18873106">
+      <code display="inline">&gt;&gt; noise=randn(1,8000); % generate 8000 samples of noise</code>
+    </para>
+    <para id="id18637699">
+      <code display="inline">&gt;&gt; sound(noise,8000);</code>
+    </para>
+    <para id="id19822044">The function randn generates Gaussian noise with zero mean and unit variance.</para>
+</section>
+
+
+<section id="id10">  
+    <title>Loading and Saving Data</title>
+    <para id="id17923111">One can load or store data using the commands load and save. To save the vector x of the above code in the file <term>data.mat</term>, type:</para>
+    <para id="id19657764">
+      <code display="inline">&gt;&gt; save data x</code>
+    </para>
+    <para id="id19892456">Note that LabVIEW MathScript data files have the extension .mat. To retrieve the data saved, type:</para>
+    <para id="id3617702">
+      <code display="inline">&gt;&gt; load data</code>
+    </para>
+    <para id="id18316850">The vector x gets loaded in memory. To see memory contents, use the command <code display="inline">whos</code>,</para>
+    <para id="id15099950">
+      <code display="inline">&gt;&gt; whos</code>
+    </para>
+    <para id="id18848561">
+      <code display="inline">Variable Dimension  Type x    1x8000   double array </code>
+    </para>
+    <para id="id9143997">The command <code display="inline">whos</code> gives a list of all the variables currently in memory, along with their dimensions. In the above example, x contains 8000 samples.</para>
+    <para id="id19755335">  To clear up memory after loading a file, type <code display="inline">clear all</code> when done. This is important because if one does not clear all the variables, one could experience conflicts with other programs using the same variables.</para>
+</section>
+
+
+<section id="id11">  
+    <title>Reading Wave and Image Files</title>
+    <para id="id19950254">With LabVIEW MathScript, one can read data from different file types (such as .wav, .jpeg and .bmp) and load them in a vector.</para>
+    <para id="id19118009">To read an audio data file with .wav extension, use the following command: </para>
+    <para id="id19627097">
+      <code display="inline">&gt;&gt; [y Fs]=wavread(‘filename’) </code>
+    </para>
+    <para id="id10957551">This command reads a wave file specified by the string filename and returns the sampled data in y with the sampling rate of Fs (in hertz).</para>
+    <para id="id19539843">To read an image file, use the following command: </para>
+    <para id="id20029672">
+      <code display="inline">&gt;&gt; [y]=imread(‘filename’, ‘filetype’) </code>
+    </para>
+    <para id="id13690451">This command reads a grayscale or color image from the string filename, where filetype specifies the format of the file and returns the image data in the array y.</para>
+</section>
+
+
+
+
+<section id="id12">  
+    <title>Signal Display</title>
+    <para id="id19962636">Several tools are available in LabVIEW to display data in a graphical format. Throughout the book, signals in both the time and frequency domains are displayed using the following two graph tools.</para>
+    <para id="id18651218">Waveform Graph—Displays data acquired at a constant rate.</para>
+    <para id="id19760965">XY Graph—Displays data acquired at a non-constant rate, such as data acquired when a trigger occurs. A waveform graph can be created on a front panel by choosing <emphasis>Controls</emphasis><emphasis>→</emphasis><emphasis> Express </emphasis><emphasis>→</emphasis><emphasis> Waveform Graph</emphasis>. <link target-id="id19554733"/> shows a waveform graph and the waveform graph elements which can be opened by right-clicking on the graph and selecting <term>Visible Items</term> from the shortcut menu.</para>
+    <figure id="id19554733"><media id="id24112943" alt=""><image src="../../media/graphics2-59b8.png" mime-type="image/png" height="421" width="745"/></media><caption>Waveform Graph</caption></figure>
+    
+    <para id="id19121287">Often a waveform graph is tied with the function <term>Build Waveform</term><emphasis>(Function</emphasis><emphasis>→</emphasis><emphasis> Programming </emphasis><emphasis>→</emphasis><emphasis> Waveform </emphasis><emphasis>→</emphasis><emphasis> Build Waveform)</emphasis> to calibrate the x scale (which is time scale for signals), as shown in <link target-id="id19472695"/>. </para>
+    <figure id="id19472695"><media id="id20912554" alt=""><image src="../../media/graphics3-8ed0.png" mime-type="image/png" height="57" width="175"/></media><caption>Build Waveform Function and Waveform Graph</caption></figure>
+    
+    <para id="id19990136">Create an XY graph from a front panel by choosing <emphasis>Controls</emphasis><emphasis>→</emphasis><emphasis> Express </emphasis><emphasis>→</emphasis><emphasis> XY Graph</emphasis>. <link target-id="id6932809"/> shows an XY graph and its different elements.</para>
+    <figure id="id6932809"><media id="id23810855" alt=""><image src="../../media/figure 2-6.png" mime-type="image/png" height="509" width="769"/></media><caption>XY Graph</caption></figure><para id="id19740762">An XY graph displays a signal at a non-constant rate, and one can tie together its X and Y vectors to display the signal via the <term>Build XY Graph</term> function. This function automatically appears on the block diagram when placing an <term>XY graph</term> on the front panel, as shown in <link target-id="id19178635"/>. Note that one can use the function Bundle <emphasis>(Functions </emphasis><emphasis>→</emphasis><emphasis> Programming </emphasis><emphasis>→</emphasis><emphasis> Cluster &amp; Variant </emphasis><emphasis>→</emphasis><emphasis> Bundle)</emphasis> instead of <term>Build XY Graph</term>. </para>
+    <figure id="id19178635"><media id="id19399781" alt=""><image src="../../media/graphics5-6f8b.png" mime-type="image/png" height="119" width="175"/></media><caption>Build XY Graph Function</caption></figure>
+    
+</section>
+
+<section id="id13">  
+    <title>Hybrid Programming</title>
+    <para id="id18603671">As stated earlier, the LabVIEW MathScript feature can be used to perform hybrid programming, in other words, a combination of textual .m files and graphical objects. Normally, it is easier to carry out math operations via .m files while maintaining user interfacing, interactivity and analysis in the more intuitive graphical environment of LabVIEW. Textual .m file codes can be typed in or copied and pasted into LabVIEW MathScript nodes.</para>
+    <section id="element-308"><title>Sum and Average VI Example Using Hybrid Programming</title>
+<para id="id18603674">Sum and Average VI Example Using Hybrid Programming</para>
+    <para id="id13690557">Choose <emphasis>Functions </emphasis><emphasis>→</emphasis><emphasis>Programming </emphasis><emphasis>→</emphasis><emphasis>Structures </emphasis><emphasis>→</emphasis><emphasis> MathScript</emphasis> to create a LabVIEW MathScript node (see <link target-id="id18624153"/>). Change the size of the window by dragging the mouse.</para>
+    <figure id="id18624153"><media id="id24137061" alt=""><image src="../../media/figure 2-8.png" mime-type="image/png" height="681" width="758"/></media><caption>LabVIEW MathScript Node Creation</caption></figure><para id="id17846890">Now build the same program average using a LabVIEW MathScript node. The inputs to this program consist of x and y. To add these inputs, right-click on the border of the LabVIEW MathScript node and click on the Add Input option (see <link target-id="id15098387"/>). </para>
+    <para id="id15193767">
+      <figure id="id15098387"><media id="id12033904" alt=""><image src="../../media/figure 2-9.png" mime-type="image/png" height="473" width="707"/></media><caption>(a) Adding Inputs, (b) Creating Controls</caption></figure></para>
+    
+    <para id="id17342917">After adding these inputs, create controls to change the inputs interactively via the front panel. By right-clicking on the border, add outputs in a similar manner. An important issue to consider is the selection of output data type. The outputs of the Sum and Average VI are scalar quantities. Choose data types by right-clicking on an output and selecting the Choose Data Type option (see <link target-id="id17400324"/>). </para>
+    <figure id="id17400324"><media id="id11047916" alt=""><image src="../../media/graphics8-4fec.png" mime-type="image/png" height="1147" width="556"/></media><caption>(a) Adding Outputs, (b) Choosing Data Types </caption></figure>
+    
+    <para id="id16636706">Finally, add numeric indicators in a similar fashion as indicated earlier. <link target-id="id19851143"/> shows the completed block diagram and front panel. </para>
+    <figure id="id19851143"><media id="id21411344" alt=""><image src="../../media/graphics9-37df.png" mime-type="image/png" height="333" width="676"/></media><caption>(a) Completed Block Diagram, (b) Completed Front Panel</caption></figure>
+    </section>
+    <section id="element-531"><title>Building a Signal Generation System Using Hybrid Programming</title>
+    <para id="id12775355">In this section, let us see how to generate and display aperiodic continuous-time signals or pulses in the time domain. One can represent such signals with a function of time. For simulation purposes, a representation of time 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mi>t</m:mi></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{t} {}</m:annotation></m:semantics></m:math>is needed. Note that the time scale is continuous while computer programs operate in a discrete fashion. This simulation can be achieved by considering a very small time interval. For example, if a 1-second duration signal in millisecond increments (time interval of 0.001 second) is considered, then one sample every 1 millisecond and a total of 1000 samples are generated for the entire signal. This continuous-time signal approximation is discussed further in later chapters. It is important to note that there is a finite number of samples for a continuous-time signal, and, to differentiate this signal from a discrete-time signal, one must assign a much higher number of samples per second (very small time interval). </para>
+    <figure id="id18715300"><media id="id17069957" alt=""><image src="../../media/graphics10-90cb.png" mime-type="image/png" height="206" width="750"/></media><caption>Continuous-Time Signals</caption></figure>
+    
+    <para id="id19134800"><link target-id="id18715300"/> shows two continuous-time signals 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi fontstyle="italic">x1</m:mi><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{x1 \( t \) } {}</m:annotation></m:semantics></m:math> and 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi fontstyle="italic">x2</m:mi><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{x2 \( t \) } {}</m:annotation></m:semantics></m:math>with a duration of 3 seconds. By setting the time interval dt to 0.001 second, there is a total of 3000 samples at 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mrow><m:mi>t</m:mi><m:mo stretchy="false">=</m:mo><m:mn>0,0</m:mn></m:mrow><m:mtext>.</m:mtext><m:mtext>001</m:mtext><m:mi>,</m:mi><m:mn>0</m:mn><m:mtext>.</m:mtext><m:mtext>002</m:mtext><m:mi>,</m:mi><m:mn>0</m:mn><m:mtext>.</m:mtext><m:mtext>003</m:mtext><m:mi>,</m:mi><m:mtext>.</m:mtext><m:mtext>.</m:mtext><m:mtext>.</m:mtext><m:mtext>.</m:mtext><m:mtext>.</m:mtext><m:mtext>.</m:mtext><m:mtext>.</m:mtext><m:mi>,</m:mi><m:mn>2</m:mn><m:mtext>.</m:mtext><m:mtext>999</m:mtext></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{t=0,0 "." "001",0 "." "002",0 "." "003", "."  "."  "."  "."  "."  "."  "." ,2 "." "999"} {}</m:annotation></m:semantics></m:math> seconds.  </para>
+    <para id="id19570768">The signal 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi fontstyle="italic">x1</m:mi><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{x1 \( t \) } {}</m:annotation></m:semantics></m:math> can be represented mathematically as follows:</para>
+    
+    <equation id="eip-154"><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi fontstyle="italic">x1</m:mi><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">=</m:mo><m:mrow><m:mo stretchy="true">{</m:mo><m:mtable><m:mtr><m:mtd><m:mrow><m:mn>0</m:mn><m:mrow/></m:mrow></m:mtd><m:mtd><m:mrow><m:mrow><m:mrow><m:mn>0</m:mn><m:mo stretchy="false">≤</m:mo><m:mi>t</m:mi></m:mrow><m:mo stretchy="false">&lt;</m:mo><m:mn>1</m:mn></m:mrow><m:mrow/></m:mrow></m:mtd></m:mtr><m:mtr><m:mtd><m:mrow><m:mn>1</m:mn><m:mrow/></m:mrow></m:mtd><m:mtd><m:mrow><m:mrow><m:mrow><m:mn>1</m:mn><m:mo stretchy="false">≤</m:mo><m:mi>t</m:mi></m:mrow><m:mo stretchy="false">&lt;</m:mo><m:mn>2</m:mn></m:mrow><m:mrow/></m:mrow></m:mtd></m:mtr><m:mtr><m:mtd><m:mrow><m:mn>0</m:mn><m:mrow/></m:mrow></m:mtd><m:mtd><m:mrow><m:mrow><m:mrow><m:mn>2</m:mn><m:mo stretchy="false">≤</m:mo><m:mi>t</m:mi></m:mrow><m:mo stretchy="false">&lt;</m:mo><m:mn>3</m:mn></m:mrow><m:mrow/></m:mrow></m:mtd></m:mtr></m:mtable></m:mrow></m:mrow></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{x1 \( t \) = left lbrace  matrix {
+0 {} # 0 &lt;= t&lt;1 {} ##
+1 {} # 1 &lt;= t&lt;2 {} ##
+0 {} # 2 &lt;= t&lt;3{}
+}  right none } {}</m:annotation></m:semantics></m:math>   </equation><para id="id19044184">To simulate this signal, use the LabVIEW MathScript functions <code display="inline">ones</code> and <code display="inline">zeros</code>. The signal value is zero during the first second, which means the first 1000 samples are zero. This portion of the signal is simulated with the function <code display="inline">zeros(1,1000)</code>. In the next second (next 1000 samples), the signal value is 2, and this portion is simulated by the function <code display="inline">2*ones(1,1000)</code>. Finally, the third portion of the signal is simulated by the function <code display="inline">zeros(1,1000)</code>. In other words, the entire duration of the signal is simulated by the following .m file function:</para>
+    <para id="id19231779">
+      <code display="inline">x1=[ zeros(1,1/dt) 2*ones(1,1/dt) zeros(1,1/dt)]</code>
+    </para>
+    <para id="id19742011">The signal 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi fontstyle="italic">x2</m:mi><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{x2 \( t \) } {}</m:annotation></m:semantics></m:math> can be represented mathematically as follows:</para>
+    
+    <equation id="eip-895"><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi fontstyle="italic">x2</m:mi><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">=</m:mo><m:mrow><m:mo stretchy="true">{</m:mo><m:mtable><m:mtr><m:mtd><m:mrow><m:mn>2t</m:mn><m:mrow/></m:mrow></m:mtd><m:mtd><m:mrow><m:mrow><m:mrow><m:mn>0</m:mn><m:mo stretchy="false">≤</m:mo><m:mi>t</m:mi></m:mrow><m:mo stretchy="false">&lt;</m:mo><m:mn>1</m:mn></m:mrow><m:mrow/></m:mrow></m:mtd></m:mtr><m:mtr><m:mtd><m:mrow><m:mrow><m:mrow><m:mo stretchy="false">−</m:mo><m:mn>2t</m:mn></m:mrow><m:mo stretchy="false">+</m:mo><m:mn>4</m:mn></m:mrow><m:mrow/></m:mrow></m:mtd><m:mtd><m:mrow><m:mrow><m:mrow><m:mn>1</m:mn><m:mo stretchy="false">≤</m:mo><m:mi>t</m:mi></m:mrow><m:mo stretchy="false">&lt;</m:mo><m:mn>2</m:mn></m:mrow><m:mrow/></m:mrow></m:mtd></m:mtr><m:mtr><m:mtd><m:mrow><m:mn>0</m:mn><m:mrow/></m:mrow></m:mtd><m:mtd><m:mrow><m:mrow><m:mrow><m:mn>2</m:mn><m:mo stretchy="false">≤</m:mo><m:mi>t</m:mi></m:mrow><m:mo stretchy="false">&lt;</m:mo><m:mn>3</m:mn></m:mrow><m:mrow/></m:mrow></m:mtd></m:mtr></m:mtable></m:mrow></m:mrow></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{x2 \( t \) = left lbrace  matrix {
+2t {} # 0 &lt;= t&lt;1 {} ##
+ - 2t+4 {} # 1 &lt;= t&lt;2 {} ##
+0 {} # 2 &lt;= t&lt;3{}
+}  right none } {}</m:annotation></m:semantics></m:math> </equation><para id="id18331258">Use a linearly increasing or decreasing vector to represent the linear portions. The time vectors for the three portions or segments of the signal are <code display="inline">0:dt:1-dt</code>, <code display="inline">1:dt:2-dt</code> and <code display="inline">2:dt:3-dt</code>. The first segment is a linear function corresponding to a time vector with a slope of 2; the second segment is a linear function corresponding to a time vector with a slope of -2 and an offset of 4; and the third segment is simply a constant vector of zeros. In other words, simulate the entire duration of the signal for any value of dt by the following .m file function: </para>
+    <para id="id19555285">
+      <code display="inline">x2=[2*(0:dt:(1-dt)) -2*(1:dt:(2-dt))+4 zeros(1,1/dt)].</code>
+    </para>
+    <para id="id19947005"><link target-id="id16186186"/> and <link target-id="id12384002"/> show the block diagram and front panel of the above signal generation system, respectively. Display the signals using a <term>Waveform Graph</term><emphasis>(Controls</emphasis><emphasis>→</emphasis><emphasis> Express </emphasis><emphasis>→</emphasis><emphasis> Waveform Graph)</emphasis> and a <term>Build Waveform</term> function <emphasis>(Function</emphasis><emphasis>→</emphasis><emphasis> Programming </emphasis><emphasis>→</emphasis><emphasis> Waveform </emphasis><emphasis>→</emphasis><emphasis> Build Waveform)</emphasis>. Note that the default data type in MathScript is double precision scalar. So whenever an output possesses any other data type, one needs to right-click on the output and select the <term>Choose Data Type</term> option. In this example, x1 and x2 are double precision one-dimensional arrays that are specified accordingly.</para>
+    <figure id="id16186186"><media id="id24046914" alt=""><image src="../../media/graphics11-358d.png" mime-type="image/png" height="266" width="571"/></media><caption>Block Diagram of a Signal Generation System</caption></figure>
+    
+    <figure id="id12384002"><media id="id24353076" alt=""><image src="../../media/graphics12.png" mime-type="image/png" height="602" width="575"/></media><caption>Front Panel of a Signal Generation System</caption></figure>
+ </section>   
+    
+    <section id="element-89"><title>Building a Periodic Signal Generation System Using Hybrid Programming</title>
+<para id="id19992407">In this section, build a simple periodic signal generation system in hybrid mode to set the stage for the chapters that follow. This system involves generating a periodic signal in textual mode and displaying it in graphical mode. Modify the shape of the signal (sine, square, triangle or sawtooth) as well as its frequency and amplitude by using appropriate front panel controls. The block diagram and front panel of this system using a LabVIEW MathScript node are shown in <link target-id="id19345452"/> and <link target-id="id19331559"/>, respectively. The front panel includes the following three controls:</para>
+    <para id="id19738554">Waveform type – Select the shape of the input waveform as either sine, square, triangular or sawtooth waves. </para>
+    <para id="id19742102">Amplitude – Control the amplitude of the input waveform.</para>
+    <para id="id19106582">Frequency – Control the frequency of the input waveform.</para>
+    <figure id="id19345452"><media id="id12265778" alt=""><image src="../../media/graphics13-e7b7.png" mime-type="image/png" height="340" width="571"/></media><caption>Periodic Signal Generation System Block Diagram</caption></figure>
+    
+    <figure id="id19331559"><media id="id12698933" alt=""><image src="../../media/graphics14-6006.png" mime-type="image/png" height="414" width="455"/></media><caption>Periodic Signal Generation System Front Panel</caption></figure>
+    
+    
+    
+    <para id="element-647">To build the block diagram, first write a .m file code to generate four types of waveforms using the .m file functions <code display="inline">sin</code>, <code display="inline">square</code> and <code display="inline">sawtooth</code>. To change the amplitude and frequency of the waveforms, use two controls named Amplitude (A) and Frequency (f). Waveform Type (w) is another input controlled by the <term>Enum Control</term> for selecting the waveform type. With this control, one can select from multiple inputs. Create an Enum Control from the front panel by invoking <emphasis>Controls </emphasis><emphasis>→</emphasis><emphasis> Modern </emphasis><emphasis>→</emphasis><emphasis> Ring &amp; Enum </emphasis><emphasis>→</emphasis><emphasis> Enum</emphasis>. Right-click on the <term>Enum Control</term> to select <term>properties</term> and the <term>edit item</term> tab to choose different items as shown in <link target-id="id18290428"/>. After inserting each item, the digital display shows the corresponding number value for that item, which is the output of the <term>Enum Control</term>.</para><para id="element-465">Finally, display the waveforms with a <term>Waveform Graph</term><emphasis>(Controls</emphasis><emphasis>→</emphasis><emphasis> Express </emphasis><emphasis>→</emphasis><emphasis> Waveform Graph)</emphasis> and a <term>Build Waveform</term> function <emphasis>(Function</emphasis><emphasis>→</emphasis><emphasis> Programming </emphasis><emphasis>→</emphasis><emphasis> Waveform </emphasis><emphasis>→</emphasis><emphasis> Build Waveform)</emphasis>.</para><figure id="id18290428"><media id="id17417189" alt=""><image src="../../media/figure 2-17.png" mime-type="image/png" height="487" width="492"/></media><caption>Enum Control Properties</caption></figure></section>
+</section>
+
+
+
+
+<section id="id14"><title>Lab Exercises</title><exercise id="element-773"><problem id="id24442073">
+		<para id="element-223">
+    Write a .m file code to add all the numbers corresponding to the even indices of an array. For instance, if the array x is specified as x = [1, 3, 5, 10], then 13 (= 3+10) should be returned. Use the program to find the sum of all even integers from 1 to 1000. Run your code using the LabVIEW MathScript interactive window. Also, redo the code where x is the input vector and y is the sum of all the numbers corresponding to the even indices of x.
+  </para>
+	</problem>
+	<solution id="id17205163">
+		<para id="element-907">
+    Insert Solution Text Here
+  </para>
+	</solution>
+</exercise><exercise id="element-91"><problem id="id25226091">
+		<para id="id19771638">2. Explain what the following .m file does:</para><para id="id19893294">
+			<code display="inline">L=length(x);</code>
+		</para><para id="id19947033">
+			<code display="inline">for j=1:L </code>
+		</para><para id="id19551779">
+			<code display="inline">if x(j) &lt; 0</code>
+		</para><para id="id15108298">
+			<code display="inline">x(j)=-x(j);</code>
+		</para><para id="id20036930">
+			<code display="inline">end</code>
+		</para><para id="id19927371">
+			<code display="inline">end</code>
+		</para><para id="id19880367">Rewrite this program without using a <code display="inline">for</code> loop.</para>
+	</problem>
+	<solution id="id11587351">
+		<para id="element-928">
+    Insert Solution Text Here
+  </para>
+	</solution>
+</exercise><exercise id="element-351"><problem id="id24442117">
+		<para id="id19334842">3. Write a .m file code that implements the following hard-limiting function:</para>
+<equation id="eq3">
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">=</m:mo><m:mrow><m:mo stretchy="true">{</m:mo><m:mtable><m:mtr><m:mtd><m:mrow><m:mn>0</m:mn><m:mtext>.</m:mtext><m:mn>2</m:mn><m:mrow/></m:mrow></m:mtd><m:mtd><m:mrow><m:mrow><m:mi>t</m:mi><m:mo stretchy="false">≥</m:mo><m:mn>0</m:mn></m:mrow><m:mtext>.</m:mtext><m:mn>2</m:mn><m:mrow/></m:mrow></m:mtd></m:mtr><m:mtr><m:mtd><m:mrow><m:mrow><m:mo stretchy="false">−</m:mo><m:mn>0</m:mn></m:mrow><m:mtext>.</m:mtext><m:mn>2</m:mn><m:mrow/></m:mrow></m:mtd><m:mtd><m:mrow><m:mrow><m:mi>t</m:mi><m:mo stretchy="false">&lt;</m:mo><m:mn>0</m:mn></m:mrow><m:mtext>.</m:mtext><m:mn>2</m:mn><m:mrow/></m:mrow></m:mtd></m:mtr></m:mtable></m:mrow></m:mrow></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{x \( t \) = left lbrace  matrix {
+0 "." 2 {} # t &gt;= 0 "." 2 {} ##
+ - 0 "." 2 {} # t&lt;0 "." 2{}
+}  right none } {}</m:annotation></m:semantics></m:math>  
+</equation>
+<para id="id19941759">For 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mi>t</m:mi></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{t} {}</m:annotation></m:semantics></m:math>, use 1000 random numbers generated via the function rand. </para>
+	</problem>
+	<solution id="id22118980">
+		<para id="element-834">
+    Insert Solution Text Here
+  </para>
+	</solution>
+</exercise><exercise id="element-536"><problem id="id21808312">
+		<para id="id19880578">4. Build a hybrid VI to generate two sinusoid signals with the frequencies f1 Hz and f2 Hz and the amplitudes A1 and A2, based on a sampling frequency of 8000 Hz with the number of samples being 256. Set the frequency ranges from 100 to 400 Hz and set the amplitude ranges from 20 to 200. Generate a third signal with the frequency f3 = (mod (lcm (f1, f2), 400) + 100) Hz, where mod and lcm denote the modulus and least common multiple operation, respectively, and the amplitude A3 is the sum of the amplitudes A1 and A2. Use the same sampling frequency and number of samples as specified for the first two signals. Display all the signals using the legend on the same waveform graph and label them accordingly. </para>	</problem>
+	<solution id="id10843821">
+		<para id="element-921">
+    Insert Solution Text Here
+  </para>
+	</solution>
+</exercise></section>
+  </content>
+</document>

@@ -1,0 +1,225 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml" xmlns:bib="http://bibtexml.sf.net/">
+
+<title>References</title>
+<metadata>
+  <md:content-id>m31521</md:content-id><md:title>References</md:title>
+  <md:abstract/>
+  <md:uuid>688287f8-255f-4662-a24b-e3a153d95ff2</md:uuid>
+</metadata>
+
+<content>
+<para id="id409299">
+</para>
+</content>
+
+<bib:file>
+ <bib:entry id="Ref1">
+    <bib:book>
+      <bib:author>National Instruments</bib:author>
+      <bib:title>Getting Started with LabVIEW</bib:title>
+      <bib:publisher>National Instruments</bib:publisher>
+      <bib:year>2003</bib:year>
+      <bib:address> 
+http://www.ni.com/pdf/manuals/323427a.pdf
+</bib:address>
+    </bib:book>
+  </bib:entry>
+
+  <bib:entry id="Ref2">
+    <bib:book>
+      <bib:author>National Instruments</bib:author>
+      <bib:title>LabVIEW User Manual</bib:title>
+      <bib:publisher>National Instruments</bib:publisher>
+      <bib:year>2003</bib:year>
+      <bib:address>http://www.ni.com/pdf/manuals/320999e.pdf</bib:address>     </bib:book>
+  </bib:entry>
+
+<bib:entry id="Ref3">
+    <bib:book>
+      <bib:author>R. Bishop</bib:author>
+      <bib:title>LabVIEW 8 Student Edition</bib:title>
+      <bib:publisher>Prentice Hall</bib:publisher>
+      <bib:year>2006</bib:year>
+      <bib:address> </bib:address>     
+</bib:book>
+  </bib:entry>
+
+  <bib:entry id="Ref4">
+    <bib:book>
+      <bib:author>National Instruments</bib:author>
+      <bib:title>Developing Algorithms Using LabVIEW MathScript: Part 1 – The LabVIEW MathScript Node</bib:title>
+      <bib:publisher>National Instruments</bib:publisher>
+      <bib:year>2007</bib:year>
+      <bib:address> 
+http://zone.ni.com/devzone/cda/tut/p/id/3256
+</bib:address>
+    </bib:book>
+  </bib:entry>
+
+  <bib:entry id="Ref5">
+    <bib:book>
+      <bib:author>National Instruments</bib:author>
+      <bib:title>Inside LabVIEW MathScript</bib:title>
+      <bib:publisher>National Instruments</bib:publisher>
+      <bib:year>2007</bib:year>
+    <bib:address>http://zone.ni.com/devzone/cda/tut/p/id/3502</bib:address>     </bib:book>
+  </bib:entry>
+
+ <bib:entry id="Ref6">
+    <bib:book>
+      <bib:author>S. Karris</bib:author>
+      <bib:title>Signals and Systems with MATLAB Applications</bib:title>
+      <bib:publisher>Orchard Publications</bib:publisher>
+      <bib:year>2003</bib:year>
+      <bib:edition> Second Edition</bib:edition>
+    </bib:book>
+  </bib:entry>
+
+  <bib:entry id="Ref7">
+    <bib:book>
+      <bib:author>J. Buck; M. Daniel; A. Singer</bib:author>
+      <bib:title>Computer Explorations in Signal and Sytems Using MATLAB</bib:title>
+      <bib:publisher>Prentice-Hall</bib:publisher>
+      <bib:year>1996</bib:year>
+      <bib:edition> Second Edition</bib:edition>
+    </bib:book>
+  </bib:entry>
+
+ <bib:entry id="Ref8">
+    <bib:book>
+      <bib:author>B. Lathi</bib:author>
+      <bib:title>Linear Systems and Signals</bib:title>
+      <bib:publisher>Oxford University Press</bib:publisher>
+      <bib:year>2004</bib:year>
+      <bib:edition> Second Edition</bib:edition>
+    </bib:book>
+  </bib:entry>
+
+ <bib:entry id="Ref9">
+    <bib:book>
+      <bib:author>D. Fannin; R. Ziemer; W. Tranter</bib:author>
+      <bib:title>Signals and Systems: Continuous and Discrete</bib:title>
+      <bib:publisher>Prentice-Hall</bib:publisher>
+      <bib:year>1998</bib:year>
+      <bib:edition> Fourth Edition</bib:edition>
+    </bib:book>
+  </bib:entry>
+
+ <bib:entry id="Ref10">
+    <bib:book>
+      <bib:author>B. Heck; E. Kamen</bib:author>
+      <bib:title>Fundamentals of Signals and Systems Using the Web and MATLAB</bib:title>
+      <bib:publisher>Prentice-Hall</bib:publisher>
+      <bib:year>2006</bib:year>
+      <bib:edition> Third Edition</bib:edition>
+    </bib:book>
+  </bib:entry>
+
+ <bib:entry id="Ref11">
+    <bib:book>
+      <bib:author>C. Phillips; E. Riskin; J. Parr</bib:author>
+      <bib:title>Signals, Systems and Transformations</bib:title>
+      <bib:publisher>Prentice-Hall</bib:publisher>
+      <bib:year>2002</bib:year>
+      <bib:edition> Third Edition</bib:edition>
+    </bib:book>
+  </bib:entry>
+
+ <bib:entry id="Ref12">
+    <bib:book>
+      <bib:author>S. Soliman; M. Srinath</bib:author>
+      <bib:title>Continuous and Discrete Signals and Systems</bib:title>
+      <bib:publisher>Prentice-Hall</bib:publisher>
+      <bib:year>1998</bib:year>
+      <bib:edition> Second Edition</bib:edition>
+    </bib:book>
+  </bib:entry>
+
+<bib:entry id="Ref13">
+    <bib:book>
+      <bib:author>M. Roberts</bib:author>
+      <bib:title>Signals and Systems</bib:title>
+      <bib:publisher>McGraw-Hill</bib:publisher>
+      <bib:year>2004</bib:year>
+   <bib:edition> First Edition</bib:edition>  
+</bib:book>
+  </bib:entry>
+
+<bib:entry id="Ref14">
+    <bib:book>
+      <bib:author>M. Schetzen</bib:author>
+      <bib:title> Airborne Doppler Radar: Applications, Theory, and Philosophy </bib:title>
+      <bib:publisher>AIAA Publisher</bib:publisher>
+      <bib:year>2006</bib:year>
+      <bib:edition> First Edition</bib:edition>
+    </bib:book>
+  </bib:entry>
+
+  <bib:entry id="Ref15">
+    <bib:book>
+      <bib:author> D. Benson </bib:author>
+      <bib:title> Music: A Mathematical Offering </bib:title>
+      <bib:publisher>Cambridge University Press</bib:publisher>
+      <bib:year>2006</bib:year>
+      <bib:edition> First Edition</bib:edition>
+    </bib:book>
+  </bib:entry>
+
+ <bib:entry id="Ref16">
+    <bib:book>
+      <bib:author>YAMAHA</bib:author>
+      <bib:title> DX7 Digital Programmable Algorithm Synthesizer </bib:title>
+      <bib:publisher> YAMAHA Manual </bib:publisher>
+      <bib:year>1999</bib:year>
+      
+    </bib:book>
+  </bib:entry>
+
+ <bib:entry id="Ref17">
+    <bib:book>
+      <bib:author> O. Ersoy </bib:author>
+      <bib:title>Diffraction, Fourier Optics and Imaging</bib:title>
+      <bib:publisher>Wiley</bib:publisher>
+      <bib:year>2006</bib:year>
+ 
+    </bib:book>
+  </bib:entry>
+
+<bib:entry id="Ref18">
+    <bib:book>
+      <bib:author>S. Mitra</bib:author>
+      <bib:title>Digital Signal Processing: A Computer Based Approach </bib:title>
+      <bib:publisher>McGraw-Hill</bib:publisher>
+      <bib:year>2000</bib:year>
+      <bib:edition> Second Edition</bib:edition>
+    </bib:book>
+  </bib:entry>
+
+<bib:entry id="Ref19">
+    <bib:book>
+      <bib:author>N. Kehtarnavaz </bib:author>
+      <bib:title>Digital Signal Processing System-Level Design Using LabVIEW</bib:title>
+      <bib:publisher>Elsevier</bib:publisher>
+      <bib:year>2008</bib:year>
+      <bib:edition> Second Edition</bib:edition>
+    </bib:book>
+  </bib:entry>
+
+<bib:entry id="Ref20">
+    <bib:book>
+      <bib:author>J. Proakis</bib:author>
+      <bib:title> Digital Communications </bib:title>
+      <bib:publisher>McGraw-Hill</bib:publisher>
+      <bib:year>2000</bib:year>
+      <bib:edition> Fourth Edition</bib:edition>
+    </bib:book>
+  </bib:entry>
+
+
+</bib:file>
+
+
+
+
+
+</document>

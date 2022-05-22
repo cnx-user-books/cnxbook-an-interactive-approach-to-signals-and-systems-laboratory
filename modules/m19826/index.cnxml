@@ -1,0 +1,51 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>Preface</title>
+  <metadata>
+  <md:content-id>m19826</md:content-id><md:title>Preface</md:title>
+  <md:abstract/>
+  <md:uuid>c9256db7-4a8f-4985-8b92-9ebb61480d4e</md:uuid>
+</metadata>
+
+<content>
+    <para id="id26973794">A typical undergraduate electrical engineering curriculum includes a signals and systems course during which students are initially exposed to signal processing concepts such as convolution, Fourier series, Fourier transform and filtering. Laboratory components of signals and systems courses are primarily based on textual .m files. Although the ability to write textual codes is an important aspect of a lab component, students can enhance their understanding of signal processing concepts in these courses if they interactively experiment with their codes. </para>
+    <para id="id24367592"> Our motivation for writing this book has thus been to present an interactive programming approach as an alternative to the commonly practiced textual programming in signals and systems labs to provide an efficient way for students to interact and experiment with their codes. The interactivity achieved via hybrid programming, that is, a combination of textual and graphical programming, offers students a more effective tool to better understand signal processing concepts. </para>
+    <para id="id26973819"> Textual programming and graphical programming both have pros and cons. In general, math operations are easier to code in textual mode. On the other hand, graphical programming offers an easy-to-build interactive and visualization environment along with a more intuitive approach toward building signal processing systems. </para>
+    <para id="id26982420"> To bring together the preferred features of textual and graphical programming, we have designed the labs associated with a typical signals and systems course by incorporating .m files into the National Instruments LabVIEW graphical programming environment. This way, although students program the code in textual .m files, they can easily achieve interactivity and visualization in LabVIEW by just having some basic knowledge of the software. The first two labs provide an introduction to LabVIEW and MathScript (.m files) to help students become familiar with both graphical and textual programming in case they have not already done so in their earlier courses. </para>
+    <para id="id27078148"> In addition to the signal processing concepts, students cover example applications in each lab to learn how to relate concepts to actual real-world applications. The applications considered span different signal processing areas including speech processing, telecommunications and digital music synthesis. These applications provide further incentive for students to stay engaged in the labs. </para>
+    <para id="id27078159"> The chapters in this book are organized into the following labs:</para>
+    <para id="id27078166">
+      <term>1. Introduction to LabVIEW </term>
+    </para>
+    <para id="id27078173">Students gain some basic familiarity with LabVIEW, such as how to use controls, indicators and other LabVIEW graphical features, to make .m files more interactive. </para>
+    <para id="id27059096">
+      <term>2. Introduction to MathScript </term>
+    </para>
+    <para id="id27059104">If not already familiar with .m file coding, students learn the basics of this coding.</para>
+    <para id="id27059112">
+      <term>3. Convolution and Linear Time-Invariant Systems </term>
+    </para>
+    <para id="id26981933">Students experiment with convolution and linear time-invariant (LTI) systems. Due to the discrete-time nature of programming, students must make an approximation of the convolution integral. The lab, which covers convolution properties, shows how to perform numerical approximation of convolution. To apply convolution concepts, students examine an RLC circuit, and build and analyze an echo cancellation system.</para>
+    <para id="id26981947">
+      <term>4. Fourier Series and Its Applications </term>
+    </para>
+    <para id="id26981955">Students explore the representation of periodic analog signals using Fourier series and discuss the decomposition and reconstruction of periodic signals using a finite number of Fourier coefficients. To apply the concepts they have learned, students perform an RLC circuit analysis using periodic input signals. </para>
+    <para id="id27081879">
+      <term>5. Continuous-Time Fourier Transform and Its Applications</term>
+    </para>
+    <para id="id27081887">Students implement continuous-time Fourier transform (CTFT) and its properties, as well as cover amplitude modulation and high-frequency noise removal as CTFT applications. </para>
+    <para id="id27081898">
+      <term>6. Digital Signals and Their Transforms</term>
+    </para>
+    <para id="id27082919">Students explore the transforms of digital signals. In the first part of the lab, students examine analog-to-digital conversion and related issues including sampling and aliasing. In the second part, students cover the transformations consisting of discrete Fourier transform (DFT) and discrete-time Fourier transform (DTFT) and compare them to the corresponding transforms for continuous-time signals, namely Fourier series and CTFT, respectively. Students also examine applications such as dual-tone multi-frequency (DTMF) signaling for touch-tone telephones and dithering to decrease signal distortion due to digitization. </para>
+    <para id="id27082940">
+      <term>7. Analysis of Analog and Digital Systems</term>
+    </para>
+    <para id="id27059531">During the final lab, students implement the techniques and mathematical transforms they learned in the previous labs to perform analog and digital filtering. They build and analyze a square root system and a filtering system with interactive capabilities.</para>
+    <para id="id27059543">The codes and files associated with the labs in this book can be downloaded from the website at <term>www.utdallas.edu/~kehtar/signals-systems</term><emphasis effect="bold"/><emphasis>(username = signals-systems, password = laboratory)</emphasis><emphasis effect="bold">.</emphasis> Note that this book is meant only as an accompanying lab book to signals and systems textbooks and should not be used as a substitute for these textbooks.</para>
+    <para id="id14148207">We would like to express our gratitude to National Instruments, in particular its Academic Marketing Division and Mr. Erik Luther, for their support and initial publication of this book through lulu.com. We hope its publication now through Connexions would facilitate its widespread use in signals and systems laboratory courses. </para>
+    <para id="id27055768">Nasser Kehtarnavaz</para>
+    <para id="id27055772">Philipos C. Loizou</para>
+    <para id="id27055777">Mohammad T. Rahman</para>
+    <para id="id27055781"/>
+  </content>
+</document>

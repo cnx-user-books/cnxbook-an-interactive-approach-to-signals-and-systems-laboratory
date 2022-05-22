@@ -1,0 +1,120 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML">
+  <title>Lab 7: System Response, Analog and Digital Filters</title>
+  <metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m19844</md:content-id>
+  <md:title>Lab 7: System Response, Analog and Digital Filters</md:title>
+  <md:abstract/>
+  <md:uuid>d0e3965c-8ff8-4a7c-b9d0-9acabe043831</md:uuid>
+</metadata>
+
+<content>
+    <section id="id27971056">
+    
+    <title>Response of Discrete-Time Systems</title>
+       
+        <para id="id27971237"/>
+        
+        <para id="id27971341">This lab involves analyzing the response of discrete-time systems. Responses are calculated for three different kinds of inputs; impulse, step and sine. <link target-id="id27971681"/> shows the completed block diagram. Connect the input variable w to an <term>Enum Control</term> so that an input type (impulse, step or sine) can be selected. The response of this system to any discrete-time input 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>x</m:mi><m:mo stretchy="false">[</m:mo><m:mi>n</m:mi><m:mo stretchy="false">]</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{x \[ n \] } {}</m:annotation></m:semantics></m:math> can be written as</para>
+        
+        <equation id="eip-376"><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>y</m:mi><m:mo stretchy="false">[</m:mo><m:mi>n</m:mi><m:mrow><m:mo stretchy="false">]</m:mo><m:mo stretchy="false">=</m:mo><m:mrow><m:mrow><m:munder><m:mo stretchy="false">∑</m:mo><m:mstyle fontsize="8pt"><m:mrow><m:mi>i</m:mi></m:mrow></m:mstyle></m:munder><m:mrow><m:msub><m:mi>b</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>i</m:mi></m:mrow></m:mstyle></m:msub><m:mi>x</m:mi><m:mo stretchy="false">[</m:mo><m:mrow><m:mi>n</m:mi><m:mo stretchy="false">−</m:mo><m:mi>i</m:mi></m:mrow><m:mo stretchy="false">]</m:mo></m:mrow></m:mrow><m:mo stretchy="false">+</m:mo><m:mrow><m:munder><m:mo stretchy="false">∑</m:mo><m:mstyle fontsize="8pt"><m:mrow><m:mi>i</m:mi></m:mrow></m:mstyle></m:munder><m:mrow><m:msub><m:mi>a</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>i</m:mi></m:mrow></m:mstyle></m:msub><m:mi>y</m:mi><m:mo stretchy="false">[</m:mo><m:mrow><m:mi>n</m:mi><m:mo stretchy="false">−</m:mo><m:mi>i</m:mi></m:mrow><m:mo stretchy="false">]</m:mo></m:mrow></m:mrow></m:mrow></m:mrow></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{y \[ n \] = Sum cSub { size 8{i} }  {b rSub { size 8{i} } x \[ n - i \] } + Sum cSub { size 8{i} }  {a rSub { size 8{i} } y \[ n - i \] } } {}</m:annotation></m:semantics></m:math> </equation><para id="id27971645">For this example, consider five b’s and four a’s. The system output is displayed using a waveform graph.</para>
+        <para id="id27971671">
+          <figure id="id27971681"><media id="id9513008" alt=""><image src="../../media/graphics33-0096.png" mime-type="image/png" height="573" width="558"/></media><caption>Block Diagram of a Discrete-Time System</caption></figure>
+        </para>
+        
+        <para id="id27971709"> <link target-id="id27971770"/> shows the front panel of the above system. The front panel can be used to interactively select the input type and set the coefficients a and b. The system response for a particular type of input (impulse, step or sine) is shown in the waveform graph.</para>
+        <para id="id27971760">
+          <figure id="id27971770"><media id="id9538026" alt=""><image src="../../media/graphics34-52d8.png" mime-type="image/png" height="556" width="568"/></media><caption>Front Panel of a Discrete-Time System</caption></figure>
+        </para>
+        
+ 
+    </section>
+
+
+    <section id="id27971805">
+      <title>Square Root </title>
+      <para id="id27971822">As another example of discrete-time systems, let us consider taking the square root of an integer number. Often computers and calculators compute the square root of a positive number 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mi>A</m:mi></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{A} {}</m:annotation></m:semantics></m:math> using the following recursive equation:</para>
+      
+      <equation id="eip-917"><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>y</m:mi><m:mo stretchy="false">[</m:mo><m:mi>n</m:mi><m:mrow><m:mo stretchy="false">]</m:mo><m:mo stretchy="false">=</m:mo><m:mfrac><m:mn>1</m:mn><m:mn>2</m:mn></m:mfrac></m:mrow><m:mfenced open="(" close=")"><m:mrow><m:mi>y</m:mi><m:mo stretchy="false">[</m:mo><m:mrow><m:mi>n</m:mi><m:mo stretchy="false">−</m:mo><m:mn>1</m:mn></m:mrow><m:mrow><m:mo stretchy="false">]</m:mo><m:mo stretchy="false">+</m:mo><m:mfrac><m:mrow><m:mi>x</m:mi><m:mo stretchy="false">[</m:mo><m:mi>n</m:mi><m:mo stretchy="false">]</m:mo></m:mrow><m:mrow><m:mi>y</m:mi><m:mo stretchy="false">[</m:mo><m:mrow><m:mi>n</m:mi><m:mo stretchy="false">−</m:mo><m:mn>1</m:mn></m:mrow><m:mo stretchy="false">]</m:mo></m:mrow></m:mfrac></m:mrow></m:mrow></m:mfenced></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{y \[ n \] = {  {1}  over  {2} }  left (y \[ n - 1 \] + {  {x \[ n \] }  over  {y \[ n - 1 \] } }  right )} {}</m:annotation></m:semantics></m:math>  </equation><para id="id27972058">If the input 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>x</m:mi><m:mo stretchy="false">[</m:mo><m:mi>n</m:mi><m:mo stretchy="false">]</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{x \[ n \] } {}</m:annotation></m:semantics></m:math> to this equation is set as a step function of amplitude A, then 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>y</m:mi><m:mo stretchy="false">[</m:mo><m:mi>n</m:mi><m:mo stretchy="false">]</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{y \[ n \] } {}</m:annotation></m:semantics></m:math> converges to the square root of A after several iterations.</para>
+      <para id="id27973001"><link target-id="id27973073"/> shows the block diagram for a square root computation system. The number of iterations required to converge to the true value is shown in the output. The initial condition Initial value is set as a control. <link target-id="id27973113"/> shows the corresponding front panel.</para>
+      <para id="id27973063">
+        <figure id="id27973073"><media id="id9562284" alt=""><image src="../../media/graphics35-778f.png" mime-type="image/png" height="421" width="507"/></media><caption>Block Diagram of a Square Root Computation System</caption></figure>
+      </para>
+      
+      <para id="id27973102">
+        <figure id="id27973113"><media id="id9562331" alt=""><image src="../../media/graphics36-2a6a.png" mime-type="image/png" height="447" width="563"/></media><caption>Front Panel of a Square Root Computation System</caption></figure>
+      </para>
+      
+</section>
+
+      <section id="id27973142">
+<title> Analog and Digital Filtering</title>
+      <para id="id27973149">In this section, let us examine a basic analog and digital filtering example by implementing a lowpass and a highpass filter in the analog and digital domains, respectively. <link target-id="id27973291"/> shows the completed block diagram of the filtering system. For analog approximation of the signals, use a higher sampling rate (dw1=0.01). To detect whether the filtering is lowpass or highpass, use the Enum Control Analog filter type. Calculate the magnitude and phase response of these filters using equations provided in Chapter 7 for analog and digital filters. Set the values of R and C as controls, and display the responses using a Build Waveform function and a waveform graph. </para>
+      <para id="id27973278">
+        <figure id="id27973291"><media id="id9562416" alt=""><image src="../../media/graphics37-194d.png" mime-type="image/png" height="807" width="518"/></media><caption>Block Diagram of an Analog and Digital Filtering System</caption></figure>
+      </para>
+      
+      <para id="id27973320">For the digital case, use a lower sampling rate (dw2=0.001). With the Enum controls Digital filter type 1 and Digital filter type 2, select lowpass or highpass and FIR or IIR filter type. Use a Build Waveform function and a waveform graph to display the magnitude and phase responses of the digital filters. <link target-id="id27973415"/> shows the front panel of this filtering system. For a better view of magnitude response of the digital filter, set the properties of the waveform graph as shown in <link target-id="id279734150"/> .
+
+</para>
+      <para id="id27973405">
+        <figure id="id27973415"><media id="id9562479" alt=""><image src="../../media/graphics38-b232.png" mime-type="image/png" height="593" width="580"/></media><caption>Front Panel of an Analog and Digital Filtering System</caption></figure>
+      </para><para id="eip-924"><figure id="id279734150"><media id="id95624790" alt=""><image src="../../media/Figure7-12.png" mime-type="image/png" height="593" width="580"/></media><caption>Graph properties of magnitude response of digital filter</caption></figure></para>
+      
+</section>
+
+      <section id="id27973448"><title>Lab Exercises</title><exercise id="element-901"><problem id="id9538706">
+		<para id="id27973459">
+			<term>Bandpass and Bandstop Filters</term>
+		</para><para id="id27973470">Use the lowpass and highpass filters (both analog and digital) described in Analog and Digital Filtering section to construct bandpass and bandstop filters. The bandpass filter should be able to pass signals from 50 to 200 Hz and the bandstop filter should be able to stop signals from 150 to 400 Hz. Determine the values of R and C required for this analog filter design. Also, determine the values of the coefficients required for an equivalent IIR digital filter design. </para>
+	</problem>
+	<solution id="id9538748">
+		<para id="element-868">
+    Insert Solution Text Here
+  </para>
+	</solution>
+</exercise><exercise id="element-280"><problem id="id9538773">
+		<para id="id27973481">
+			<term>Noise Reduction</term>
+		</para><para id="id27973489">Use an analog lowpass filter to remove the high-frequency noise described in Noise Reduction example of Lab 5. Repeat using a digital lowpass filter.</para>
+	</problem>
+	<solution id="id9538807">
+		<para id="element-81">
+    Insert Solution Text Here
+  </para>
+	</solution>
+</exercise><exercise id="element-477"><problem id="id9538831">
+		<para id="id27973500">
+			<term>Frequency Division Multiplexing (FDM)</term>
+		</para><para id="id27973507">FDM is widely used in digital communication to simultaneously transmit multiple signals over a single wideband channel (for details, refer to <link target-id="Ref20" document="m31521"/>). For FDM communication, individual signals are multiplied with different carriers to avoid overlaps in the frequency domain. Their time domain processing and corresponding frequency spectrums are shown in <link target-id="id27973782"/>. Build a VI to implement an FDM communication system for three signals 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msub><m:mi>x</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo><m:mi>,</m:mi><m:msub><m:mi>x</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>2</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{x rSub { size 8{1} }  \( t \) ,x rSub { size 8{2} }  \( t \) } {}</m:annotation></m:semantics></m:math>and
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msub><m:mi>x</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>3</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{x rSub { size 8{3} }  \( t \) } {}</m:annotation></m:semantics></m:math>. Use the files <foreign>echo_1.wav</foreign> and <foreign>firetrucksiren.wav</foreign> on the book website and a random noise with a frequency range of 20 Hz to 20 kHz to serve as these signals.</para><figure id="id27973782"><media id="id9538988" alt=""><image src="../../media/graphics39-c2df.png" mime-type="image/png" height="508" width="703"/></media><caption>FDM Communication System</caption></figure>
+	</problem>
+	<solution id="id9539019">
+		<para id="element-24">
+    Insert Solution Text Here
+  </para>
+	</solution>
+</exercise><exercise id="element-945"><problem id="id9539043">
+		<para id="id27973811">
+	<term>FDM Detector</term>
+</para><para id="id27973819">Build a VI to implement an FDM detector system for detecting the signal 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msub><m:mi>x</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{x rSub { size 8{1} }  \( t \) } {}</m:annotation></m:semantics></m:math> as shown in  <link target-id="id27973884"/>.</para><figure id="id27973884"><media id="id9539118" alt=""><image src="../../media/graphics40-2eb9.png" mime-type="image/png" height="151" width="601"/></media><caption>FDM Detector</caption></figure>	</problem>
+	<solution id="id9401692">
+		<para id="element-293">
+    Insert Solution Text Here
+  </para>
+	</solution>
+</exercise></section>
+  </content>
+
+
+
+ 
+
+
+
+</document>

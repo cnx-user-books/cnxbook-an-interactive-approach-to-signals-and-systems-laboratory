@@ -1,0 +1,715 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML">
+  <title>Digital Signals and Their Transforms</title>
+  <metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m19834</md:content-id>
+  <md:title>Digital Signals and Their Transforms</md:title>
+  <md:abstract/>
+  <md:uuid>342ec92c-22fe-4961-adcc-40fb0983d00d</md:uuid>
+</metadata>
+
+<content>
+    <para id="id13933155"/>
+    <para id="id12955845"/>
+    <para id="id12549213">In this lab, we learn how to compute the continuous-time Fourier transform (CTFT), normally referred to as Fourier transform, numerically and examine its properties. Also, we explore noise cancellation and amplitude modulation as applications of Fourier transform. </para>
+    <para id="id13592739">In the previous labs, different mathematical transforms for processing analog or continuous-time signals were covered. Now let us explore the mathematical transforms for processing digital signals. Digital signals are sampled (discrete-time) and quantized version of analog signals. The conversion of analog-to-digital signals is implemented with an analog-to-digital (A/D) converter, and the conversion of digital-to-analog signals is implemented with a digital-to-analog (D/A) converter. In the first part of the lab, we learn how to choose an appropriate sampling frequency to achieve a proper analog-to-digital conversion. In the second part of the lab, we examine the A/D and D/A processes.</para>
+    <para id="id14696457"/>
+    <section id="id11238293"><title>Sampling and Aliasing</title><para id="id15677276">Sampling is the process of generating discrete-time samples from an analog signal. First, it is helpful to mention the relationship between analog and digital frequencies. Consider an analog sinusoidal signal 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">=</m:mo><m:mi>A</m:mi></m:mrow><m:mtext>cos</m:mtext><m:mo stretchy="false">(</m:mo><m:mrow><m:mi fontstyle="italic">ωt</m:mi><m:mo stretchy="false">+</m:mo><m:mi>φ</m:mi></m:mrow><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{x \( t \) =A"cos" \( ωt+φ \) } {}</m:annotation></m:semantics></m:math>. Sampling this signal at 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>t</m:mi><m:mo stretchy="false">=</m:mo><m:mstyle fontstyle="italic"><m:mrow><m:msub><m:mtext>nT</m:mtext><m:mstyle fontsize="8pt"><m:mrow><m:mi>s</m:mi></m:mrow></m:mstyle></m:msub></m:mrow></m:mstyle></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{t= ital "nT" rSub { size 8{s} } } {}</m:annotation></m:semantics></m:math>, with the sampling time interval of 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:msub><m:mi>T</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>s</m:mi></m:mrow></m:mstyle></m:msub></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{T rSub { size 8{s} } } {}</m:annotation></m:semantics></m:math>, generates the discrete-time signal</para>
+	<equation id="eip-940"><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>x</m:mi><m:mo stretchy="false">[</m:mo><m:mi>n</m:mi><m:mrow><m:mo stretchy="false">]</m:mo><m:mo stretchy="false">=</m:mo><m:mi>A</m:mi></m:mrow><m:mtext>cos</m:mtext><m:mo stretchy="false">(</m:mo><m:mi>ω</m:mi><m:mrow><m:mstyle fontstyle="italic"><m:mrow><m:msub><m:mtext>nT</m:mtext><m:mstyle fontsize="8pt"><m:mrow><m:mi>s</m:mi></m:mrow></m:mstyle></m:msub></m:mrow></m:mstyle><m:mo stretchy="false">+</m:mo><m:mi>φ</m:mi></m:mrow><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">=</m:mo><m:mi>A</m:mi></m:mrow><m:mtext>cos</m:mtext><m:mo stretchy="false">(</m:mo><m:mrow><m:mi fontstyle="italic">θn</m:mi><m:mo stretchy="false">+</m:mo><m:mi>φ</m:mi></m:mrow><m:mo stretchy="false">)</m:mo><m:mi>,</m:mi><m:mtable><m:mtr><m:mtd><m:mrow/></m:mtd><m:mtd><m:mrow><m:mrow><m:mi>n</m:mi><m:mo stretchy="false">=</m:mo><m:mn>0,1,2,</m:mn></m:mrow><m:mtext>.</m:mtext><m:mtext>.</m:mtext><m:mtext>.</m:mtext><m:mi>,</m:mi><m:mrow/></m:mrow></m:mtd></m:mtr></m:mtable></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{x \[ n \] =A"cos" \( ω ital "nT" rSub { size 8{s} } +φ \) =A"cos" \( θn+φ \) , matrix {
+ {} # n=0,1,2, "."  "."  "." ,{}
+} } {}</m:annotation></m:semantics></m:math>
+	</equation><para id="id13693477">where 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mrow><m:mi>θ</m:mi><m:mo stretchy="false">=</m:mo><m:msub><m:mi fontstyle="italic">ωT</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>s</m:mi></m:mrow></m:mstyle></m:msub></m:mrow><m:mo stretchy="false">=</m:mo><m:mfrac><m:mn>2πf</m:mn><m:msub><m:mi>f</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>s</m:mi></m:mrow></m:mstyle></m:msub></m:mfrac></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{θ=ωT rSub { size 8{s} } = {  {2πf}  over  {f rSub { size 8{s} } } } } {}</m:annotation></m:semantics></m:math> denotes digital frequency with units being radians (as compared to analog frequency ω with units being radians/second).</para>
+	<para id="id11117983">The difference between analog and digital frequencies is more evident by observing that the same discrete-time signal is obtained from different continuous-time signals if the product 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:msub><m:mi fontstyle="italic">ωT</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>s</m:mi></m:mrow></m:mstyle></m:msub></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ωT rSub { size 8{s} } } {}</m:annotation></m:semantics></m:math> remains the same. (An example is shown in <link target-id="id15697107"/>.) Likewise, different discrete-time signals are obtained from the same analog or continuous-time signal when the sampling frequency is changed. (An example is shown in <link target-id="id14608207"/>.) In other words, both the frequency of an analog signal 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mi>f</m:mi></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{f} {}</m:annotation></m:semantics></m:math> and the sampling frequency 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:msub><m:mi>f</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>s</m:mi></m:mrow></m:mstyle></m:msub></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{f rSub { size 8{s} } } {}</m:annotation></m:semantics></m:math> define the digital frequency 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mi>θ</m:mi></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{θ} {}</m:annotation></m:semantics></m:math>of the corresponding digital signal.</para>
+	<para id="id12249754">
+		<figure id="id15697107"><media id="id26032280" alt=""><image src="../../media/graphics14-cce1.png" mime-type="image/png" height="296" width="393"/></media><caption>Sampling of Two Different Analog Signals Leading to the Same Digital Signal</caption></figure>
+	</para>
+	<para id="id13734707">
+		<figure id="id14608207"><media id="id26032333" alt=""><image src="../../media/graphics15-a3b2.png" mime-type="image/png" height="296" width="393"/></media><caption>Sampling of the Same Analog Signal Leading to Two Different Digital Signals</caption></figure>
+	</para>
+	<para id="id14664521">It helps to understand the constraints associated with the above sampling process by examining signals in the frequency domain. The Fourier transform pairs for analog and digital signals are stated as</para>
+	
+
+
+<table id="id16472036" summary="Fourier transform pairs for analog and digital signals ">
+      <tgroup cols="2">
+        <colspec colnum="1" colname="c1"/>
+        <colspec colnum="2" colname="c2"/>
+        <tbody>
+          <row>
+            <entry>Fourier transform pair for analog signals</entry>
+            <entry>
+              <m:math>
+                <m:semantics>
+                  <m:mrow>
+                    <m:mstyle fontsize="12pt">
+                      <m:mrow>
+                        <m:mrow>
+                          <m:mo stretchy="true">{</m:mo>
+                          <m:mtable>
+                            <m:mtr>
+                              <m:mtd>
+                                <m:mrow>
+                                  <m:mi>X</m:mi>
+                                  <m:mo stretchy="false">(</m:mo>
+                                  <m:mi fontstyle="italic">jω</m:mi>
+                                  <m:mrow>
+                                    <m:mo stretchy="false">)</m:mo>
+                                    <m:mo stretchy="false">=</m:mo>
+                                    <m:mrow>
+                                      <m:msubsup>
+                                        <m:mo stretchy="false">∫</m:mo>
+                                        <m:mstyle fontsize="8pt">
+                                          <m:mrow>
+                                            <m:mrow>
+                                              <m:mo stretchy="false">−</m:mo>
+                                              <m:mo stretchy="false">∞</m:mo>
+                                            </m:mrow>
+                                          </m:mrow>
+                                        </m:mstyle>
+                                        <m:mstyle fontsize="8pt">
+                                          <m:mrow>
+                                            <m:mo stretchy="false">∞</m:mo>
+                                          </m:mrow>
+                                        </m:mstyle>
+                                      </m:msubsup>
+                                      <m:mrow>
+                                        <m:mi>x</m:mi>
+                                        <m:mo stretchy="false">(</m:mo>
+                                        <m:mi>t</m:mi>
+                                        <m:mo stretchy="false">)</m:mo>
+                                        <m:msup>
+                                          <m:mi>e</m:mi>
+                                          <m:mstyle fontsize="8pt">
+                                            <m:mrow>
+                                              <m:mrow>
+                                                <m:mo stretchy="false">−</m:mo>
+                                                <m:mi fontstyle="italic">jωt</m:mi>
+                                              </m:mrow>
+                                            </m:mrow>
+                                          </m:mstyle>
+                                        </m:msup>
+                                        <m:mstyle fontstyle="italic">
+                                          <m:mrow>
+                                            <m:mtext>dt</m:mtext>
+                                          </m:mrow>
+                                        </m:mstyle>
+                                      </m:mrow>
+                                    </m:mrow>
+                                  </m:mrow>
+                                  <m:mrow/>
+                                </m:mrow>
+                              </m:mtd>
+                            </m:mtr>
+                            <m:mtr>
+                              <m:mtd>
+                                <m:mrow>
+                                  <m:mi>x</m:mi>
+                                  <m:mo stretchy="false">(</m:mo>
+                                  <m:mi>t</m:mi>
+                                  <m:mrow>
+                                    <m:mo stretchy="false">)</m:mo>
+                                    <m:mo stretchy="false">=</m:mo>
+                                    <m:mfrac>
+                                      <m:mn>1</m:mn>
+                                      <m:mn>2π</m:mn>
+                                    </m:mfrac>
+                                  </m:mrow>
+                                  <m:mrow>
+                                    <m:msubsup>
+                                      <m:mo stretchy="false">∫</m:mo>
+                                      <m:mstyle fontsize="8pt">
+                                        <m:mrow>
+                                          <m:mrow>
+                                            <m:mo stretchy="false">−</m:mo>
+                                            <m:mo stretchy="false">∞</m:mo>
+                                          </m:mrow>
+                                        </m:mrow>
+                                      </m:mstyle>
+                                      <m:mstyle fontsize="8pt">
+                                        <m:mrow>
+                                          <m:mo stretchy="false">∞</m:mo>
+                                        </m:mrow>
+                                      </m:mstyle>
+                                    </m:msubsup>
+                                    <m:mrow>
+                                      <m:mi>X</m:mi>
+                                      <m:mo stretchy="false">(</m:mo>
+                                      <m:mi fontstyle="italic">jω</m:mi>
+                                      <m:mo stretchy="false">)</m:mo>
+                                      <m:msup>
+                                        <m:mi>e</m:mi>
+                                        <m:mstyle fontsize="8pt">
+                                          <m:mrow>
+                                            <m:mi fontstyle="italic">jωt</m:mi>
+                                          </m:mrow>
+                                        </m:mstyle>
+                                      </m:msup>
+                                      <m:mi fontstyle="italic">dω</m:mi>
+                                    </m:mrow>
+                                  </m:mrow>
+                                </m:mrow>
+                              </m:mtd>
+                            </m:mtr>
+                          </m:mtable>
+                        </m:mrow>
+                      </m:mrow>
+                    </m:mstyle>
+                    <m:mrow/>
+                  </m:mrow>
+                  <m:annotation encoding="StarMath 5.0"> size 12{ left lbrace  matrix {
+X \( jω \) = Int rSub { size 8{ -  infinity } }  rSup { size 8{ infinity } }  {x \( t \) e rSup { size 8{ - jωt} }  ital "dt"}  {} ##
+x \( t \) = {  {1}  over  {2π} }  Int rSub { size 8{ -  infinity } }  rSup { size 8{ infinity } }  {X \( jω \) e rSup { size 8{jωt} } dω} 
+}  right none } {}</m:annotation>
+                </m:semantics>
+              </m:math>
+            </entry>
+          </row>
+          <row>
+            <entry>Fourier transform pair for discrete signals</entry>
+            <entry>
+              <m:math>
+                <m:semantics>
+                  <m:mrow>
+                    <m:mstyle fontsize="12pt">
+                      <m:mrow>
+                        <m:mrow>
+                          <m:mo stretchy="true">{</m:mo>
+                          <m:mtable>
+                            <m:mtr>
+                              <m:mtd>
+                                <m:mrow>
+                                  <m:mi>X</m:mi>
+                                  <m:mo stretchy="false">(</m:mo>
+                                  <m:msup>
+                                    <m:mi>e</m:mi>
+                                    <m:mstyle fontsize="8pt">
+                                      <m:mrow>
+                                        <m:mi fontstyle="italic">jθ</m:mi>
+                                      </m:mrow>
+                                    </m:mstyle>
+                                  </m:msup>
+                                  <m:mrow>
+                                    <m:mo stretchy="false">)</m:mo>
+                                    <m:mo stretchy="false">=</m:mo>
+                                    <m:mrow>
+                                      <m:munderover>
+                                        <m:mo stretchy="false">∑</m:mo>
+                                        <m:mstyle fontsize="8pt">
+                                          <m:mrow>
+                                            <m:mrow>
+                                              <m:mi>n</m:mi>
+                                              <m:mo stretchy="false">=</m:mo>
+                                              <m:mrow>
+                                                <m:mo stretchy="false">−</m:mo>
+                                                <m:mo stretchy="false">∞</m:mo>
+                                              </m:mrow>
+                                            </m:mrow>
+                                          </m:mrow>
+                                        </m:mstyle>
+                                        <m:mstyle fontsize="8pt">
+                                          <m:mrow>
+                                            <m:mo stretchy="false">∞</m:mo>
+                                          </m:mrow>
+                                        </m:mstyle>
+                                      </m:munderover>
+                                      <m:mrow>
+                                        <m:mi>x</m:mi>
+                                        <m:mo stretchy="false">[</m:mo>
+                                        <m:mi>n</m:mi>
+                                        <m:mo stretchy="false">]</m:mo>
+                                        <m:msup>
+                                          <m:mi>e</m:mi>
+                                          <m:mstyle fontsize="8pt">
+                                            <m:mrow>
+                                              <m:mrow>
+                                                <m:mrow>
+                                                  <m:mo stretchy="false">−</m:mo>
+                                                  <m:mstyle fontstyle="italic">
+                                                    <m:mrow>
+                                                      <m:mtext>jn</m:mtext>
+                                                    </m:mrow>
+                                                  </m:mstyle>
+                                                </m:mrow>
+                                                <m:mi>θ</m:mi>
+                                              </m:mrow>
+                                            </m:mrow>
+                                          </m:mstyle>
+                                        </m:msup>
+                                      </m:mrow>
+                                    </m:mrow>
+                                  </m:mrow>
+                                  <m:mtable>
+                                    <m:mtr>
+                                      <m:mtd>
+                                        <m:mrow>
+                                          <m:mi>,</m:mi>
+                                          <m:mrow/>
+                                        </m:mrow>
+                                      </m:mtd>
+                                      <m:mtd>
+                                        <m:mrow>
+                                          <m:mrow>
+                                            <m:mi>θ</m:mi>
+                                            <m:mo stretchy="false">=</m:mo>
+                                            <m:msub>
+                                              <m:mi fontstyle="italic">ωT</m:mi>
+                                              <m:mstyle fontsize="8pt">
+                                                <m:mrow>
+                                                  <m:mi>s</m:mi>
+                                                </m:mrow>
+                                              </m:mstyle>
+                                            </m:msub>
+                                          </m:mrow>
+                                          <m:mrow/>
+                                        </m:mrow>
+                                      </m:mtd>
+                                    </m:mtr>
+                                  </m:mtable>
+                                  <m:mrow/>
+                                </m:mrow>
+                              </m:mtd>
+                            </m:mtr>
+                            <m:mtr>
+                              <m:mtd>
+                                <m:mrow>
+                                  <m:mi>x</m:mi>
+                                  <m:mo stretchy="false">[</m:mo>
+                                  <m:mi>n</m:mi>
+                                  <m:mrow>
+                                    <m:mo stretchy="false">]</m:mo>
+                                    <m:mo stretchy="false">=</m:mo>
+                                    <m:mfrac>
+                                      <m:mn>1</m:mn>
+                                      <m:mn>2π</m:mn>
+                                    </m:mfrac>
+                                  </m:mrow>
+                                  <m:mrow>
+                                    <m:msubsup>
+                                      <m:mo stretchy="false">∫</m:mo>
+                                      <m:mstyle fontsize="8pt">
+                                        <m:mrow>
+                                          <m:mrow>
+                                            <m:mo stretchy="false">−</m:mo>
+                                            <m:mi>π</m:mi>
+                                          </m:mrow>
+                                        </m:mrow>
+                                      </m:mstyle>
+                                      <m:mstyle fontsize="8pt">
+                                        <m:mrow>
+                                          <m:mi>π</m:mi>
+                                        </m:mrow>
+                                      </m:mstyle>
+                                    </m:msubsup>
+                                    <m:mrow>
+                                      <m:mi>X</m:mi>
+                                      <m:mo stretchy="false">(</m:mo>
+                                      <m:msup>
+                                        <m:mi>e</m:mi>
+                                        <m:mstyle fontsize="8pt">
+                                          <m:mrow>
+                                            <m:mi fontstyle="italic">jθ</m:mi>
+                                          </m:mrow>
+                                        </m:mstyle>
+                                      </m:msup>
+                                      <m:mo stretchy="false">)</m:mo>
+                                      <m:msup>
+                                        <m:mi>e</m:mi>
+                                        <m:mstyle fontsize="8pt">
+                                          <m:mrow>
+                                            <m:mrow>
+                                              <m:mstyle fontstyle="italic">
+                                                <m:mrow>
+                                                  <m:mtext>jn</m:mtext>
+                                                </m:mrow>
+                                              </m:mstyle>
+                                              <m:mi>θ</m:mi>
+                                            </m:mrow>
+                                          </m:mrow>
+                                        </m:mstyle>
+                                      </m:msup>
+                                      <m:mi fontstyle="italic">dθ</m:mi>
+                                    </m:mrow>
+                                  </m:mrow>
+                                </m:mrow>
+                              </m:mtd>
+                            </m:mtr>
+                          </m:mtable>
+                        </m:mrow>
+                      </m:mrow>
+                    </m:mstyle>
+                    <m:mrow/>
+                  </m:mrow>
+                  <m:annotation encoding="StarMath 5.0"> size 12{ left lbrace  matrix {
+X \( e rSup { size 8{jθ} }  \) = Sum cSub { size 8{n= -  infinity } }  cSup { size 8{ infinity } }  {x \[ n \] e rSup { size 8{ -  ital "jn"θ} } }  matrix {
+, {} # θ=ωT rSub { size 8{s} } {}
+}  {} ##
+x \[ n \] = {  {1}  over  {2π} }  Int rSub { size 8{ - π} }  rSup { size 8{π} }  {X \( e rSup { size 8{jθ} }  \) e rSup { size 8{ ital "jn"θ} } dθ} 
+}  right none } {}</m:annotation>
+                </m:semantics>
+              </m:math>
+            </entry>
+          </row>
+        </tbody>
+      </tgroup>
+<caption> Fourier transform pairs for analog and digital signals </caption>
+    </table>
+	<para id="id13706588">
+		<figure id="id13519976"><media id="id26004343" alt=""><image src="../../media/graphics16-ef6b.png" mime-type="image/png" height="360" width="526"/></media><caption>(a) Fourier Transform of a Continuous-Time Signal, (b) Its Discrete-Time Version</caption></figure>
+	</para>
+	<para id="id13908207">As illustrated in <link target-id="id13519976"/>, when an analog signal with a maximum bandwidth of 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mi>W</m:mi></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{W} {}</m:annotation></m:semantics></m:math>(or a maximum frequency of
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:msub><m:mi>f</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mtext>max</m:mtext></m:mrow></m:mstyle></m:msub></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{f rSub { size 8{"max"} } } {}</m:annotation></m:semantics></m:math>) is sampled at a rate of 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msub><m:mi>T</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>s</m:mi></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">=</m:mo><m:mfrac><m:mn>1</m:mn><m:msub><m:mi>f</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>s</m:mi></m:mrow></m:mstyle></m:msub></m:mfrac></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{T rSub { size 8{s} } = {  {1}  over  {f rSub { size 8{s} } } } } {}</m:annotation></m:semantics></m:math>, its corresponding frequency response is repeated every 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mn>2π</m:mn></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{2π} {}</m:annotation></m:semantics></m:math> radians, or
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:msub><m:mi>f</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>s</m:mi></m:mrow></m:mstyle></m:msub></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{f rSub { size 8{s} } } {}</m:annotation></m:semantics></m:math>. In other words, the Fourier transform in the digital domain becomes a periodic version of the Fourier transform in the analog domain. That is why, for discrete signals, one is interested only in the frequency range 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mfenced open="[" close="]"><m:mrow><m:mn>0,</m:mn><m:mrow><m:msub><m:mi>f</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>s</m:mi></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">/</m:mo><m:mn>2</m:mn></m:mrow></m:mrow></m:mfenced></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ left [0,f rSub { size 8{s} } /2 right ]} {}</m:annotation></m:semantics></m:math>. </para>
+	<para id="id9532714">Therefore, to avoid any aliasing or distortion of the discrete signal frequency content and to be able to recover or reconstruct the frequency content of the original analog signal, we must have
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msub><m:mi>f</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>s</m:mi></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">≥</m:mo><m:msub><m:mn>2f</m:mn><m:mstyle fontsize="8pt"><m:mrow><m:mtext>max</m:mtext></m:mrow></m:mstyle></m:msub></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{f rSub { size 8{s} }  &gt;= 2f rSub { size 8{"max"} } } {}</m:annotation></m:semantics></m:math>. This is known as the Nyquist rate. The sampling frequency should be at least twice the highest frequency in the analog signal. Normally, before any digital manipulation, a front-end anti-aliasing lowpass analog filter is used to limit the highest frequency of the analog signal.</para>
+	<para id="id13716235">Let us further examine the aliasing problem by considering an undersampled sinusoid as depicted in  <link target-id="id4897586"/> . In this figure, a 1 kHz sinusoid is sampled at 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mrow><m:msub><m:mi>f</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>s</m:mi></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">=</m:mo><m:mn>0</m:mn></m:mrow><m:mtext>.</m:mtext><m:mn>8</m:mn></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{f rSub { size 8{s} } =0 "." 8} {}</m:annotation></m:semantics></m:math>kHz, which is less than the Nyquist rate of 2 kHz. The dashed-line signal is a 200 Hz sinusoid passing through the same sample points. Thus, at the sampling frequency of 0.8 kHz, the output of an A/D converter is the same if one uses the 1 kHz or 200 Hz sinusoid as the input signal. On the other hand, oversampling a signal provides a richer description than that of the signal sampled at the Nyquist rate.</para>
+	<para id="id13600981">
+		<figure id="id4897586"><media id="id26140949" alt=""><image src="../../media/graphics17-c98a.png" mime-type="image/png" height="254" width="327"/></media><caption>Ambiguity Caused by Aliasing</caption></figure>
+	</para>
+</section>
+    <section id="id15690259">
+      <title>Quantization</title>
+      <para id="id14081126">An A/D converter has a finite number of bits (or resolution). As a result, continuous amplitude values get represented or approximated by discrete amplitude levels. The process of converting continuous into discrete amplitude levels is called quantization. This approximation leads to errors called quantization noise. The input/output characteristic of a 3-bit A/D converter is shown in <link target-id="id14295023"/> to illustrate how analog voltage values are approximated by discrete voltage levels.</para>
+      <para id="id14050350">
+        <figure id="id14295023"><media id="id26141040" alt=""><image src="../../media/graphics18-c8f2.png" mime-type="image/png" height="273" width="565"/></media><caption>Characteristic of a 3-Bit A/D Converter: (a) Input/Output Transfer Function, (b) Additive Quantization Noise</caption></figure>
+      </para>
+      
+      <para id="id15386334">Quantization interval depends on the number of quantization or resolution levels, as illustrated in <link target-id="id14172191"/>. Clearly the amount of quantization noise generated by an A/D converter depends on the size of the quantization interval. More quantization bits translate into a narrower quantization interval and, hence, into a lower amount of quantization noise.</para>
+      <para id="id11874485">
+        <figure id="id14172191"><media id="id26141110" alt=""><image src="../../media/graphics19-f8ac.png" mime-type="image/png" height="176" width="293"/></media><caption>Quantization Levels</caption></figure>
+      </para>
+      
+      <para id="id6399793">In <link target-id="id14172191"/>, the spacing Δ between two consecutive quantization levels corresponds to one least significant bit (LSB). Usually, it is assumed that quantization noise is signal-independent and is uniformly distributed over –0.5 LSB and 0.5 LSB. <link target-id="id15032365"/> also shows the quantization noise of an analog signal quantized by a 3-bit A/D converter and the corresponding bit stream. </para>
+      
+      
+      <para id="id12318328">
+        <figure id="id15032365"><media id="id26141183" alt=""><image src="../../media/graphics20-0604.png" mime-type="image/png" height="1149" width="563"/></media><caption>Quantization of an Analog Signal by a 3-Bit A/D Converter: (a) Output Signal and Quantization Error, (b) Histogram of Quantization Error, (c) Bit Stream</caption></figure>
+      </para>
+      
+    </section>
+    <section id="id13592924">
+      <title>A/D and D/A Conversions</title>
+      <para id="id6275435">Because it is not possible to have an actual analog signal within a computer programming environment, an analog sinusoidal signal is often simulated by sampling it at a very high sampling frequency. Consider the following analog sine wave: </para>
+      
+      <equation id="eip-949"><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">=</m:mo><m:mtext>cos</m:mtext></m:mrow><m:mo stretchy="false">(</m:mo><m:mn>2π</m:mn><m:mtext>1000</m:mtext><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{x \( t \) ="cos" \( 2π"1000"t \) } {}</m:annotation></m:semantics></m:math> </equation><para id="id14706686">Sample this sine wave at 40 kHz to generate 0.125 seconds of 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{x \( t \) } {}</m:annotation></m:semantics></m:math>. Note that the sampling interval, <!--Sorry, this media type is not supported.--> seconds, is very short, so 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{x \( t \) } {}</m:annotation></m:semantics></m:math> appears as an analog signal.</para>
+      <para id="id14050314">Sampling involves taking samples from an analog signal every <!--Sorry, this media type is not supported.--> seconds. The above example generates a discrete signal 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>x</m:mi><m:mo stretchy="false">[</m:mo><m:mi>n</m:mi><m:mo stretchy="false">]</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{x \[ n \] } {}</m:annotation></m:semantics></m:math> by taking one sample from the analog signal every <!--Sorry, this media type is not supported.--> seconds. To get a digital signal, apply quantization to the discrete signal. </para>
+      <para id="id16379262">According to the Nyquist theorem, an analog signal z can be reconstructed from its samples by using the following equation:</para>
+      
+      <equation id="eip-616"><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>z</m:mi><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">=</m:mo><m:mrow><m:munderover><m:mo stretchy="false">∑</m:mo><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mi>k</m:mi><m:mo stretchy="false">=</m:mo><m:mrow><m:mo stretchy="false">−</m:mo><m:mo stretchy="false">∞</m:mo></m:mrow></m:mrow></m:mrow></m:mstyle><m:mstyle fontsize="8pt"><m:mrow><m:mo stretchy="false">∞</m:mo></m:mrow></m:mstyle></m:munderover><m:mrow><m:mi>z</m:mi><m:mo stretchy="false">[</m:mo><m:mstyle fontstyle="italic"><m:mrow><m:msub><m:mtext>kT</m:mtext><m:mstyle fontsize="8pt"><m:mrow><m:mi>s</m:mi></m:mrow></m:mstyle></m:msub></m:mrow></m:mstyle></m:mrow></m:mrow></m:mrow><m:mo stretchy="false">]</m:mo><m:mtext>sin</m:mtext><m:mi>c</m:mi><m:mo stretchy="false">(</m:mo><m:mfrac><m:mrow><m:mi>t</m:mi><m:mo stretchy="false">−</m:mo><m:mstyle fontstyle="italic"><m:mrow><m:msub><m:mtext>kT</m:mtext><m:mstyle fontsize="8pt"><m:mrow><m:mi>s</m:mi></m:mrow></m:mstyle></m:msub></m:mrow></m:mstyle></m:mrow><m:msub><m:mi>T</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>s</m:mi></m:mrow></m:mstyle></m:msub></m:mfrac><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{z \( t \) = Sum cSub { size 8{k= -  infinity } }  cSup { size 8{ infinity } }  {z \[  ital "kT" rSub { size 8{s} } }  \] "sin"c \(  {  {t -  ital "kT" rSub { size 8{s} } }  over  {T rSub { size 8{s} } } }  \) } {}</m:annotation></m:semantics></m:math> </equation><para id="id13659713">This reconstruction is based on the summations of shifted sinc (sinx/x) functions.  <link target-id="id14141578"/> illustrates the reconstruction of a sine wave from its samples achieved in this manner.</para>
+      <para id="id14141572">
+        <figure id="id14141578"><media id="id26141647" alt=""><image src="../../media/graphics21-6b16.png" mime-type="image/png" height="301" width="426"/></media><caption>Reconstruction of an Analog Sine Wave Based on its Samples, 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mi>f</m:mi></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{f} {}</m:annotation></m:semantics></m:math>= 125 Hz and 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:msub><m:mi>f</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>s</m:mi></m:mrow></m:mstyle></m:msub></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{f rSub { size 8{s} } } {}</m:annotation></m:semantics></m:math>= 1 kHz</caption></figure>
+      </para>
+      
+      <para id="id11567386">It is difficult to generate sinc functions by electronic circuitry. That is why, in practice, one uses an approximation of a sinc function. <link target-id="id11559679"/> shows an approximation of a sinc function by a pulse, which is easy to realize in electronic circuitry. In fact, the well-known sample and hold circuit performs this approximation.</para>
+      <para id="id13610865">
+        <figure id="id11559679"><media id="id26141758" alt=""><image src="../../media/graphics22-d87f.png" mime-type="image/png" height="285" width="435"/></media><caption>Approximation of a Sinc Function by a Pulse</caption></figure>
+      </para>
+      
+    </section>
+    <section id="id10111965">
+      <title> DTFT and DFT</title>
+      <para id="id12268025">Fourier transformation pairs for analog and discrete signals are expressed in <link target-id="id16472036"/>. Note that the discrete-time Fourier transform (DTFT) for discrete-time signals is the counterpart to the continuous-time Fourier transform (CTFT) for continuous-time signals. Also, the discrete Fourier transform (DFT) is the counterpart to the Fourier series (FS) for continuous-time signals as shown in  <link target-id="id16472037"/> . <link target-id="id7109884"/> shows a list of these transformations and their behavior in the time and frequency domains. </para>
+      
+<table id="id16472037" summary="Fourier series pairs for analog and digital signals ">
+      <tgroup cols="2">
+        <colspec colnum="1" colname="c1"/>
+        <colspec colnum="2" colname="c2"/>
+        <tbody>
+          <row>
+            <entry>Fourier series for periodic analog signals</entry>
+            <entry><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mo stretchy="true">{</m:mo><m:mtable><m:mtr><m:mtd><m:mrow><m:mrow><m:msub><m:mi>X</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>k</m:mi></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">=</m:mo><m:mfrac><m:mn>1</m:mn><m:mi>T</m:mi></m:mfrac></m:mrow><m:mrow><m:msubsup><m:mo stretchy="false">∫</m:mo><m:mrow><m:mrow><m:mo stretchy="false">−</m:mo><m:mi>T</m:mi></m:mrow><m:mo stretchy="false">/</m:mo><m:mn>2</m:mn></m:mrow><m:mrow><m:mi>T</m:mi><m:mo stretchy="false">/</m:mo><m:mn>2</m:mn></m:mrow></m:msubsup><m:mrow><m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo><m:msup><m:mi>e</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mrow><m:mo stretchy="false">−</m:mo><m:msub><m:mi fontstyle="italic">jω</m:mi><m:mstyle fontsize="6pt"><m:mrow><m:mn>0</m:mn></m:mrow></m:mstyle></m:msub></m:mrow><m:mstyle fontstyle="italic"><m:mrow><m:mtext>kt</m:mtext></m:mrow></m:mstyle></m:mrow></m:mrow></m:mstyle></m:msup><m:mstyle fontstyle="italic"><m:mrow><m:mtext>dt</m:mtext></m:mrow></m:mstyle></m:mrow></m:mrow><m:mrow/></m:mrow></m:mtd></m:mtr><m:mtr><m:mtd><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">=</m:mo><m:mrow><m:munderover><m:mo stretchy="false">∑</m:mo><m:mrow><m:mi>k</m:mi><m:mo stretchy="false">=</m:mo><m:mrow><m:mo stretchy="false">−</m:mo><m:mo stretchy="false">∞</m:mo></m:mrow></m:mrow><m:mo stretchy="false">∞</m:mo></m:munderover><m:mrow><m:msub><m:mi>X</m:mi><m:mi>k</m:mi></m:msub><m:mstyle fontsize="12pt"><m:mrow><m:msup><m:mi>e</m:mi><m:mrow><m:msub><m:mi fontstyle="italic">jω</m:mi><m:mstyle fontsize="6pt"><m:mrow><m:mn>0</m:mn></m:mrow></m:mstyle></m:msub><m:mstyle fontstyle="italic"><m:mrow><m:mtext>kt</m:mtext></m:mrow></m:mstyle></m:mrow></m:msup></m:mrow></m:mstyle></m:mrow></m:mrow></m:mrow></m:mrow></m:mrow></m:mstyle></m:mtd></m:mtr></m:mtable></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ left lbrace  matrix {
+X rSub { size 8{k} } = {  {1}  over  {T} }  Int rSub { - T/2}  rSup {T/2}  {x \( t \) e rSup { size 8{ - jω rSub { size 6{0} }  ital "kt"} }  ital "dt"}  {} ##
+ size 12{x \( t \) = Sum cSub {k= -  infinity }  cSup { infinity }  {X rSub {k}  size 12{e rSup {jω rSub { size 6{0} }  ital "kt"} }} } 
+}  right none } {}</m:annotation></m:semantics></m:math>, where T denotes period andω<sub>0</sub> fundamental frequency</entry>
+          </row>
+          <row>
+            <entry>Discrete Fourier transform (DFT) for periodic discrete signals</entry>
+            <entry>
+              <m:math>
+                <m:semantics>
+                  <m:mrow>
+                    <m:mstyle fontsize="12pt">
+                      <m:mrow>
+                        <m:mrow>
+                          <m:mo stretchy="true">{</m:mo>
+                          <m:mtable>
+                            <m:mtr>
+                              <m:mtd>
+                                <m:mrow>
+                                  <m:mi>X</m:mi>
+                                  <m:mo stretchy="false">[</m:mo>
+                                  <m:mi>k</m:mi>
+                                  <m:mrow>
+                                    <m:mo stretchy="false">]</m:mo>
+                                    <m:mo stretchy="false">=</m:mo>
+                                    <m:mrow>
+                                      <m:munderover>
+                                        <m:mo stretchy="false">∑</m:mo>
+                                        <m:mstyle fontsize="8pt">
+                                          <m:mrow>
+                                            <m:mrow>
+                                              <m:mi>n</m:mi>
+                                              <m:mo stretchy="false">=</m:mo>
+                                              <m:mn>0</m:mn>
+                                            </m:mrow>
+                                          </m:mrow>
+                                        </m:mstyle>
+                                        <m:mstyle fontsize="8pt">
+                                          <m:mrow>
+                                            <m:mrow>
+                                              <m:mi>N</m:mi>
+                                              <m:mo stretchy="false">−</m:mo>
+                                              <m:mn>1</m:mn>
+                                            </m:mrow>
+                                          </m:mrow>
+                                        </m:mstyle>
+                                      </m:munderover>
+                                      <m:mrow>
+                                        <m:mi>x</m:mi>
+                                        <m:mo stretchy="false">[</m:mo>
+                                        <m:mi>n</m:mi>
+                                        <m:mo stretchy="false">]</m:mo>
+                                        <m:msup>
+                                          <m:mi>e</m:mi>
+                                          <m:mstyle fontsize="8pt">
+                                            <m:mrow>
+                                              <m:mrow>
+                                                <m:mrow>
+                                                  <m:mo stretchy="false">−</m:mo>
+                                                  <m:mi>j</m:mi>
+                                                </m:mrow>
+                                                <m:mfrac>
+                                                  <m:mn>2π</m:mn>
+                                                  <m:mi>N</m:mi>
+                                                </m:mfrac>
+                                                <m:mstyle fontstyle="italic">
+                                                  <m:mrow>
+                                                    <m:mtext>nk</m:mtext>
+                                                  </m:mrow>
+                                                </m:mstyle>
+                                              </m:mrow>
+                                            </m:mrow>
+                                          </m:mstyle>
+                                        </m:msup>
+                                      </m:mrow>
+                                    </m:mrow>
+                                  </m:mrow>
+                                  <m:mtable>
+                                    <m:mtr>
+                                      <m:mtd>
+                                        <m:mrow>
+                                          <m:mi>,</m:mi>
+                                          <m:mrow/>
+                                        </m:mrow>
+                                      </m:mtd>
+                                      <m:mtd>
+                                        <m:mrow>
+                                          <m:mrow>
+                                            <m:mi>k</m:mi>
+                                            <m:mo stretchy="false">=</m:mo>
+                                            <m:mn>0,1,</m:mn>
+                                          </m:mrow>
+                                          <m:mtext>.</m:mtext>
+                                          <m:mtext>.</m:mtext>
+                                          <m:mtext>.</m:mtext>
+                                          <m:mi>,</m:mi>
+                                          <m:mrow>
+                                            <m:mi>N</m:mi>
+                                            <m:mo stretchy="false">−</m:mo>
+                                            <m:mn>1</m:mn>
+                                          </m:mrow>
+                                          <m:mrow/>
+                                        </m:mrow>
+                                      </m:mtd>
+                                    </m:mtr>
+                                  </m:mtable>
+                                  <m:mrow/>
+                                </m:mrow>
+                              </m:mtd>
+                            </m:mtr>
+                            <m:mtr>
+                              <m:mtd>
+                                <m:mrow>
+                                  <m:mi>x</m:mi>
+                                  <m:mo stretchy="false">[</m:mo>
+                                  <m:mi>n</m:mi>
+                                  <m:mrow>
+                                    <m:mo stretchy="false">]</m:mo>
+                                    <m:mo stretchy="false">=</m:mo>
+                                    <m:mfrac>
+                                      <m:mn>1</m:mn>
+                                      <m:mi>N</m:mi>
+                                    </m:mfrac>
+                                  </m:mrow>
+                                  <m:mrow>
+                                    <m:munderover>
+                                      <m:mo stretchy="false">∑</m:mo>
+                                      <m:mstyle fontsize="8pt">
+                                        <m:mrow>
+                                          <m:mrow>
+                                            <m:mi>k</m:mi>
+                                            <m:mo stretchy="false">=</m:mo>
+                                            <m:mn>0</m:mn>
+                                          </m:mrow>
+                                        </m:mrow>
+                                      </m:mstyle>
+                                      <m:mstyle fontsize="8pt">
+                                        <m:mrow>
+                                          <m:mrow>
+                                            <m:mi>N</m:mi>
+                                            <m:mo stretchy="false">−</m:mo>
+                                            <m:mn>1</m:mn>
+                                          </m:mrow>
+                                        </m:mrow>
+                                      </m:mstyle>
+                                    </m:munderover>
+                                    <m:mrow>
+                                      <m:mi>X</m:mi>
+                                      <m:mo stretchy="false">[</m:mo>
+                                      <m:mi>k</m:mi>
+                                      <m:mo stretchy="false">]</m:mo>
+                                      <m:msup>
+                                        <m:mi>e</m:mi>
+                                        <m:mstyle fontsize="8pt">
+                                          <m:mrow>
+                                            <m:mrow>
+                                              <m:mi>j</m:mi>
+                                              <m:mfrac>
+                                                <m:mn>2π</m:mn>
+                                                <m:mi>N</m:mi>
+                                              </m:mfrac>
+                                              <m:mstyle fontstyle="italic">
+                                                <m:mrow>
+                                                  <m:mtext>nk</m:mtext>
+                                                </m:mrow>
+                                              </m:mstyle>
+                                            </m:mrow>
+                                          </m:mrow>
+                                        </m:mstyle>
+                                      </m:msup>
+                                      <m:mtable>
+                                        <m:mtr>
+                                          <m:mtd>
+                                            <m:mrow>
+                                              <m:mi>,</m:mi>
+                                              <m:mrow/>
+                                            </m:mrow>
+                                          </m:mtd>
+                                          <m:mtd>
+                                            <m:mrow>
+                                              <m:mrow>
+                                                <m:mi>n</m:mi>
+                                                <m:mo stretchy="false">=</m:mo>
+                                                <m:mn>0,1,</m:mn>
+                                              </m:mrow>
+                                              <m:mtext>.</m:mtext>
+                                              <m:mtext>.</m:mtext>
+                                              <m:mtext>.</m:mtext>
+                                              <m:mi>,</m:mi>
+                                              <m:mrow>
+                                                <m:mi>N</m:mi>
+                                                <m:mo stretchy="false">−</m:mo>
+                                                <m:mn>1</m:mn>
+                                              </m:mrow>
+                                              <m:mrow/>
+                                            </m:mrow>
+                                          </m:mtd>
+                                        </m:mtr>
+                                      </m:mtable>
+                                    </m:mrow>
+                                  </m:mrow>
+                                  <m:mrow/>
+                                </m:mrow>
+                              </m:mtd>
+                            </m:mtr>
+                          </m:mtable>
+                        </m:mrow>
+                      </m:mrow>
+                    </m:mstyle>
+                    <m:mrow/>
+                  </m:mrow>
+                  <m:annotation encoding="StarMath 5.0"> size 12{ left lbrace  matrix {
+X \[ k \] = Sum cSub { size 8{n=0} }  cSup { size 8{N - 1} }  {x \[ n \] e rSup { size 8{ - j {  {2π}  over  {N} }  ital "nk"} } }  matrix {
+, {} # k=0,1, "."  "."  "." ,N - 1{}
+}  {} ##
+x \[ n \] = {  {1}  over  {N} }  Sum cSub { size 8{k=0} }  cSup { size 8{N - 1} }  {X \[ k \] e rSup { size 8{j {  {2π}  over  {N} }  ital "nk"} }  matrix {
+, {} # n=0,1, "."  "."  "." ,N - 1{}
+} } {}
+}  right none } {}</m:annotation>
+                </m:semantics>
+              </m:math>
+            </entry>
+          </row>
+        </tbody>
+      </tgroup>
+
+<caption> Fourier series pairs for analog and digital signals </caption>
+    </table>
+
+
+
+
+
+      <table id="id7109884" summary=" Different Transformations for Continuous and Discrete Signals">
+<tgroup cols="3"><colspec colnum="1" colname="c1"/>
+	<colspec colnum="2" colname="c2"/>
+	<colspec colnum="3" colname="c3"/>
+	<tbody>
+		<row>
+			<entry>
+				<term>Time domain</term>
+			</entry>
+			<entry>
+				<term>Spectrum characteristics</term>
+			</entry>
+			<entry>
+				<term>Transformation type</term>
+			</entry>
+		</row>
+		<row>
+			<entry>Continuous (periodic)</entry>
+			<entry>Discrete </entry>
+			<entry>FS</entry>
+		</row>
+		<row>
+			<entry>Continuous (aperiodic)</entry>
+			<entry>Continuous</entry>
+			<entry>CTFT</entry>
+		</row>
+		<row>
+			<entry>Discrete (periodic)</entry>
+			<entry>Discrete (periodic)</entry>
+			<entry>DFT</entry>
+		</row>
+		<row>
+			<entry>Discrete (aperiodic)</entry>
+			<entry>Continuous (periodic)</entry>
+			<entry>DTFT</entry>
+		</row>
+	</tbody>
+
+</tgroup><caption> Different Transformations for Continuous and Discrete Signals</caption>
+</table>
+      
+      
+      
+      
+    </section>
+  </content>
+</document>

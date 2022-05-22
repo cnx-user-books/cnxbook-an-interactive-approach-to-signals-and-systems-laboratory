@@ -1,0 +1,216 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML">
+  <title>Lab 6: Analog-to-Digital Conversion, DTFT and DFT</title>
+  <metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m19843</md:content-id>
+  <md:title>Lab 6: Analog-to-Digital Conversion, DTFT and DFT</md:title>
+  <md:abstract/>
+  <md:uuid>5c68d8b4-1c83-4282-8fc9-86c245a4642d</md:uuid>
+</metadata>
+
+<content>
+    
+    
+    
+    <para id="id12913135"/>
+    <section id="id12913232"> 
+<title> Sampling, Aliasing, Quantization and Reconstruction </title>
+    <para id="id12913240">The example in this section addresses sampling, quantization, aliasing and signal reconstruction concepts. <link target-id="id12913693"/> shows the completed block diagram of this example, where the following four control parameters are linked to a LabVIEW MathScript node:</para>
+    <para id="id12913274">Amplitude – to control the amplitude of an input sine wave</para>
+    <para id="id12913291">Phase – to control the phase of the input signal</para>
+    <para id="id12913307">Frequency – to control the frequency of the input signal</para>
+    <para id="id12913324">Sampling frequency – to control the sampling rate of the corresponding discrete signal</para>
+    <para id="id12913341">Number of quantization levels – to control the number of quantization levels of the corresponding digital signal</para>
+    <para id="id12913358"> To simulate the analog signal via a .m file, consider a very small value of time increment dt (dt = 0.001). To create a discrete signal, sample the analog signal at a rate controlled by the sampling frequency. To simulate the analog signal, use the textual statement <code display="inline">xa=sin(2*pi*f*t)</code>, where t is a vector with increment dt = 0.001. To simulate the discrete signal, use the textual statement <code display="inline">xd=sin(2*pi*f*n)</code>, where n is a vector with increment dn. The ratio dn/dt indicates the number of samples skipped during the sampling process. Again, the ratio of analog frequency to sampling frequency is known as digital or normalized frequency. To convert the discrete signal into a digital one, perform quantization using the LabVIEW MathScript function <code display="inline">round</code>. Set the number of quantization levels as a control. </para>
+    <para id="id12913536">To reconstruct the analog signal from the digital one, use a linear interpolation technique via the LabVIEW MathScript function <code display="inline">interp</code><code display="inline">1</code>. The samples skipped during the sampling process can be recovered after the interpolation. Finally, display the Original signal and the Reconstructed signal in the same graph using the functions Build Waveform, Merge Signal and Waveform Graph. Discrete waveform, Digital waveform, Analog frequency, Digital frequency and Number of samples skipped in ADC are also included in the front panel, shown in  <link target-id="id12913732"/>. Use this VI to examine proper signal sampling and reconstruction.</para>
+    <figure id="id12913693"><media id="id10883782" alt=""><image src="../../media/graphics33-fe63.png" mime-type="image/png" height="469" width="565"/></media><caption>Block Diagram of Sampling, Aliasing, Quantization and Reconstruction</caption></figure>
+    
+    <para id="id12913722">
+      <figure id="id12913732"><media id="id8111527" alt=""><image src="../../media/graphics34-6a76.png" mime-type="image/png" height="817" width="573"/></media><caption>Front Panel of Sampling, Aliasing, Quantization and Reconstruction</caption></figure>
+    </para>
+    
+
+    <section id="id12913765">
+<title> Analog and Digital Frequency</title>
+    <para id="id12913773">Digital frequency (
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mi>θ</m:mi></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{θ} {}</m:annotation></m:semantics></m:math>) is related to analog frequency (
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mi>f</m:mi></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{f} {}</m:annotation></m:semantics></m:math>) via the sampling frequency, that is, 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>θ</m:mi><m:mo stretchy="false">=</m:mo><m:mfrac><m:mn>2πf</m:mn><m:msub><m:mi>f</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>s</m:mi></m:mrow></m:mstyle></m:msub></m:mfrac></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{θ= {  {2πf}  over  {f rSub { size 8{s} } } } } {}</m:annotation></m:semantics></m:math>. Therefore, one can choose the sampling frequency (
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:msub><m:mi>f</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>s</m:mi></m:mrow></m:mstyle></m:msub></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{f rSub { size 8{s} } } {}</m:annotation></m:semantics></m:math>) to increase the digital or normalized frequency of an analog signal by lowering the number of samples. </para>
+</section>
+
+    <section id="id15078578">
+<title> Aliasing </title>
+    <para id="id15078582">Set the sampling frequency to 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msub><m:mi>f</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>s</m:mi></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">=</m:mo><m:mtext>100</m:mtext></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{f rSub { size 8{s} } ="100"} {}</m:annotation></m:semantics></m:math>Hz and change the analog frequency of the signal. Observe the output for 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msub><m:mi>f</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>s</m:mi></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">=</m:mo><m:mtext>10</m:mtext></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{f rSub { size 8{s} } ="10"} {}</m:annotation></m:semantics></m:math>Hz and
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msub><m:mi>f</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>s</m:mi></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">=</m:mo><m:mtext>210</m:mtext></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{f rSub { size 8{s} } ="210"} {}</m:annotation></m:semantics></m:math>Hz (See <link target-id="id15078890"/> and <link target-id="id15078971"/>). The analog signals appear entirely different in these two cases but the discrete signals are similar. For the second case, the sampling frequency is less than twice that of the analog signal frequency. This violates the Nyquist sampling rate leading to aliasing, which means one does not know from which analog signal the digital signal is created. Note the value of digital frequency is 0.1 radians for the first case and 2.1 radians for the second case. To prevent any aliasing, keep the digital frequency less than 0.5 radians. </para>
+    <para id="id15078880">
+      <figure id="id15078890"><media id="id10880567" alt=""><image src="../../media/graphics35-8e3d.png" mime-type="image/png" height="711" width="551"/></media><caption>Analog and Discrete Waveforms with fs = 100 Hz and f = 10 Hz</caption></figure>
+    </para>
+    
+    
+    <para id="id15078958">
+      <figure id="id15078971"><media id="id8116933" alt=""><image src="../../media/graphics36-2967.png" mime-type="image/png" height="711" width="531"/></media><caption>Analog and Discrete Waveforms with fs = 100 Hz and f = 210 Hz</caption></figure>
+    </para>
+    
+</section>
+
+
+    <section id="id15079031">
+<title> Quantization</title>
+    <para id="id15079035">Now change the Number of quantization levels for some fixed values of Frequency and Sampling Frequency. As the number of quantization levels is increased, the Digital waveform becomes smoother and a smaller amount of quantization error or noise is generated.</para>
+    <para id="id15079084">
+      <figure id="id15079090"><media id="id8131433" alt=""><image src="../../media/graphics37-a1ee.png" mime-type="image/png" height="808" width="535"/></media><caption>Digital Waveform with Different Numbers of Quantization Levels: (a) 8, (b) 6, (c) 32</caption></figure>
+    </para>
+    
+</section>
+
+
+    <section id="id15079130">
+<title> Signal Reconstruction</title>
+    <para id="id15079135">Next, set the frequency 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>f</m:mi><m:mo stretchy="false">=</m:mo><m:mtext>100</m:mtext></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{f="100"} {}</m:annotation></m:semantics></m:math>Hz and vary the sampling frequency. Observe the reconstructed waveform. <link target-id="id15079228"/> shows the reconstructed signals for three different values of skipped samples. If the sampling frequency is increased, fewer samples are skipped during the analog-to-digital conversion, which makes the reconstruction process more accurate. </para>
+    <para id="id15079222">
+      <figure id="id15079228"><media id="id8131547" alt=""><image src="../../media/graphics38-e327.png" mime-type="image/png" height="790" width="405"/></media><caption>Signal Reconstruction with Different Number of Samples Skipped in ADC: (a) 20, (b)10, (c) 5</caption></figure>
+    </para>
+    
+</section>
+</section>
+
+
+    <section id="id15079265"> <title>DTFT and DFT</title>
+    <para id="id15079274">In this example, let us compute and compare the DTFT and DFT of digital signals with the CTFT and FS of analog signals. <link target-id="id15079497"/> illustrates the completed block diagram of this transform comparison system. As discussed previously, to simulate an analog signal, consider a small time interval
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mo stretchy="false">(</m:mo><m:mrow><m:mstyle fontstyle="italic"><m:mrow><m:mtext>dt</m:mtext></m:mrow></m:mstyle><m:mo stretchy="false">=</m:mo><m:mn>0</m:mn></m:mrow><m:mtext>.</m:mtext><m:mtext>001</m:mtext><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ \(  ital "dt"=0 "." "001" \) } {}</m:annotation></m:semantics></m:math>. The corresponding discrete signal is considered to be the same signal with a larger time interval
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mo stretchy="false">(</m:mo><m:mstyle fontstyle="italic"><m:mrow><m:mtext>dt</m:mtext></m:mrow></m:mstyle><m:mrow><m:mn>1</m:mn><m:mo stretchy="false">=</m:mo><m:mn>0</m:mn></m:mrow><m:mtext>.</m:mtext><m:mtext>01</m:mtext><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ \(  ital "dt"1=0 "." "01" \) } {}</m:annotation></m:semantics></m:math>. </para>
+    <para id="id15079486">
+      <figure id="id15079497"><media id="id8131727" alt=""><image src="../../media/graphics39-c55d.png" mime-type="image/png" height="721" width="565"/></media><caption>Block Diagram of a DTFT and DFT Transformation System</caption></figure>
+    </para>
+    
+    <para id="id15079526">Generate a periodic square wave with the time period 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mrow><m:mi>T</m:mi><m:mo stretchy="false">=</m:mo><m:mn>0</m:mn></m:mrow><m:mtext>.</m:mtext><m:mn>1</m:mn></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{T=0 "." 1} {}</m:annotation></m:semantics></m:math>. Connect the input variable mode to an Enum Control to make the signal periodic or aperiodic. If the signal is periodic (case 0), compute the FS of the analog signal and the DFT of the digital signal using the <code display="inline">fft</code> function over one period of the signal. For aperiodic signals, only one period of the square wave is considered and the remaining portion is padded with zeros. For aperiodic signals, the transformations are CTFT (for analog signals) and DTFT (for digital signals), which are computed using the <code display="inline">fft</code> function. In fact, this function provides a computationally efficient implementation of the DFT transformation for periodic discrete-time signals. However, because simulated analog signals are actually discrete with a small time interval, this function is also used to compute the Fourier series for continuous-time signals. Because DFT requires periodicity, one needs to treat aperiodic signals as periodic with a period 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>T</m:mi><m:mo stretchy="false">=</m:mo><m:mo stretchy="false">∞</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{T= infinity } {}</m:annotation></m:semantics></m:math>to apply this useful function. That is why the <code display="inline">fft</code> function is also used for aperiodic signals to compute CTFT and DTFT (as done in the earlier labs). However, in practice, it should be noted that the period of the zero padded signal is not infinite but assumed long enough to obtain a close approximation. Apply the same approach to the computation of CTFT and DTFT. Because DTFT is periodic in the frequency domain, for digital signals, repeat the frequency representation using the textual statement <code display="inline">yd=repmat(</code><code display="inline">yd,1,9)</code>, noting that the <code display="inline">fft</code> function computes the transformation for one period only. </para>
+    <para id="id15079780">
+      <figure id="id15079787"><media id="id8131932" alt=""><image src="../../media/graphics40-8fd8.png" mime-type="image/png" height="667" width="575"/></media><caption>Front Panel of a DTFT and DFT Transformation System: Aperiodic Signal </caption></figure>
+    </para>
+    
+    <para id="id15079857"/>
+    <para id="id15079864">
+      <figure id="id15079870"><media id="id8126631" alt=""><image src="../../media/graphics41.png" mime-type="image/png" height="667" width="575"/></media><caption>Front Panel of a DTFT and DFT Transformation System: Periodic Signal</caption></figure>
+    </para>
+    
+    <para id="id15079935"><link target-id="id15079787"/> and <link target-id="id15079870"/> illustrates the front panel of the above transformation system. It shows the Analog signal and Discrete signal in the time and frequency domains using two waveform graphs. The transformation type is also shown in the front panel for both of the signals. </para>
+</section>
+
+    <section id="id15080003">
+     <title> Telephone Signal </title>
+    <para id="id15080008">Now let us examine a DFT application. In a touch-tone dialing system, the pressing of each button generates a unique set of two-tone signals, called dual-tone multi-frequency (DTMF) signals. A telephone central office processes these signals to identify the number a user presses. The tone frequency assignments for touch-tone dialing are shown in <link target-id="id15080056"/>. </para>
+    <para id="id15080043"/>
+    <para id="id15080049">
+      <figure id="id15080056"><media id="id8126745" alt=""><image src="../../media/graphics42.png" mime-type="image/png" height="356" width="398"/></media><caption>Frequency Assignments for Touch-Tone Dialing</caption></figure>
+    </para>
+    
+    <para id="id15080092">The sound heard when a key is pressed is a signal composed of two sine waves. That is</para>
+    
+    
+    <equation id="eip-828"><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">=</m:mo><m:mtext>sin</m:mtext></m:mrow><m:mo stretchy="false">(</m:mo><m:msub><m:mn>2πf</m:mn><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub><m:mi>t</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">+</m:mo><m:mtext>sin</m:mtext></m:mrow><m:mo stretchy="false">(</m:mo><m:msub><m:mn>2πf</m:mn><m:mstyle fontsize="8pt"><m:mrow><m:mn>2</m:mn></m:mrow></m:mstyle></m:msub><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{x \( t \) ="sin" \( 2πf rSub { size 8{1} } t \) +"sin" \( 2πf rSub { size 8{2} } t \) } {}</m:annotation></m:semantics></m:math>   </equation><para id="id15080242">For example, when a caller presses 1, the corresponding signal is</para>
+    
+    <equation id="eip-311"><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msub><m:mi>x</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">=</m:mo><m:mtext>sin</m:mtext></m:mrow><m:mo stretchy="false">(</m:mo><m:mn>2π</m:mn><m:mtext>697</m:mtext><m:mi>t</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">+</m:mo><m:mtext>sin</m:mtext></m:mrow><m:mo stretchy="false">(</m:mo><m:mn>2π</m:mn><m:mtext>1209</m:mtext><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{x rSub { size 8{1} }  \( t \) ="sin" \( 2π"697"t \) +"sin" \( 2π"1209"t \) } {}</m:annotation></m:semantics></m:math></equation><para id="id15080386">Other than touch-tone signals, modern telephone systems use DTMF event signals for dial tone, busy tone and ringing tone. Table 1 lists the frequency and timing for standard DTMF event signals. </para>
+    <table id="id15080397" summary="DTMF Event Signals">
+<tgroup cols="3"><colspec colnum="1" colname="c1"/>
+	<colspec colnum="2" colname="c2"/>
+	<colspec colnum="3" colname="c3"/>
+	<tbody>
+		<row>
+			<entry><term> Tone type </term></entry>
+			<entry> <term> Frequency </term></entry>
+			<entry> <term> Timing </term> </entry>
+		</row>
+		<row>
+			<entry>Dial tone</entry>
+			<entry>350 and 440 Hz</entry>
+			<entry>Continuous</entry>
+		</row>
+		<row>
+			<entry>Ringing tone</entry>
+			<entry>480 and 620 Hz</entry>
+			<entry>Repeating cycles of 2 s on, 4 s off</entry>
+		</row>
+		<row>
+			<entry>Busy tone</entry>
+			<entry>480 and 620 Hz</entry>
+			<entry>0.5 s on, 0.5 s off</entry>
+		</row>
+	</tbody>
+
+</tgroup><caption>DTMF Event Signals</caption>
+</table>
+    <para id="id14513574"/>
+    
+    <para id="id14513584"> In this application, let us examine the touch-tone dialing system of a digital telephone. Ten input variables 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mo stretchy="false">(</m:mo><m:msub><m:mi>k</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>0</m:mn></m:mrow></m:mstyle></m:msub><m:mi>,</m:mi><m:msub><m:mi>k</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub><m:mi>,</m:mi><m:mtext>.</m:mtext><m:mtext>.</m:mtext><m:mtext>.</m:mtext><m:mtext>.</m:mtext><m:mtext>.</m:mtext><m:mi>,</m:mi><m:msub><m:mi>k</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>9</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ \( k rSub { size 8{0} } ,k rSub { size 8{1} } , "."  "."  "."  "."  "." ,k rSub { size 8{9} }  \) } {}</m:annotation></m:semantics></m:math>are assigned to the telephone keys 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mo stretchy="false">(</m:mo><m:mn>0,1,</m:mn><m:mtext>.</m:mtext><m:mtext>.</m:mtext><m:mtext>.</m:mtext><m:mtext>.</m:mtext><m:mtext>.</m:mtext><m:mi>,</m:mi><m:mn>9</m:mn><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ \( 0,1, "."  "."  "."  "."  "." ,9 \) } {}</m:annotation></m:semantics></m:math>. Each input is connected to a Boolean control. Different types of Boolean controls can be created on the front panel. For this application, use <term>OK Buttons</term><emphasis>(Controls </emphasis><emphasis>→</emphasis><emphasis> Modern </emphasis><emphasis>→</emphasis><emphasis> Boolean </emphasis><emphasis>→</emphasis><emphasis> OK)</emphasis>, each of which is marked with a number from 0 to 9. The selected operation properties of an <term>OK Button</term> is “Switch until released,” as shown in <link target-id="id14513932"/>. This ensures that the corresponding signal gets generated when a key is pressed and gets back into its initial position when the key is released. </para>
+    <figure id="id14513932"><media id="id11100582" alt=""><image src="../../media/graphics43.png" mime-type="image/png" height="487" width="492"/></media><caption>Operation Properties of an OK Button</caption></figure>
+    
+    <para id="id14513960"/>
+    <para id="id14513964">Use another input variable, 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:msub><m:mi>k</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mtext>10</m:mtext></m:mrow></m:mstyle></m:msub></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{k rSub { size 8{"10"} } } {}</m:annotation></m:semantics></m:math>, to act as a counter to count the number of times the keys are pressed. At the beginning, when no key is pressed, the value of 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:msub><m:mi>k</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mtext>10</m:mtext></m:mrow></m:mstyle></m:msub></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{k rSub { size 8{"10"} } } {}</m:annotation></m:semantics></m:math>is zero and the system returns the dial tone (350 and 440 Hz continuous tone). When the value of 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:msub><m:mi>k</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mtext>10</m:mtext></m:mrow></m:mstyle></m:msub></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{k rSub { size 8{"10"} } } {}</m:annotation></m:semantics></m:math>is equal to 10, meaning that the keys were pressed for a total of 10 times, the system assumes that a valid phone number is dialed and returns the busy tone or ringing tone. Connect all the Boolean inputs 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mo stretchy="false">(</m:mo><m:msub><m:mi>k</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>0</m:mn></m:mrow></m:mstyle></m:msub><m:mi>,</m:mi><m:msub><m:mi>k</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub><m:mi>,</m:mi><m:mtext>.</m:mtext><m:mtext>.</m:mtext><m:mtext>.</m:mtext><m:mtext>.</m:mtext><m:mtext>.</m:mtext><m:mi>,</m:mi><m:msub><m:mi>k</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>9</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ \( k rSub { size 8{0} } ,k rSub { size 8{1} } , "."  "."  "."  "."  "." ,k rSub { size 8{9} }  \) } {}</m:annotation></m:semantics></m:math> to a <term>Compound Arithmatic</term> function <emphasis>(Functions </emphasis><emphasis>→</emphasis><emphasis> Programming </emphasis><emphasis>→</emphasis><emphasis> Boolean </emphasis><emphasis>→</emphasis><emphasis> Compound Arithmatic)</emphasis> and select the OR mode. The output of this function becomes true(1) if any number key is pressed. The result is connected to the Case selector input of a case structure. The input variable <!--Sorry, this media type is not supported.-->is also connected to the case structure. For true case, 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:msub><m:mi>k</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mtext>10</m:mtext></m:mrow></m:mstyle></m:msub></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{k rSub { size 8{"10"} } } {}</m:annotation></m:semantics></m:math>is connected to an <term>Increment</term> function <emphasis>(Functions</emphasis><emphasis>→</emphasis><emphasis>Programming </emphasis><emphasis>→</emphasis><emphasis>Numeric </emphasis><emphasis>→</emphasis><emphasis>Increment)</emphasis> and for the false case, it is kept unchanged. The entire system is wrapped inside a <term>W</term><term>hile </term><term>L</term><term>oop</term><emphasis>(Functions </emphasis><emphasis>→</emphasis><emphasis>Programming </emphasis><emphasis>→</emphasis><emphasis>Structures </emphasis><emphasis>→</emphasis><emphasis>While Loop)</emphasis>. The output of the case structure is then connected to a <term>Greater or Equal</term> function <emphasis>(Functions </emphasis><emphasis>→</emphasis><emphasis>Programming </emphasis><emphasis>→</emphasis><emphasis>Comparison </emphasis><emphasis>→</emphasis><emphasis>Greater or Equal)</emphasis> to ensure that the program exits from the while loop when <!--Sorry, this media type is not supported.-->is greater than or equal to 10. The system shows the ringing tone or busy tone in the graph and plays the waveform. <link target-id="id14514966"/> shows the completed block diagram of the touch-tone telephone system.</para>
+    <para id="id14514956">
+      <figure id="id14514966"><media id="id11101094" alt=""><image src="../../media/graphics44.png" mime-type="image/png" height="800" width="575"/></media><caption>Block Diagram of Touch-Tone Telephone System </caption></figure>
+    </para>
+    
+    <para id="id14515002"><link target-id="id14515047"/> shows the front panel of the touch-tone telephone system. When the program is run, one can hear the dial tone and see the signal displayed in the upper waveform graph. As soon as any number key is pressed, the dial tone is stopped and the corresponding key pad tone is heard and displayed. When keys are pressed 10 times (a valid phone number), the system plays the ringing tone or busy tone depending on the setting and displays the tone in the lower waveform graph. </para>
+    <figure id="id14515047"><media id="id11101156" alt=""><image src="../../media/graphics45.png" mime-type="image/png" height="664" width="584"/></media><caption>Front Panel of a Touch-Tone Telephone System</caption></figure>
+    
+    <para id="id14515076"/>
+</section>
+
+    <section id="id14515088"><title> Lab Exercises</title><exercise id="element-508"><problem id="id11101224">
+		<para id="id14515096">
+			<term>Dithering</term>
+		</para><para id="id14515107">Dithering is a method of decreasing the distortion of a low-frequency signal due to signal digitization <link target-id="Ref18" document="m31521"/>. Dithering works best when the sample rate is high in comparison with the rate at which the signal changes.</para><para id="id14515115">To see how this works, consider a slowly varying signal and its digitization, shown in <link target-id="id14515232"/>(a). If noise is added to the original signal amplitude roughly at one half the step size, the signal will look like <link target-id="id14515232"/>(b). If the digitized signal is passed through a resistor-capacitor circuit to smooth it out, an approximation to the original signal can be recovered. There is no theoretical limit to the accuracy possible with this method as long as the sampling rate is high enough.</para><para id="id14515206">Design a system to analyze the dithering technique. First, show the digitized and smoothed signal without dithering. Then, add random noise to the input signal (noise level should not exceed 50 percent of the step size of the digitized signal) and show the digitized and smoothed version. Measure the maximum and average error between the original signal and recovered signal.</para><para id="id14515219"/><para id="id14515226">
+			<figure id="id14515232"><media id="id11101325" alt=""><image src="../../media/graphics46.png" mime-type="image/png" height="412" width="487"/></media><caption>Processing at One Half-Step Size: (a) From Top, the Original, Digitized and Smoothed Signal without Dithering, (b) From Top, the Noise Added, Digitized and Smoothed Signal with Dithering</caption></figure>
+		</para>
+	</problem>
+	<solution id="id11101361">
+		<para id="element-711">
+    Insert Solution Text Here
+  </para>
+	</solution>
+</exercise><exercise id="element-141"><problem id="id11101390">
+		<para id="id14515274">
+			<term>Image Processing</term>
+		</para><para id="id14515285">DFT is widely used in image processing for edge detection. A digital image is a two-dimensional signal that can get stored and processed as a two-dimensional (2D) array. In the frequency domain, with the center denoting (0,0) frequency, the center portion of this 2D array contains the low-frequency components of the 2D signal or image. The edges in the image can be extracted by removing the low-frequency components. </para><para id="id14515300"> Read and display the image file <foreign>image1.jpg</foreign> provided on the book website. Then, complete the following steps:</para><list id="id14515318" list-type="enumerated">
+			<item>Compute and display the 2D DFT of the image using the LabVIEW MathScript functions <code display="inline">fft2</code> and <code display="inline">fftshift</code>.</item>
+			<item>Remove the low-frequency components of the image. A user-controlled threshold can be specified to remove a varying amount of the low-frequency components.</item>
+			<item>Compute and display the inverse 2D DFT of the image using the LabVIEW MathScript functions <code display="inline">ifft2</code> and <code display="inline">fftshift</code>. The processed image should reflect the edges in the original image.</item>
+		</list>
+	</problem>
+	<solution id="id11101535">
+		<para id="element-39">
+    Insert Solution Text Here
+  </para>
+	</solution>
+</exercise>
+
+<exercise id="element-773"><problem id="id11101564">
+		<para id="id14515390">
+	<term>DTMF Decoder </term>
+</para><para id="id14515398">Design a decoder VI for the DTMF system described in Telephone Signal section. The VI should be capable of reading the touchtone signal as its input and display the corresponding decoded key number as its output.</para><para id="id14515405"/>	</problem>
+	<solution id="id11101613">
+		<para id="element-465">
+    Insert Solution Text Here
+  </para>
+	</solution>
+</exercise></section>
+  </content>
+
+
+
+
+
+
+</document>

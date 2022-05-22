@@ -1,0 +1,864 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML">
+  <title>Lab 5: CTFT and Its Applications</title>
+  <metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m19842</md:content-id>
+  <md:title>Lab 5: CTFT and Its Applications</md:title>
+  <md:abstract/>
+  <md:uuid>142d1d34-6373-4f40-8ad5-bec7edee73fe</md:uuid>
+</metadata>
+
+<content>
+    <para id="id18269132"/>
+    <section id="id18269142">
+      <title>Properties of CTFT</title>
+      <para id="id18269246">The example covered in this section provides an implementation of CTFT and its properties. As mentioned earlier, programming environments can generate and work with only discrete values arranged in arrays. Thus, to get a continuous-time representation of a signal, use a very small value of time increment dt. For example, dt=0.001 means there are 1000 discrete samples in 1 second, which provides a good approximation to represent a low-frequency signal. However, when working with very high-frequency signals, one should decrease the value of dt further to ensure there are enough samples to represent the signal in a continuous fashion over a specified duration.</para>
+      <para id="id18269359"><link target-id="id17714134"/> shows the example of the completed block diagram for the CTFT (or FT) and its properties. This particular VI is capable of finding the FT of a rectangular and a triangular pulse. Create two input signals using the LabVIEW MathScript functions ones and zeros, which are combined in the time domain. Use a case structure to select the combination method (linear combination, convolution or multiplication) and the parameter mode1 to serve as an input that is connected to an <term>Enum Control</term><emphasis>(Controls </emphasis><emphasis>→</emphasis><emphasis> Modern</emphasis><emphasis>→</emphasis><emphasis>Ring &amp; Enum </emphasis><emphasis>→</emphasis><emphasis>Enum)</emphasis>. Use parameters mode3 and mode4, which are connected to two Enum controls, to select the input signal type. Also set Pulse width, Time shift and Time scale as control parameters. Pulse width controls the number of ones in the pulse, which is used to increase or decrease the pulse width. Time shift adds zeros before the pulse to provide a time delay. Time scale is set to be multiplied with the time increment (dt) to ensure appropriate scaling of the pulse. Use the LabVIEW MathScript function <code display="inline">fft</code> to determine the FT of the continuous signal. Combine the signals in the frequency domain and control the combination method (linear combination, convolution or multiplication) via the parameter mode2. Compute the FT of the time domain combinations and the inverse FT of the frequency domain combinations using the functions <code display="inline">fft</code> and <code display="inline">ifft</code>. To shift the zero-frequency component to the center of the spectrum, use the LabVIEW MathScript function <code display="inline">fftshift</code>. Finally, determine the magnitude and phase of the FT using the functions <code display="inline">abs</code> and <code display="inline">angle</code>, respectively. Display the input signals and their combinations using a <term>Build Waveform</term> function <emphasis>(Functions → </emphasis><emphasis> Programming </emphasis><emphasis>→</emphasis><emphasis>Waveforms </emphasis><emphasis>→</emphasis><emphasis>Build Waveforms)</emphasis> and a <term>W</term><term>aveform </term><term>G</term><term>raph</term><emphasis>(Controls </emphasis><emphasis>→</emphasis><emphasis>Modern </emphasis><emphasis>→</emphasis><emphasis>Graph </emphasis><emphasis>→</emphasis><emphasis>Waveform Graph)</emphasis>. Also, display the spectrum magnitude and phase using a waveform graph. </para>
+      <para id="id17714127">
+        <figure id="id17714134"><media id="id18258575" alt=""><image src="../../media/graphics15-da9b.png" mime-type="image/png" height="991" width="740"/></media><caption>Block Diagram of CTFT and Its Properties</caption></figure>
+      </para>
+      
+      <para id="id17714165"> <link target-id="id17714276"/> and <link target-id="id17714328"/> shows the front panel of the above system. Use controls named Pulse width, Time shift and Time scaling to change the waveforms in the time domain. Three waveform graphs for Input signal, Magnitude of FT and Phase of FT also appear in the front panel shown. With the specified front panel controls, one can easily verify CTFT properties. To begin with, run the program in continuous mode using the <term>Run Continuously</term> button. </para>
+      <para id="id17714265">
+        <figure id="id17714276"><media id="id18303973" alt=""><image src="../../media/graphics16-ca7a.png" mime-type="image/png" height="830" width="567"/></media><caption>Front Panel of CTFT and Its Properties: Input Signals Tab</caption></figure>
+      </para>
+      
+      <para id="id17714319">
+        <figure id="id17714328"><media id="id15750120" alt=""><image src="../../media/graphics17-79b2.png" mime-type="image/png" height="830" width="567"/></media><caption>Front Panel of CTFT and Its Properties: Combination of Input Signals Tab</caption></figure>
+      </para>
+      
+   
+    <section id="id17714386">
+      <title>Varying Pulse Width</title>
+      <para id="id17714403">Keep the default values of Time shift (=0) and Time scaling (=1) and vary the Pulse width of the rectangular pulse. First, set the value of the Pulse width to its minimum value (=0.01) and then increase it. Observe that increasing the Pulse width in the time domain decrements the width in the frequency domain (see <link target-id="id17714625"/> ). When the Pulse width is set to its maximum value (=1) in the frequency domain, only one value can be seen at the center frequency indicating the signal is of DC type (refer to Properties of CTFT section of Chapter 5).</para>
+      <para id="id17714618">
+        <figure id="id17714625"><media id="id18321799" alt=""><image src="../../media/graphics18-e00a.png" mime-type="image/png" height="1054" width="543"/></media><caption>Magnitude Spectrum for Different Pulse Widths: (a) 0.01, (b) 0.2, (c) 0.5, (d) 1</caption></figure>
+      </para>
+      
+    </section>
+
+    <section id="id17714667">
+      <title>Time Shift</title>
+      <para id="id17714684">Next, for a fixed pulse width, vary the time shift. Observe that the phase spectrum changes but the magnitude spectrum remains the same. If the signal <m:math>
+		<m:semantics>
+			<m:mrow>
+				<m:mstyle fontsize="12pt">
+					<m:mrow>
+						<m:mrow>
+							<m:mi>x</m:mi>
+							<m:mo stretchy="false">(</m:mo>
+							<m:mi>t</m:mi>
+							<m:mo stretchy="false">)</m:mo>
+						</m:mrow>
+					</m:mrow>
+				</m:mstyle>
+				<m:mrow/>
+			</m:mrow>
+			<m:annotation encoding="StarMath 5.0"> size 12{x \( t \) } {}</m:annotation>
+		</m:semantics>
+	</m:math>
+is shifted by a constant <m:math>
+		<m:semantics>
+			<m:mrow>
+				<m:mstyle fontsize="12pt">
+					<m:mrow>
+						<m:msub>
+							<m:mi>t</m:mi>
+							<m:mstyle fontsize="8pt">
+								<m:mrow>
+									<m:mn>0</m:mn>
+								</m:mrow>
+							</m:mstyle>
+						</m:msub>
+					</m:mrow>
+				</m:mstyle>
+				<m:mrow/>
+			</m:mrow>
+			<m:annotation encoding="StarMath 5.0"> size 12{t rSub { size 8{0} } } {}</m:annotation>
+		</m:semantics>
+	</m:math>
+, its FT magnitude does not change, but the term  <m:math>
+		<m:semantics>
+			<m:mrow>
+				<m:mstyle fontsize="12pt">
+					<m:mrow>
+						<m:mrow>
+							<m:mo stretchy="false">−</m:mo>
+							<m:msub>
+								<m:mi fontstyle="italic">ωt</m:mi>
+								<m:mstyle fontsize="8pt">
+									<m:mrow>
+										<m:mn>0</m:mn>
+									</m:mrow>
+								</m:mstyle>
+							</m:msub>
+						</m:mrow>
+					</m:mrow>
+				</m:mstyle>
+				<m:mrow/>
+			</m:mrow>
+			<m:annotation encoding="StarMath 5.0"> size 12{ - ωt rSub { size 8{0} } } {}</m:annotation>
+		</m:semantics>
+	</m:math>
+ gets added to its phase angle. This verifies the time-shifting property of FT as stated in Properties of CTFT section of Chapter 5 (see <link target-id="id17714822"/>).</para>
+      <para id="id17714813">
+        <figure id="id17714822"><media id="id15760729" alt=""><image src="../../media/graphics19-2a99.png" mime-type="image/png" height="1054" width="543"/></media><caption>Magnitude and Phase Spectrum for Different Time Shifts: (a) 0, (b) 0.2, (c) 0.5, (d) 0.7</caption></figure>
+      </para>
+      
+</section>
+
+
+<section id="id18269143">
+      <title>Time Scaling</title>
+      <para id="id17714897">Observe that increasing the control Time scaling makes the spectrum wider. This indicates that compressing the signal in the time domain leads to expansion in the frequency domain. This verifies the time-scaling property of FT as stated in Properties of CTFT section of Chapter 5 (see <link target-id="id17714955"/>).</para>
+      <para id="id17714942"/>
+      <para id="id17714948">
+        <figure id="id17714955"><media id="id16401400" alt=""><image src="../../media/graphics20-218a.png" mime-type="image/png" height="1054" width="543"/></media><caption>Magnitude Spectrum for Different Time Scalings: (a) 1, (b) 2, (c) 3, (d) 4</caption></figure>
+      </para>
+      
+</section>
+ 
+<section id="id17714668">
+      <title>Linearity</title>
+      <para id="id17715005">Here, combine two signals to examine the linearity property of FT. Select Linear Combination for the Time domain and Frequency domain combination method. This selection combines two time signals, 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msub><m:mi>x</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{x rSub { size 8{1} }  \( t \) } {}</m:annotation></m:semantics></m:math>and
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msub><m:mi>x</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>2</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{x rSub { size 8{2} }  \( t \) } {}</m:annotation></m:semantics></m:math>, linearly with the scaling factors, 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:msub><m:mi>a</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{a rSub { size 8{1} } } {}</m:annotation></m:semantics></m:math>and
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:msub><m:mi>a</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>2</m:mn></m:mrow></m:mstyle></m:msub></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{a rSub { size 8{2} } } {}</m:annotation></m:semantics></m:math>, producing a new signal, 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msub><m:mi>a</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub><m:msub><m:mi>x</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">+</m:mo><m:msub><m:mi>a</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>2</m:mn></m:mrow></m:mstyle></m:msub></m:mrow><m:msub><m:mi>x</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>2</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{a rSub { size 8{1} } x rSub { size 8{1} }  \( t \) +a rSub { size 8{2} } x rSub { size 8{2} }  \( t \) } {}</m:annotation></m:semantics></m:math>. <link target-id="id18264374"/> displays the FT of this linear combination. The linear combination in the frequency domain produces a new signal, 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msub><m:mi>a</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub><m:msub><m:mi>X</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>ω</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">+</m:mo><m:msub><m:mi>a</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>2</m:mn></m:mrow></m:mstyle></m:msub></m:mrow><m:msub><m:mi>X</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>2</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>ω</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{a rSub { size 8{1} } X rSub { size 8{1} }  \( ω \) +a rSub { size 8{2} } X rSub { size 8{2} }  \( ω \) } {}</m:annotation></m:semantics></m:math>. <link target-id="id18264374"/> also displays the inverse FT of this combination. Observe that both combinations produce the same result in the time and frequency domains, as indicated by the linearity property stated in Properties of CTFT section of Chapter 5. </para>
+      <figure id="id18264374"><media id="id15173005" alt=""><image src="../../media/graphics21-65f2.png" mime-type="image/png" height="703" width="531"/></media><caption>Verifying the Linearity Property of CTFT</caption></figure>
+      
+</section>
+
+
+ <section id="id17714669">
+
+      <title>Time Convolution</title>
+      <para id="id18264411">In this part, convolve two signals in the time domain to examine the time-convolution property of FT. Select Convolution for Time domain and Multiplication for Frequency domain. This selection produces and displays a new signal,
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msub><m:mi>x</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">∗</m:mo><m:msub><m:mi>x</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>2</m:mn></m:mrow></m:mstyle></m:msub></m:mrow><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{x rSub { size 8{1} }  \( t \)  * x rSub { size 8{2} }  \( t \) } {}</m:annotation></m:semantics></m:math>, by convolving the two time signals 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msub><m:mi>x</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{x rSub { size 8{1} }  \( t \) } {}</m:annotation></m:semantics></m:math>and 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msub><m:mi>x</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>2</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{x rSub { size 8{2} }  \( t \) } {}</m:annotation></m:semantics></m:math>. Multiplication in the frequency domain produces a new signal, 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msub><m:mi>X</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>ω</m:mi><m:mo stretchy="false">)</m:mo><m:msub><m:mi>X</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>2</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>ω</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{X rSub { size 8{1} }  \( ω \) X rSub { size 8{2} }  \( ω \) } {}</m:annotation></m:semantics></m:math>. The inverse FT of this multiplied signal is also displayed on the right. Note that both combinations produce the same outcome in the time and frequency domains. This verifies the time-convolution property stated in the Properties of CTFT section of Chapter 5 (see <link target-id="id17580353"/>). </para>
+      <para id="id17580343">
+        <figure id="id17580353"><media id="id4120583" alt=""><image src="../../media/graphics22-ea30.png" mime-type="image/png" height="703" width="531"/></media><caption>Verifying the Time-Convolution Property of CTFT</caption></figure>
+      </para>
+      
+</section>
+
+    
+ <section id="id17714670">
+  <title>Frequency Convolution </title>
+      <para id="id17580391">Convolve two signals in the frequency domain to examine the frequency-convolution property of FT. Select Convolution for Frequency domain and Multiplication for Time domain. This selection convolves the two time signals 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msub><m:mi>X</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>ω</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{X rSub { size 8{1} }  \( ω \) } {}</m:annotation></m:semantics></m:math>and 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msub><m:mi>X</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>2</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>ω</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{X rSub { size 8{2} }  \( ω \) } {}</m:annotation></m:semantics></m:math> to produce a new signal, 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msub><m:mi>X</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>ω</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">∗</m:mo><m:msub><m:mi>X</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>2</m:mn></m:mrow></m:mstyle></m:msub></m:mrow><m:mo stretchy="false">(</m:mo><m:mi>ω</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{X rSub { size 8{1} }  \( ω \)  * X rSub { size 8{2} }  \( ω \) } {}</m:annotation></m:semantics></m:math>. The inverse FT of the convolved signal is displayed. Multiplication in Time domain produces a new signal, 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msub><m:mi>x</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo><m:msub><m:mi>x</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>2</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{x rSub { size 8{1} }  \( t \) x rSub { size 8{2} }  \( t \) } {}</m:annotation></m:semantics></m:math>. The FT of this multiplied signal is also displayed. Note that both combinations produce the same outcome in the time and frequency domains. This verifies the frequency-convolution property stated in the Properties of CTFT section of Chapter 5 (see <link target-id="id17580877"/>).</para>
+      <para id="id17580871">
+        <figure id="id17580877"><media id="id15916129" alt=""><image src="../../media/graphics23-5424.png" mime-type="image/png" height="703" width="531"/></media><caption>Verifying the Frequency-Convolution Property of CTFT</caption></figure>
+      </para>
+      
+</section>
+
+</section>
+
+<section id="id18269144">
+      <title>Noise Reduction</title>
+      <para id="id17580914">When a signal passes through a channel, it normally gets corrupted by channel noise. Various electronic components used in a transmitter or receiver may also cause additional noise. Noise reduction is an important aspect of any signal processing system. Lab 7 features noise reduction techniques using digital and analog filters. This section presents a simple technique to reduce high-frequency noise. </para>
+      <para id="id17580932"> <link target-id="id17561554"/> shows the completed block diagram of a noise reduction system. Consider a speech signal sampled at 8 kHz. Add some high-frequency noise to this signal and then remove the high-frequency components in the frequency domain. Finally, move the signal back into the time domain using the inverse FT. Use the LabVIEW MathScript function wavread to read a wave file specified by the string Path and return the sampled data at a specified sampling rate. A <term>String Control</term><emphasis>(Controls </emphasis><emphasis>→</emphasis><emphasis> Modern </emphasis><emphasis>→</emphasis><emphasis>String &amp; Path </emphasis><emphasis>→</emphasis><emphasis>String Control)</emphasis> can be added to the input Path to provide the path name for the speech data file. Use two more controls named Time frame width and Frame number to extract a segment of the speech signal before computing Fourier transform. Add together three sine and cosine waves with frequencies of 3.5, 3 and 2.8 kHz to create a high-frequency noise. Then add a scaled version of the noise signal to the signal with the Scaling parameter set as a control. Compute the FT of the Noise added signal using the function <code display="inline">fft</code>. </para>
+      <para id="id17581152">To remove the high-frequency noise components, use a simple lowpass filter by removing the frequency components over a certain threshold (50 percent, for example). After removing the high-frequency components, transform the signal back into the time domain using the function <code display="inline">ifft</code>. To get a display of the absolute and centered frequency spectrum, use the functions abs and <code display="inline">fftshift</code>. The signals are displayed in the time domain using the functions <term>Build Waveform</term> and <term>Waveform Graph</term>. To be able to hear the speech signals, use the function <term>Play Waveform</term><emphasis>(Functions </emphasis><emphasis>→</emphasis><emphasis>Programming </emphasis><emphasis>→</emphasis><emphasis>Graphics &amp; Sound </emphasis><emphasis>→</emphasis><emphasis>Sound</emphasis><emphasis>→</emphasis><emphasis>Output </emphasis><emphasis>→</emphasis><emphasis>Play Waveform)</emphasis>. Connect the time domain signals to this function via the while loop structure. Connect a <term>Boolean control</term><emphasis>(Controls </emphasis><emphasis>→</emphasis><emphasis>Modern </emphasis><emphasis>→</emphasis><emphasis>Boolean </emphasis><emphasis>→</emphasis><emphasis>Push Button)</emphasis> to the loop control, which acts as a play switch for the sound signal. The signals are also displayed in the frequency domain using the functions <term>Bundle</term><emphasis>(Functions </emphasis><emphasis>→</emphasis><emphasis>Programming </emphasis><emphasis>→</emphasis><emphasis>Cluster, Class &amp; Variant → </emphasis><emphasis> Bundle)</emphasis> and <term>XY Graph</term><emphasis>(Controls </emphasis><emphasis>→</emphasis><emphasis>Modern </emphasis><emphasis>→</emphasis><emphasis>Graphs </emphasis><emphasis>→</emphasis><emphasis>XY Graph)</emphasis>.</para><para id="id17561544">
+        <figure id="id17561554"><media id="id4060932" alt=""><image src="../../media/graphics25-a499.png" mime-type="image/png" height="798" width="556"/></media><caption>Block Diagram of a Noise Reduction System</caption></figure>
+      </para>
+      
+      <para id="id17561582"> <link target-id="id17561769"/> shows the front panel of the system. Inside the Data File Path control, the location of the speech data file is specified. Three graphs for the Original signal, Noise added signal and Noise reduced signal are shown in both the time and frequency domains. Use the noise level control to allow setting the amount of noise added to the original signal. After running the program, click on the <term>Play</term> button next to each signal. Hear the Original Signal and the Noise added signal. Notice that an unpleasant high-pitched noise gets added to the signal. If the noise level is set more than 0.5, the Original Signal becomes very difficult to hear. Next, hear the Noise reduced signal, which is similar to the Original Signal. The Noise reduced signal is not exactly the same as the Original Signal because some high-frequency components are also removed along with the noise. </para>
+      <para id="id17561759">
+        <figure id="id17561769"><media id="id15933917" alt=""><image src="../../media/graphics26-f1bc.png" mime-type="image/png" height="854" width="568"/></media><caption>Front Panel of a Noise Reduction System</caption></figure>
+      </para>
+      
+</section>
+
+
+<section id="id18269145">
+      <title>Amplitude Modulation</title>
+      <para id="id17561804">In this section, we examine amplitude modulation and demodulation applications. For transmission purposes, signals are often modulated with a high-frequency carrier. A typical amplitude modulated signal can be described by</para>
+      
+      <equation id="eip-790"><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">=</m:mo><m:msub><m:mi>x</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>m</m:mi></m:mrow></m:mstyle></m:msub></m:mrow><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo><m:mtext>cos</m:mtext><m:mo stretchy="false">(</m:mo><m:msub><m:mn>2πf</m:mn><m:mstyle fontsize="8pt"><m:mrow><m:mi>c</m:mi></m:mrow></m:mstyle></m:msub><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{x \( t \) =x rSub { size 8{m} }  \( t \) "cos" \( 2πf rSub { size 8{c} } t \) } {}</m:annotation></m:semantics></m:math>    </equation><para id="id17561959">where 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msub><m:mi>x</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>m</m:mi></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{x rSub { size 8{m} }  \( t \) } {}</m:annotation></m:semantics></m:math>is called the message waveform, which contains the data of interest, and 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:msub><m:mi>f</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>c</m:mi></m:mrow></m:mstyle></m:msub></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{f rSub { size 8{c} } } {}</m:annotation></m:semantics></m:math>is the carrier wave frequency. Using the fact that</para>
+      
+      <equation id="eip-777"><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mtext>cos</m:mtext><m:mo stretchy="false">(</m:mo><m:msub><m:mn>2πf</m:mn><m:mstyle fontsize="8pt"><m:mrow><m:mi>c</m:mi></m:mrow></m:mstyle></m:msub><m:mi>t</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">=</m:mo><m:mfrac><m:mn>1</m:mn><m:mn>2</m:mn></m:mfrac></m:mrow><m:mo stretchy="false">(</m:mo><m:mrow><m:msup><m:mi>e</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:msub><m:mn>2πf</m:mn><m:mstyle fontsize="6pt"><m:mrow><m:mi>c</m:mi></m:mrow></m:mstyle></m:msub><m:mi>t</m:mi></m:mrow></m:mrow></m:mstyle></m:msup><m:mo stretchy="false">+</m:mo><m:msup><m:mi>e</m:mi><m:mrow><m:mrow><m:mo stretchy="false">−</m:mo><m:msub><m:mn>2πf</m:mn><m:mstyle fontsize="6pt"><m:mrow><m:mi>c</m:mi></m:mrow></m:mstyle></m:msub></m:mrow><m:mi>t</m:mi></m:mrow></m:msup></m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">=</m:mo><m:mfrac><m:mn>1</m:mn><m:mn>2</m:mn></m:mfrac></m:mrow><m:mo stretchy="false">(</m:mo><m:msup><m:mi>e</m:mi><m:mrow><m:msub><m:mi>ω</m:mi><m:mstyle fontsize="6pt"><m:mrow><m:mi>c</m:mi></m:mrow></m:mstyle></m:msub><m:mi>t</m:mi></m:mrow></m:msup></m:mrow></m:mrow></m:mstyle><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mo stretchy="false">+</m:mo><m:msup><m:mi>e</m:mi><m:mrow><m:mrow><m:mo stretchy="false">−</m:mo><m:msub><m:mi>ω</m:mi><m:mstyle fontsize="6pt"><m:mrow><m:mi>c</m:mi></m:mrow></m:mstyle></m:msub></m:mrow><m:mi>t</m:mi></m:mrow></m:msup></m:mrow></m:mrow></m:mstyle><m:mstyle fontsize="12pt"><m:mrow><m:mo stretchy="false">)</m:mo></m:mrow></m:mstyle></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{"cos" \( 2πf rSub { size 8{c} } t \) = {  {1}  over  {2} }  \( e rSup { size 8{2πf rSub { size 6{c} } t} } +e rSup { - 2πf rSub { size 6{c} } t}  size 12{ \) = {  {1}  over  {2} }  \( e rSup {ω rSub { size 6{c} } t} } size 12{+e rSup { - ω rSub { size 6{c} } t} } size 12{ \) }} {}</m:annotation></m:semantics></m:math> </equation><para id="id17562376">and the frequency shift property of CTFT, one can easily derive the CTFT of <!--Sorry, this media type is not supported.--> to be</para>
+      
+      <equation id="eip-602"><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>X</m:mi><m:mo stretchy="false">(</m:mo><m:mi>ω</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">=</m:mo><m:mfrac><m:mn>1</m:mn><m:mn>2</m:mn></m:mfrac></m:mrow><m:mfenced open="(" close=")"><m:mrow><m:msub><m:mi>X</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>m</m:mi></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mrow><m:mi>ω</m:mi><m:mo stretchy="false">−</m:mo><m:msub><m:mi>ω</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>c</m:mi></m:mrow></m:mstyle></m:msub></m:mrow><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">+</m:mo><m:msub><m:mi>X</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>m</m:mi></m:mrow></m:mstyle></m:msub></m:mrow><m:mo stretchy="false">(</m:mo><m:mrow><m:mi>ω</m:mi><m:mo stretchy="false">+</m:mo><m:msub><m:mi>ω</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi>c</m:mi></m:mrow></m:mstyle></m:msub></m:mrow><m:mo stretchy="false">)</m:mo></m:mrow></m:mfenced></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{X \( ω \) = {  {1}  over  {2} }  left (X rSub { size 8{m} }  \( ω - ω rSub { size 8{c} }  \) +X rSub { size 8{m} }  \( ω+ω rSub { size 8{c} }  \)  right )} {}</m:annotation></m:semantics></m:math> </equation><para id="id17562604"> At the receiver, some noisy version of this transmitted signal is received. The signal information resides in the envelope of the modulated signal, and thus an envelope detector can be used to recover the message signal.</para>
+      <para id="id17562616"><link target-id="id17562760"/> shows the completed block diagram of the amplitude modulation and demodulation system. In this example, use the combination of two sine waves to serve as a message signal. The signal is modulated with a high-frequency carrier, and some random noise is added. The frequency domain versions of the signals can also be observed using the function <code display="inline">fft</code>. As stated in Equation (3), the CTFT of the modulated signal is merely some frequency-shifted version of the original signal. In single sideband (SSB) modulation, only one side of the spectrum is transmitted due to symmetry. That is, just one side of the spectrum is taken and converted into a time signal using the function <code display="inline">ifft</code>.</para>
+      <para id="id17562674"> <link target-id="id17562794"/> shows the completed front panel of this system. The Message signal, Modulated signal, Received signal (modulated signal with additional noise) and Demodulated signal are displayed in four waveform graphs in both the time and frequency domains. </para>
+      <para id="id17562750">
+        <figure id="id17562760"><media id="id4130423" alt=""><image src="../../media/graphics27-134f.png" mime-type="image/png" height="706" width="603"/></media><caption>Block Diagram of an Amplitude Modulation and Demodulation System</caption></figure>
+      </para>
+      
+      <para id="id17562790">
+        <figure id="id17562794"><media id="id4636190" alt=""><image src="../../media/graphics28-823c.png" mime-type="image/png" height="789" width="523"/></media><caption>Front Panel of an Amplitude Modulation and Demodulation System</caption></figure>
+      </para>
+      
+</section>
+
+<section id="idex1"><title>Lab Exercises </title><exercise id="element-251"><problem id="id4075046">
+		<para id="id17562838">
+			<term>Circuit Analysis</term>
+		</para><para id="id17562849">Find and plot the frequency response (both magnitude and phase spectrum) of each of the circuits shown in <link target-id="id17562893"/>. Set the values of R, L and C as controls.</para><para id="id17562883">
+			<figure id="id17562893"><media id="id15798893" alt=""><image src="../../media/graphics29-05cd.png" mime-type="image/png" height="532" width="338"/></media><caption>Linear RLC Circuits</caption></figure></para></problem>
+	<solution id="id15798584">
+		<para id="element-881">
+    Insert Solution Text Here
+  </para>
+	</solution>
+</exercise><exercise id="element-217"><problem id="id15915833">
+		<para id="id17562932">
+			<term>Morse Coding</term>
+		</para><para id="id17562940">Consider a message containing some hidden information. Furthermore, to make it interesting, suppose the message contains a name. Assume that the message was coded using the amplitude modulation scheme as follows <link target-id="Ref7" document="m31521"/>: </para>
+<equation id="eq1">
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>x</m:mi><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">=</m:mo><m:msub><m:mi>x</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi fontstyle="italic">m1</m:mi></m:mrow></m:mstyle></m:msub></m:mrow><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo><m:mtext>cos</m:mtext><m:mo stretchy="false">(</m:mo><m:msub><m:mn>2πf</m:mn><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub><m:mi>t</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">+</m:mo><m:msub><m:mi>x</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi fontstyle="italic">m2</m:mi></m:mrow></m:mstyle></m:msub></m:mrow><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo><m:mtext>cos</m:mtext><m:mo stretchy="false">(</m:mo><m:msub><m:mn>2πf</m:mn><m:mstyle fontsize="8pt"><m:mrow><m:mn>2</m:mn></m:mrow></m:mstyle></m:msub><m:mi>t</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">+</m:mo><m:msub><m:mi>x</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi fontstyle="italic">m3</m:mi></m:mrow></m:mstyle></m:msub></m:mrow><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo><m:mtext>cos</m:mtext><m:mo stretchy="false">(</m:mo><m:msub><m:mn>2πf</m:mn><m:mstyle fontsize="8pt"><m:mrow><m:mn>3</m:mn></m:mrow></m:mstyle></m:msub><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{x \( t \) =x rSub { size 8{m1} }  \( t \) "cos" \( 2πf rSub { size 8{1} } t \) +x rSub { size 8{m2} }  \( t \) "cos" \( 2πf rSub { size 8{2} } t \) +x rSub { size 8{m3} }  \( t \) "cos" \( 2πf rSub { size 8{3} } t \) } {}</m:annotation></m:semantics></m:math> 
+</equation>
+
+<para id="id17563199">where 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msub><m:mi>x</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi fontstyle="italic">m1</m:mi></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo><m:mi>,</m:mi><m:msub><m:mi>x</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi fontstyle="italic">m2</m:mi></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{x rSub { size 8{m1} }  \( t \) ,x rSub { size 8{m2} }  \( t \) } {}</m:annotation></m:semantics></m:math> and 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msub><m:mi>x</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi fontstyle="italic">m3</m:mi></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{x rSub { size 8{m3} }  \( t \) } {}</m:annotation></m:semantics></m:math> are the (message) signals containing the three letters of the name. More specifically, each of the signals, 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msub><m:mi>x</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi fontstyle="italic">m1</m:mi></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo><m:mi>,</m:mi><m:msub><m:mi>x</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi fontstyle="italic">m2</m:mi></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{x rSub { size 8{m1} }  \( t \) ,x rSub { size 8{m2} }  \( t \) } {}</m:annotation></m:semantics></m:math> and 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msub><m:mi>x</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi fontstyle="italic">m3</m:mi></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{x rSub { size 8{m3} }  \( t \) } {}</m:annotation></m:semantics></m:math>, corresponds to a single letter of the alphabet. These letters are encoded using the International Morse Code as indicated below [7]:</para>
+		<para id="id17563585">
+			<m:math>
+				<m:semantics>
+					<m:mrow>
+						<m:mstyle fontsize="12pt">
+							<m:mrow>
+								<m:mtable>
+									<m:mtr>
+										<m:mtd>
+											<m:mrow>
+												<m:mi>A</m:mi>
+												<m:mrow/>
+											</m:mrow>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow>
+												<m:mrow>
+													<m:mtext>.</m:mtext>
+													<m:mo stretchy="false">−</m:mo>
+													<m:mrow/>
+												</m:mrow>
+												<m:mrow/>
+											</m:mrow>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow/>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow>
+												<m:mi>H</m:mi>
+												<m:mrow/>
+											</m:mrow>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow>
+												<m:mtext>.</m:mtext>
+												<m:mtext>.</m:mtext>
+												<m:mtext>.</m:mtext>
+												<m:mtext>.</m:mtext>
+												<m:mrow/>
+											</m:mrow>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow/>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow>
+												<m:mi>O</m:mi>
+												<m:mrow/>
+											</m:mrow>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow>
+												<m:mrow>
+													<m:mo stretchy="false">−</m:mo>
+													<m:mrow>
+														<m:mo stretchy="false">−</m:mo>
+														<m:mrow>
+															<m:mo stretchy="false">−</m:mo>
+															<m:mrow/>
+														</m:mrow>
+													</m:mrow>
+												</m:mrow>
+												<m:mrow/>
+											</m:mrow>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow/>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow>
+												<m:mi>V</m:mi>
+												<m:mrow/>
+											</m:mrow>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow>
+												<m:mtext>.</m:mtext>
+												<m:mtext>.</m:mtext>
+												<m:mrow>
+													<m:mtext>.</m:mtext>
+													<m:mo stretchy="false">−</m:mo>
+													<m:mrow/>
+												</m:mrow>
+												<m:mrow/>
+											</m:mrow>
+										</m:mtd>
+									</m:mtr>
+									<m:mtr>
+										<m:mtd>
+											<m:mrow>
+												<m:mi>B</m:mi>
+												<m:mrow/>
+											</m:mrow>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow>
+												<m:mrow>
+													<m:mo stretchy="false">−</m:mo>
+													<m:mtext>.</m:mtext>
+												</m:mrow>
+												<m:mtext>.</m:mtext>
+												<m:mtext>.</m:mtext>
+												<m:mrow/>
+											</m:mrow>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow/>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow>
+												<m:mi>I</m:mi>
+												<m:mrow/>
+											</m:mrow>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow>
+												<m:mtext>.</m:mtext>
+												<m:mtext>.</m:mtext>
+												<m:mrow/>
+											</m:mrow>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow/>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow>
+												<m:mi>P</m:mi>
+												<m:mrow/>
+											</m:mrow>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow>
+												<m:mrow>
+													<m:mtext>.</m:mtext>
+													<m:mo stretchy="false">−</m:mo>
+													<m:mrow>
+														<m:mo stretchy="false">−</m:mo>
+														<m:mtext>.</m:mtext>
+													</m:mrow>
+												</m:mrow>
+												<m:mrow/>
+											</m:mrow>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow/>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow>
+												<m:mi>W</m:mi>
+												<m:mrow/>
+											</m:mrow>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow>
+												<m:mrow>
+													<m:mtext>.</m:mtext>
+													<m:mo stretchy="false">−</m:mo>
+													<m:mrow>
+														<m:mo stretchy="false">−</m:mo>
+														<m:mrow/>
+													</m:mrow>
+												</m:mrow>
+												<m:mrow/>
+											</m:mrow>
+										</m:mtd>
+									</m:mtr>
+									<m:mtr>
+										<m:mtd>
+											<m:mrow>
+												<m:mi>C</m:mi>
+												<m:mrow/>
+											</m:mrow>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow>
+												<m:mrow>
+													<m:mrow>
+														<m:mo stretchy="false">−</m:mo>
+														<m:mtext>.</m:mtext>
+													</m:mrow>
+													<m:mo stretchy="false">−</m:mo>
+													<m:mtext>.</m:mtext>
+												</m:mrow>
+												<m:mrow/>
+											</m:mrow>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow/>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow>
+												<m:mi>J</m:mi>
+												<m:mrow/>
+											</m:mrow>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow>
+												<m:mrow>
+													<m:mtext>.</m:mtext>
+													<m:mo stretchy="false">−</m:mo>
+													<m:mrow>
+														<m:mo stretchy="false">−</m:mo>
+														<m:mrow>
+															<m:mo stretchy="false">−</m:mo>
+															<m:mrow/>
+														</m:mrow>
+													</m:mrow>
+												</m:mrow>
+												<m:mrow/>
+											</m:mrow>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow/>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow>
+												<m:mi>Q</m:mi>
+												<m:mrow/>
+											</m:mrow>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow>
+												<m:mrow>
+													<m:mrow>
+														<m:mo stretchy="false">−</m:mo>
+														<m:mrow>
+															<m:mo stretchy="false">−</m:mo>
+															<m:mtext>.</m:mtext>
+														</m:mrow>
+													</m:mrow>
+													<m:mo stretchy="false">−</m:mo>
+													<m:mrow/>
+												</m:mrow>
+												<m:mrow/>
+											</m:mrow>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow/>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow>
+												<m:mi>X</m:mi>
+												<m:mrow/>
+											</m:mrow>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow>
+												<m:mrow>
+													<m:mo stretchy="false">−</m:mo>
+													<m:mtext>.</m:mtext>
+												</m:mrow>
+												<m:mrow>
+													<m:mtext>.</m:mtext>
+													<m:mo stretchy="false">−</m:mo>
+													<m:mrow/>
+												</m:mrow>
+												<m:mrow/>
+											</m:mrow>
+										</m:mtd>
+									</m:mtr>
+									<m:mtr>
+										<m:mtd>
+											<m:mrow>
+												<m:mi>D</m:mi>
+												<m:mrow/>
+											</m:mrow>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow>
+												<m:mrow>
+													<m:mo stretchy="false">−</m:mo>
+													<m:mtext>.</m:mtext>
+												</m:mrow>
+												<m:mtext>.</m:mtext>
+												<m:mrow/>
+											</m:mrow>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow/>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow>
+												<m:mi>K</m:mi>
+												<m:mrow/>
+											</m:mrow>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow>
+												<m:mrow>
+													<m:mrow>
+														<m:mo stretchy="false">−</m:mo>
+														<m:mtext>.</m:mtext>
+													</m:mrow>
+													<m:mo stretchy="false">−</m:mo>
+													<m:mrow/>
+												</m:mrow>
+												<m:mrow/>
+											</m:mrow>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow/>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow>
+												<m:mi>R</m:mi>
+												<m:mrow/>
+											</m:mrow>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow>
+												<m:mrow>
+													<m:mtext>.</m:mtext>
+													<m:mo stretchy="false">−</m:mo>
+													<m:mtext>.</m:mtext>
+												</m:mrow>
+												<m:mrow/>
+											</m:mrow>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow/>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow>
+												<m:mi>Y</m:mi>
+												<m:mrow/>
+											</m:mrow>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow>
+												<m:mrow>
+													<m:mrow>
+														<m:mo stretchy="false">−</m:mo>
+														<m:mtext>.</m:mtext>
+													</m:mrow>
+													<m:mo stretchy="false">−</m:mo>
+													<m:mrow>
+														<m:mo stretchy="false">−</m:mo>
+														<m:mrow/>
+													</m:mrow>
+												</m:mrow>
+												<m:mrow/>
+											</m:mrow>
+										</m:mtd>
+									</m:mtr>
+									<m:mtr>
+										<m:mtd>
+											<m:mrow>
+												<m:mi>E</m:mi>
+												<m:mrow/>
+											</m:mrow>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow>
+												<m:mtext>.</m:mtext>
+												<m:mrow/>
+											</m:mrow>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow/>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow>
+												<m:mi>L</m:mi>
+												<m:mrow/>
+											</m:mrow>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow>
+												<m:mrow>
+													<m:mtext>.</m:mtext>
+													<m:mo stretchy="false">−</m:mo>
+													<m:mtext>.</m:mtext>
+												</m:mrow>
+												<m:mtext>.</m:mtext>
+												<m:mrow/>
+											</m:mrow>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow/>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow>
+												<m:mi>S</m:mi>
+												<m:mrow/>
+											</m:mrow>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow>
+												<m:mtext>.</m:mtext>
+												<m:mtext>.</m:mtext>
+												<m:mtext>.</m:mtext>
+												<m:mrow/>
+											</m:mrow>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow/>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow>
+												<m:mi>Z</m:mi>
+												<m:mrow/>
+											</m:mrow>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow>
+												<m:mrow>
+													<m:mo stretchy="false">−</m:mo>
+													<m:mrow>
+														<m:mo stretchy="false">−</m:mo>
+														<m:mtext>.</m:mtext>
+													</m:mrow>
+												</m:mrow>
+												<m:mtext>.</m:mtext>
+												<m:mrow/>
+											</m:mrow>
+										</m:mtd>
+									</m:mtr>
+									<m:mtr>
+										<m:mtd>
+											<m:mrow>
+												<m:mi>F</m:mi>
+												<m:mrow/>
+											</m:mrow>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow>
+												<m:mtext>.</m:mtext>
+												<m:mrow>
+													<m:mtext>.</m:mtext>
+													<m:mo stretchy="false">−</m:mo>
+													<m:mtext>.</m:mtext>
+												</m:mrow>
+												<m:mrow/>
+											</m:mrow>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow/>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow>
+												<m:mi>M</m:mi>
+												<m:mrow/>
+											</m:mrow>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow>
+												<m:mrow>
+													<m:mo stretchy="false">−</m:mo>
+													<m:mrow>
+														<m:mo stretchy="false">−</m:mo>
+														<m:mrow/>
+													</m:mrow>
+												</m:mrow>
+												<m:mrow/>
+											</m:mrow>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow/>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow>
+												<m:mi>T</m:mi>
+												<m:mrow/>
+											</m:mrow>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow>
+												<m:mrow>
+													<m:mo stretchy="false">−</m:mo>
+													<m:mrow/>
+												</m:mrow>
+												<m:mrow/>
+											</m:mrow>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow/>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow/>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow/>
+										</m:mtd>
+									</m:mtr>
+									<m:mtr>
+										<m:mtd>
+											<m:mrow>
+												<m:mi>G</m:mi>
+												<m:mrow/>
+											</m:mrow>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow>
+												<m:mrow>
+													<m:mo stretchy="false">−</m:mo>
+													<m:mrow>
+														<m:mo stretchy="false">−</m:mo>
+														<m:mtext>.</m:mtext>
+													</m:mrow>
+												</m:mrow>
+												<m:mrow/>
+											</m:mrow>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow/>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow>
+												<m:mi>N</m:mi>
+												<m:mrow/>
+											</m:mrow>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow>
+												<m:mrow>
+													<m:mo stretchy="false">−</m:mo>
+													<m:mtext>.</m:mtext>
+												</m:mrow>
+												<m:mrow/>
+											</m:mrow>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow/>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow>
+												<m:mi>U</m:mi>
+												<m:mrow/>
+											</m:mrow>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow>
+												<m:mtext>.</m:mtext>
+												<m:mrow>
+													<m:mtext>.</m:mtext>
+													<m:mo stretchy="false">−</m:mo>
+													<m:mrow/>
+												</m:mrow>
+												<m:mrow/>
+											</m:mrow>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow/>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow/>
+										</m:mtd>
+										<m:mtd>
+											<m:mrow/>
+										</m:mtd>
+									</m:mtr>
+								</m:mtable>
+							</m:mrow>
+						</m:mstyle>
+						<m:mrow/>
+					</m:mrow>
+					<m:annotation encoding="StarMath 5.0"> size 12{ matrix {
+A {} #  "."  - {} {} #  {} # H {} #  "."  "."  "."  "."  {} #  {} # O {} #  -  -  - {} {} #  {} # V {} #  "."  "."  "."  - {} {} ##
+B {} #  -  "."  "."  "."  {} #  {} # I {} #  "."  "."  {} #  {} # P {} #  "."  -  -  "."  {} #  {} # W {} #  "."  -  - {} {} ##
+C {} #  -  "."  -  "."  {} #  {} # J {} #  "."  -  -  - {} {} #  {} # Q {} #  -  -  "."  - {} {} #  {} # X {} #  -  "."  "."  - {} {} ##
+D {} #  -  "."  "."  {} #  {} # K {} #  -  "."  - {} {} #  {} # R {} #  "."  -  "."  {} #  {} # Y {} #  -  "."  -  - {} {} ##
+E {} #  "."  {} #  {} # L {} #  "."  -  "."  "."  {} #  {} # S {} #  "."  "."  "."  {} #  {} # Z {} #  -  -  "."  "."  {} ##
+F {} #  "."  "."  -  "."  {} #  {} # M {} #  -  - {} {} #  {} # T {} #  - {} {} #  {} #  {} #  {} ##
+G {} #  -  -  "."  {} #  {} # N {} #  -  "."  {} #  {} # U {} #  "."  "."  - {} {} #  {} #  {} # {}
+} } {}</m:annotation>
+				</m:semantics>
+			</m:math>
+		</para>
+		<para id="id17564289">Now to encode the letter A, one needs only a dot followed by a dash. That is, only two prototype signals are needed – one to represent the dash and one to represent the dot. Thus, for instance, to represent the letter A, set 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msub><m:mi>x</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi fontstyle="italic">m1</m:mi></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">=</m:mo><m:mi>d</m:mi></m:mrow><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">+</m:mo><m:mstyle fontstyle="italic"><m:mrow><m:mtext>dash</m:mtext></m:mrow></m:mstyle></m:mrow><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{x rSub { size 8{m1} }  \( t \) =d \( t \) + ital "dash" \( t \) } {}</m:annotation></m:semantics></m:math>, where 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>d</m:mi><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{d \( t \) } {}</m:annotation></m:semantics></m:math> represents the dot signal and 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mstyle fontstyle="italic"><m:mrow><m:mtext>dash</m:mtext></m:mrow></m:mstyle><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ ital "dash" \( t \) } {}</m:annotation></m:semantics></m:math> the dash signal. Similarly, to represent the letter O, set 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msub><m:mi>x</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi fontstyle="italic">m1</m:mi></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">=</m:mo><m:mn>3</m:mn></m:mrow><m:mstyle fontstyle="italic"><m:mrow><m:mtext>dash</m:mtext></m:mrow></m:mstyle><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{x rSub { size 8{m1} }  \( t \) =3 ital "dash" \( t \) } {}</m:annotation></m:semantics></m:math>. </para><para id="id17564729">Find the prototype signals 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>d</m:mi><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{d \( t \) } {}</m:annotation></m:semantics></m:math> and 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mstyle fontstyle="italic"><m:mrow><m:mtext>dash</m:mtext></m:mrow></m:mstyle><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ ital "dash" \( t \) } {}</m:annotation></m:semantics></m:math> in the file <foreign>morse.mat</foreign> on the book website. After loading the file <foreign>morse.mat</foreign></para><para id="id18001794">
+			<code display="inline">&gt;&gt;load morse</code>
+		</para><para id="id18001802">the signals 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>d</m:mi><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{d \( t \) } {}</m:annotation></m:semantics></m:math> and 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mstyle fontstyle="italic"><m:mrow><m:mtext>dash</m:mtext></m:mrow></m:mstyle><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ ital "dash" \( t \) } {}</m:annotation></m:semantics></m:math>can be located in the vectors dot and dash, respectively. The hidden signal, which is encoded, per Equation (4), containing the letters of the name, is in the vector 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mstyle fontstyle="italic"><m:mrow><m:mtext>xt</m:mtext></m:mrow></m:mstyle></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ ital "xt"} {}</m:annotation></m:semantics></m:math> Let the three modulation frequencies 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msub><m:mi>f</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub><m:mi>,</m:mi><m:msub><m:mi>f</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>2</m:mn></m:mrow></m:mstyle></m:msub></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{f rSub { size 8{1} } ,f rSub { size 8{2} } } {}</m:annotation></m:semantics></m:math>and 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:msub><m:mi>f</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>3</m:mn></m:mrow></m:mstyle></m:msub></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{f rSub { size 8{3} } } {}</m:annotation></m:semantics></m:math> be 20, 40 and 80 Hz, respectively.</para><para id="id18002185">• Using the amplitude modulation property of the CTFT, determine the three possible letters and the hidden name. (Hint: Plot the CTFT of 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mstyle fontstyle="italic"><m:mrow><m:mtext>xt</m:mtext></m:mrow></m:mstyle></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{ ital "xt"} {}</m:annotation></m:semantics></m:math> Use the values of 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mi>T</m:mi></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{T} {}</m:annotation></m:semantics></m:math> and 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>τ</m:mi><m:mstyle fontstyle="italic"><m:mrow><m:mtext>au</m:mtext></m:mrow></m:mstyle></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{τ ital "au"} {}</m:annotation></m:semantics></m:math> contained in the file.)</para><para id="id18002381">• Explain the strategy used to decode the message. Is the coding technique ambiguous? That is, is there a one-to-one mapping between the message waveforms (
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msub><m:mi>x</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi fontstyle="italic">m1</m:mi></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo><m:mi>,</m:mi><m:msub><m:mi>x</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi fontstyle="italic">m2</m:mi></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo><m:mi>,</m:mi><m:msub><m:mi>x</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mi fontstyle="italic">m3</m:mi></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{x rSub { size 8{m1} }  \( t \) ,x rSub { size 8{m2} }  \( t \) ,x rSub { size 8{m3} }  \( t \)  \) } {}</m:annotation></m:semantics></m:math>) and the alphabet letters? Or can you find multiple letters that correspond to the same message waveform? </para>
+	</problem>
+	<solution id="id18080799">
+		<para id="element-222">
+    Insert Solution Text Here
+  </para>
+	</solution>
+</exercise><exercise id="element-780"><problem id="id4759925">
+		<para id="id18002532">
+			<term>Doppler Effect</term>
+		</para><para id="id18002540">The Doppler effect phenomenon was covered in a previous chapter. In this exercise, let us examine the Doppler effect with a real sound wave rather than a periodic signal. The wave file <foreign>firetrucksiren.wav</foreign> on the book website contains a firetruck siren. Read the file using the LabVIEW MathScript function <code display="inline">wavread</code> and produce its upscale and downscale versions. Show the waves in the time and frequency domains (find the CTFT). Furthermore, play the sounds using the LabVIEW function <term>Play Waveform</term>. <link target-id="id18002611"/> shows a typical front panel for this system.</para><figure id="id18002611"><media id="id4053841" alt=""><image src="../../media/graphics30.png" mime-type="image/png" height="656" width="691"/></media><caption>Front Panel of Doppler Effect System</caption></figure>
+	</problem>
+	<solution id="id14798753">
+		<para id="element-146">
+    Insert Solution Text Here
+  </para>
+	</solution>
+</exercise><exercise id="element-299"><problem id="id3987322">
+		<para id="id18002639">
+			<term>Diffraction of Light</term>
+		</para><para id="id18002646">The diffraction of light can be described as a Fourier transform <link target-id="Ref13" document="m31521"/>. Consider an opaque screen with a small slit being illuminated by a normally incident uniform light wave, as shown in <link target-id="id18002682"/>. </para><figure id="id18002682"><media id="id18095480" alt=""><image src="../../media/graphics31.png" mime-type="image/png" height="257" width="777"/></media><caption>Diffraction of Light</caption></figure><para id="id18002710">Considering that 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>d</m:mi><m:mtext>&gt;&gt;</m:mtext><m:mrow><m:msub><m:mi fontstyle="italic">πl</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:msup><m:mn>1</m:mn><m:mstyle fontsize="8pt"><m:mrow><m:mn>2</m:mn></m:mrow></m:mstyle></m:msup></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">/</m:mo><m:mi>λ</m:mi></m:mrow></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{d"&gt;&gt;"πl rSub { size 8{1}   rSup { size 8{2} } } /λ} {}</m:annotation></m:semantics></m:math>provides a good approximation for any 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:msub><m:mi>l</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{l rSub { size 8{1} } } {}</m:annotation></m:semantics></m:math>in the slit, the electric field strength of the light striking the viewing screen can be expressed as <link target-id="Ref17" document="m31521"/> </para>
+		<equation id="eq2">
+			<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:msub><m:mi>E</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>0</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:msub><m:mi>l</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>0</m:mn></m:mrow></m:mstyle></m:msub><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">=</m:mo><m:mi>K</m:mi></m:mrow><m:mfrac><m:msup><m:mi>e</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mi>j</m:mi><m:mo stretchy="false">(</m:mo><m:mrow><m:mn>2πd</m:mn><m:mo stretchy="false">/</m:mo><m:mi>λ</m:mi></m:mrow><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle></m:msup><m:mi fontstyle="italic">jλd</m:mi></m:mfrac><m:msup><m:mi>e</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mi>j</m:mi><m:mo stretchy="false">(</m:mo><m:mrow><m:mi>π</m:mi><m:mo stretchy="false">/</m:mo><m:mi fontstyle="italic">λd</m:mi></m:mrow><m:mo stretchy="false">)</m:mo><m:msub><m:mi>l</m:mi><m:mstyle fontsize="6pt"><m:mrow><m:msup><m:mn>0</m:mn><m:mstyle fontsize="6pt"><m:mrow><m:mn>2</m:mn></m:mrow></m:mstyle></m:msup></m:mrow></m:mstyle></m:msub></m:mrow></m:mrow></m:mstyle></m:msup><m:mrow><m:munderover><m:mo stretchy="false">∫</m:mo><m:mrow><m:mo stretchy="false">−</m:mo><m:mo stretchy="false">∞</m:mo></m:mrow><m:mo stretchy="false">∞</m:mo></m:munderover><m:mrow><m:msub><m:mi>E</m:mi><m:mn>1</m:mn></m:msub><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mo stretchy="false">(</m:mo><m:msub><m:mi>l</m:mi><m:mn>1</m:mn></m:msub></m:mrow></m:mrow></m:mstyle><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mo stretchy="false">)</m:mo><m:msup><m:mi>e</m:mi><m:mrow><m:mrow><m:mo stretchy="false">−</m:mo><m:mi>j</m:mi></m:mrow><m:mo stretchy="false">(</m:mo><m:mrow><m:mn>2π</m:mn><m:mo stretchy="false">/</m:mo><m:mi fontstyle="italic">λd</m:mi></m:mrow><m:mo stretchy="false">)</m:mo><m:msub><m:mi>l</m:mi><m:mstyle fontsize="6pt"><m:mrow><m:mn>0</m:mn></m:mrow></m:mstyle></m:msub><m:msub><m:mi>l</m:mi><m:mstyle fontsize="6pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub></m:mrow></m:msup></m:mrow></m:mrow></m:mstyle><m:mstyle fontsize="12pt"><m:mrow><m:mstyle fontstyle="italic"><m:mrow><m:msub><m:mtext>dl</m:mtext><m:mn>1</m:mn></m:msub></m:mrow></m:mstyle></m:mrow></m:mstyle></m:mrow></m:mrow></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{E rSub { size 8{0} }  \( l rSub { size 8{0} }  \) =K {  {e rSup { size 8{j \( 2πd/λ \) } } }  over  {jλd} } e rSup { size 8{j \( π/λd \) l rSub { size 6{0}   rSup { size 6{2} } } } }  Int cSub { -  infinity }  cSup { infinity }  {E rSub {1}  size 12{ \( l rSub {1} } size 12{ \) e rSup { - j \( 2π/λd \) l rSub { size 6{0} } l rSub { size 6{1} } } } size 12{ ital "dl" rSub {1} }} } {}</m:annotation></m:semantics></m:math>
+		</equation>
+		<para id="id18003207">where </para><para id="id18003214"><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:msub><m:mi>E</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>1</m:mn></m:mrow></m:mstyle></m:msub></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{E rSub { size 8{1} } } {}</m:annotation></m:semantics></m:math>= field strength at diffraction screen</para><para id="id18003291"><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:msub><m:mi>E</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>0</m:mn></m:mrow></m:mstyle></m:msub></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{E rSub { size 8{0} } } {}</m:annotation></m:semantics></m:math> = field strength at viewing screen </para><para id="id18003381"><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mi>K</m:mi></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{K} {}</m:annotation></m:semantics></m:math> = constant of proportionality</para><para id="id18003453"><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mi>λ</m:mi></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{λ} {}</m:annotation></m:semantics></m:math>= wavelength of light</para><para id="id18003520">The above integral is in fact Fourier transformation in a different notation. One can write the field strength at the viewing screen as <link target-id="Ref17" document="m31521"/> </para>
+
+<equation id="id18003530"><m:math><m:semantics><m:mtable><m:mtr><m:mrow><m:mo stretchy="false">(</m:mo><m:mi>t</m:mi><m:mo stretchy="false">)</m:mo></m:mrow></m:mtr><m:mtr><m:mrow><m:msub><m:mi>E</m:mi><m:mn>1</m:mn></m:msub><m:mstyle fontsize="12pt"><m:mrow><m:msub><m:mrow/><m:mrow><m:mi>f</m:mi><m:mo stretchy="false">→</m:mo><m:mrow><m:msub><m:mi>l</m:mi><m:mstyle fontsize="6pt"><m:mrow><m:mn>0</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">/</m:mo><m:mi fontstyle="italic">λd</m:mi></m:mrow></m:mrow></m:msub></m:mrow></m:mstyle></m:mrow></m:mtr><m:mtr><m:mrow/></m:mtr><m:mtr><m:mrow><m:msub><m:mi>E</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>0</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:msub><m:mi>l</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>0</m:mn></m:mrow></m:mstyle></m:msub><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">=</m:mo><m:mi>K</m:mi></m:mrow><m:mfrac><m:msup><m:mi>e</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mi>j</m:mi><m:mo stretchy="false">(</m:mo><m:mrow><m:mn>2πd</m:mn><m:mo stretchy="false">/</m:mo><m:mi>λ</m:mi></m:mrow><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle></m:msup><m:mi fontstyle="italic">jλd</m:mi></m:mfrac><m:msup><m:mi>e</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mi>j</m:mi><m:mo stretchy="false">(</m:mo><m:mrow><m:mi>π</m:mi><m:mo stretchy="false">/</m:mo><m:mi fontstyle="italic">λd</m:mi></m:mrow><m:mo stretchy="false">)</m:mo><m:msub><m:mi>l</m:mi><m:mstyle fontsize="6pt"><m:mrow><m:msup><m:mn>0</m:mn><m:mstyle fontsize="6pt"><m:mrow><m:mn>2</m:mn></m:mrow></m:mstyle></m:msup></m:mrow></m:mstyle></m:msub></m:mrow></m:mrow></m:mstyle></m:msup><m:mstyle fontstyle="italic"><m:mrow><m:mtext>CTFT</m:mtext></m:mrow></m:mstyle><m:mrow/></m:mrow></m:mtr><m:mtr><m:mstyle fontsize="12pt"><m:mrow><m:mrow/></m:mrow></m:mstyle></m:mtr></m:mtable><m:annotation encoding="StarMath 5.0"> size 12{E rSub { size 8{0} }  \( l rSub { size 8{0} }  \) =K {  {e rSup { size 8{j \( 2πd/λ \) } } }  over  {jλd} } e rSup { size 8{j \( π/λd \) l rSub { size 6{0}   rSup { size 6{2} } } } }  ital "CTFT" lbrace E rSub {1}  size 12{ \( t \)  rbrace  rSub {f rightarrow l rSub { size 6{0} } /λd} }} {}</m:annotation></m:semantics></m:math>   </equation>
+
+<para id="id18003795">The intensity 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>I</m:mi><m:mo stretchy="false">(</m:mo><m:msub><m:mi>l</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>0</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">)</m:mo></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{I \( l rSub { size 8{0} }  \) } {}</m:annotation></m:semantics></m:math>of the light at the viewing screen is the square of the magnitude of the field strength. That is,</para>
+
+<equation id="id18003885"><m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mrow><m:mi>I</m:mi><m:mo stretchy="false">(</m:mo><m:msub><m:mi>l</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>0</m:mn></m:mrow></m:mstyle></m:msub><m:mrow><m:mo stretchy="false">)</m:mo><m:mo stretchy="false">=</m:mo><m:msup><m:mrow><m:mo stretchy="false">∣</m:mo><m:mrow><m:msub><m:mi>E</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>0</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">(</m:mo><m:msub><m:mi>l</m:mi><m:mstyle fontsize="8pt"><m:mrow><m:mn>0</m:mn></m:mrow></m:mstyle></m:msub><m:mo stretchy="false">)</m:mo></m:mrow><m:mo stretchy="false">∣</m:mo></m:mrow><m:mstyle fontsize="8pt"><m:mrow><m:mn>2</m:mn></m:mrow></m:mstyle></m:msup></m:mrow></m:mrow></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{I \( l rSub { size 8{0} }  \) = lline E rSub { size 8{0} }  \( l rSub { size 8{0} }  \)  rline  rSup { size 8{2} } } {}</m:annotation></m:semantics></m:math>       </equation>
+<list id="id18004038" list-type="enumerated">
+			<item>Plot the intensity of the light at the viewing screen. Set the slit width to this range (0.5 to 5 mm), the wavelength of light 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mi>λ</m:mi></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{λ} {}</m:annotation></m:semantics></m:math>to this range (300 to 800 nm), and the distance of the viewing screen 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:mi>d</m:mi></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{d} {}</m:annotation></m:semantics></m:math>to this range (10 to 200 m) as controls. Assume the constant of proportionality is 
+<m:math><m:semantics><m:mrow><m:mstyle fontsize="12pt"><m:mrow><m:msup><m:mtext>10</m:mtext><m:mstyle fontsize="8pt"><m:mrow><m:mrow><m:mo stretchy="false">−</m:mo><m:mn>3</m:mn></m:mrow></m:mrow></m:mstyle></m:msup></m:mrow></m:mstyle><m:mrow/></m:mrow><m:annotation encoding="StarMath 5.0"> size 12{"10" rSup { size 8{ - 3} } } {}</m:annotation></m:semantics></m:math>, and the electric field strength at the diffraction screen is 1 V/m. </item>
+			<item>Now replace the slit with two slits, each 0.1 mm in width, separated by 1 mm (center-to-center) and centered on the optical axis. Plot the intensity of light in the viewing screen by setting the parameters in part (1) as controls.</item>
+		</list><para id="id18004271"/><para id="id18004278"/><para id="id18004351"/>
+	</problem>
+	<solution id="id4099400">
+		<para id="element-266">
+    Insert Solution Text Here
+  </para>
+	</solution>
+</exercise>
+
+</section>
+  </content>
+
+</document>
