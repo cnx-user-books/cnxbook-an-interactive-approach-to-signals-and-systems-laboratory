@@ -1,202 +1,64 @@
-<col:collection xmlns="http://cnx.rice.edu/collxml" xmlns:md="http://cnx.rice.edu/mdml" xmlns:col="http://cnx.rice.edu/collxml" xml:lang="en" type="Manual">
+<?xml version="1.0"?>
+<col:collection xmlns="http://cnx.rice.edu/collxml" xmlns:md="http://cnx.rice.edu/mdml" xmlns:col="http://cnx.rice.edu/collxml" xml:lang="en" type="Manual" authors="Nasser Kehtarnavaz ,Philipos Loizou ,Mohammad Rahman">
   <metadata xmlns:md="http://cnx.rice.edu/mdml" mdml-version="0.5">
-  <md:content-id>col10667</md:content-id>
-  <md:title>An Interactive Approach to Signals and Systems Laboratory</md:title>
-  
-  
-  <md:license url="http://creativecommons.org/licenses/by/3.0/"/>
-  <md:language>en</md:language>
-
-  
-
-  
-  
-  
-  
-  
-
-  <md:uuid>484d4446-da50-4af4-bc44-d6a2e0d660df</md:uuid>
-<md:slug>an-interactive-approach-to-signals-and-systems-laboratory</md:slug>
-</metadata>
-
+    <md:content-id>col10667</md:content-id>
+    <md:title>An Interactive Approach to Signals and Systems Laboratory</md:title>
+    <md:license url="http://creativecommons.org/licenses/by/3.0/"/>
+    <md:language>en</md:language>
+    <md:uuid>484d4446-da50-4af4-bc44-d6a2e0d660df</md:uuid>
+    <md:slug>an-interactive-approach-to-signals-and-systems-laboratory</md:slug>
+  </metadata>
   <col:content>
-    
-      <col:module document="m19826"/>
-        
-      
-    
-    
-      
-        
-      <col:subcollection>
-        <md:title>LabVIEW Programming Environment </md:title>
-        
-        
-        
-
-        <col:content>
-          
-    
-      <col:module document="m19828"/>
-        
-      
-    
-    
-      <col:module document="m19837"/>
-        
-      
-    
-        </col:content>
-      </col:subcollection>
-    
-    
-      
-        
-      <col:subcollection>
-        <md:title>LabVIEW MathScript and Hybrid Programming</md:title>
-        
-        
-        
-
-        <col:content>
-          
-    
-      <col:module document="m19829"/>
-        
-      
-    
-    
-      <col:module document="m19839"/>
-        
-      
-    
-        </col:content>
-      </col:subcollection>
-    
-    
-      
-        
-      <col:subcollection>
-        <md:title>Convolution and Linear Time-Invariant Systems</md:title>
-        
-        
-        
-
-        <col:content>
-          
-    
-      <col:module document="m19830"/>
-        
-      
-    
-    
-      <col:module document="m19840"/>
-        
-      
-    
-        </col:content>
-      </col:subcollection>
-    
-    
-      
-        
-      <col:subcollection>
-        <md:title>Fourier Series </md:title>
-        
-        
-        
-
-        <col:content>
-          
-    
-      <col:module document="m19832"/>
-        
-      
-    
-    
-      <col:module document="m19841"/>
-        
-      
-    
-        </col:content>
-      </col:subcollection>
-    
-    
-      
-        
-      <col:subcollection>
-        <md:title>Continuous-Time Fourier Transform </md:title>
-        
-        
-        
-
-        <col:content>
-          
-    
-      <col:module document="m19833"/>
-        
-      
-    
-    
-      <col:module document="m19842"/>
-        
-      
-    
-        </col:content>
-      </col:subcollection>
-    
-    
-      
-        
-      <col:subcollection>
-        <md:title>Digital Signals and Their Transforms </md:title>
-        
-        
-        
-
-        <col:content>
-          
-    
-      <col:module document="m19834"/>
-        
-      
-    
-    
-      <col:module document="m19843"/>
-        
-      
-    
-        </col:content>
-      </col:subcollection>
-    
-    
-      
-        
-      <col:subcollection>
-        <md:title>Analysis of Analog and Digital Systems </md:title>
-        
-        
-        
-
-        <col:content>
-          
-    
-      <col:module document="m19836"/>
-        
-      
-    
-    
-      <col:module document="m19844"/>
-        
-      
-    
-        </col:content>
-      </col:subcollection>
-    
-    
-      <col:module document="m31521"/>
-        
-      
-    
+    <col:module document="m19826"/>
+    <col:subcollection>
+      <md:title>LabVIEW Programming Environment </md:title>
+      <col:content>
+        <col:module document="m19828"/>
+        <col:module document="m19837"/>
+      </col:content>
+    </col:subcollection>
+    <col:subcollection>
+      <md:title>LabVIEW MathScript and Hybrid Programming</md:title>
+      <col:content>
+        <col:module document="m19829"/>
+        <col:module document="m19839"/>
+      </col:content>
+    </col:subcollection>
+    <col:subcollection>
+      <md:title>Convolution and Linear Time-Invariant Systems</md:title>
+      <col:content>
+        <col:module document="m19830"/>
+        <col:module document="m19840"/>
+      </col:content>
+    </col:subcollection>
+    <col:subcollection>
+      <md:title>Fourier Series </md:title>
+      <col:content>
+        <col:module document="m19832"/>
+        <col:module document="m19841"/>
+      </col:content>
+    </col:subcollection>
+    <col:subcollection>
+      <md:title>Continuous-Time Fourier Transform </md:title>
+      <col:content>
+        <col:module document="m19833"/>
+        <col:module document="m19842"/>
+      </col:content>
+    </col:subcollection>
+    <col:subcollection>
+      <md:title>Digital Signals and Their Transforms </md:title>
+      <col:content>
+        <col:module document="m19834"/>
+        <col:module document="m19843"/>
+      </col:content>
+    </col:subcollection>
+    <col:subcollection>
+      <md:title>Analysis of Analog and Digital Systems </md:title>
+      <col:content>
+        <col:module document="m19836"/>
+        <col:module document="m19844"/>
+      </col:content>
+    </col:subcollection>
+    <col:module document="m31521"/>
   </col:content>
 </col:collection>
